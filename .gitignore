@@ -1,5 +1,6 @@
 node_modules/
 users.json
 incidents.json
+reset_requests.json
 *.log
 .DS_Store

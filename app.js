@@ -510,10 +510,74 @@ function setupUIEventListeners() {
     
     let isRegisterState = false; // Toggle between Login and Register states
 
+    const forgotPasswordLink = document.getElementById('link-forgot-password');
+    const backToLoginLink = document.getElementById('link-back-to-login');
+    const forgotPasswordPanel = document.getElementById('forgot-password-panel');
+    const resetForm = document.getElementById('reset-request-form');
+    const resetErrorMsg = document.getElementById('reset-error');
+    const resetSuccessMsg = document.getElementById('reset-success');
+
+    if (forgotPasswordLink) {
+        forgotPasswordLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            authForm.classList.add('hidden');
+            forgotPasswordPanel.classList.remove('hidden');
+            resetErrorMsg.classList.add('hidden');
+            resetSuccessMsg.classList.add('hidden');
+            if (resetForm) resetForm.reset();
+            playAlertBeep(600, 0.08);
+        });
+    }
+
+    if (backToLoginLink) {
+        backToLoginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            forgotPasswordPanel.classList.add('hidden');
+            authForm.classList.remove('hidden');
+            authErrorMsg.classList.add('hidden');
+            playAlertBeep(600, 0.08);
+        });
+    }
+
+    if (resetForm) {
+        resetForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('reset-username').value.trim();
+            const fullName = document.getElementById('reset-fullname').value.trim();
+            const phone = document.getElementById('reset-phone').value.trim();
+            const newPassword = document.getElementById('reset-newpassword').value;
+
+            resetErrorMsg.classList.add('hidden');
+            resetSuccessMsg.classList.add('hidden');
+
+            try {
+                const response = await fetch('/api/reset-request', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, fullName, phone, newPassword })
+                });
+                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(data.error || "Reset request failed");
+                }
+                resetSuccessMsg.textContent = data.message;
+                resetSuccessMsg.classList.remove('hidden');
+                resetForm.reset();
+                playAlertBeep(1000, 0.15);
+            } catch (err) {
+                resetErrorMsg.textContent = err.message;
+                resetErrorMsg.classList.remove('hidden');
+                playAlertBeep(300, 0.2);
+            }
+        });
+    }
+
     linkAuthToggle.addEventListener('click', (e) => {
         e.preventDefault();
         isRegisterState = !isRegisterState;
         authErrorMsg.classList.add('hidden');
+        if (forgotPasswordPanel) forgotPasswordPanel.classList.add('hidden');
+        authForm.classList.remove('hidden');
 
         if (isRegisterState) {
             btnAuthSubmit.textContent = "Register Account";
@@ -1238,7 +1302,12 @@ async function loadAdminData() {
         const usersList = await uResponse.json();
         renderAdminUsers(usersList);
 
-        // 2. Fetch and render moderation incidents
+        // 2. Fetch and render password reset requests
+        const rResponse = await fetch('/api/admin/reset-requests');
+        const resetsList = await rResponse.json();
+        renderAdminResetRequests(resetsList);
+
+        // 3. Fetch and render moderation incidents
         const iResponse = await fetch('/api/incidents');
         const incidentsList = await iResponse.json();
         renderAdminIncidents(incidentsList);
@@ -1267,17 +1336,111 @@ function renderAdminUsers(usersList) {
                 <span class="admin-row-title">${user.username}</span>
                 <span class="admin-row-subtitle">${user.fullName || 'No profile settings saved'}</span>
             </div>
-            ${user.username !== 'admin' ? `
-            <button class="btn-admin-delete" title="Delete User" onclick="deleteUser('${user.username}')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="3 6 5 6 21 6"></polyline>
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                </svg>
-            </button>` : ''}
+            <div class="admin-actions-group">
+                <button class="btn-admin-edit" title="Edit User Profile" onclick="openAdminUserEditor('${user.username}')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                </button>
+                ${user.username !== 'admin' ? `
+                <button class="btn-admin-delete" title="Delete User" onclick="deleteUser('${user.username}')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                </button>` : ''}
+            </div>
         `;
         container.appendChild(row);
     });
 }
+
+function renderAdminResetRequests(resetsList) {
+    const container = document.getElementById('admin-resets-list');
+    const countEl = document.getElementById('admin-reset-count');
+    
+    countEl.textContent = resetsList.length;
+    container.innerHTML = '';
+
+    if (resetsList.length === 0) {
+        container.innerHTML = '<div class="status-msg">No pending reset requests.</div>';
+        return;
+    }
+
+    resetsList.forEach(req => {
+        const row = document.createElement('div');
+        row.className = 'admin-row';
+        row.innerHTML = `
+            <div class="admin-row-info" style="max-width: 70%;">
+                <span class="admin-row-title">${req.username}</span>
+                <span class="admin-row-subtitle">Name: <strong>${req.fullName}</strong></span>
+                <span class="admin-row-subtitle">Phone: <strong>${req.phone}</strong></span>
+                <span class="admin-row-subtitle">New Pass: <strong style="color: var(--color-warning);">${req.newPassword}</strong></span>
+            </div>
+            <div class="admin-actions-group">
+                <button class="btn-admin-approve" title="Approve Request" onclick="approveResetRequest('${req.username}')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </button>
+                <button class="btn-admin-delete" title="Reject Request" onclick="rejectResetRequest('${req.username}')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        `;
+        container.appendChild(row);
+    });
+}
+
+async function approveResetRequest(username) {
+    if (!confirm(`Are you sure you want to approve the password reset request for user "${username}"?`)) return;
+
+    try {
+        const response = await fetch('/api/admin/reset-requests/approve', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username })
+        });
+        const data = await response.json();
+        if (response.ok && data.success) {
+            playAlertBeep(1000, 0.2);
+            alert(`Password reset for user "${username}" approved!`);
+            loadAdminData();
+        } else {
+            alert(data.error || "Failed to approve request.");
+        }
+    } catch (e) {
+        console.error("Approve reset error:", e);
+    }
+}
+
+async function rejectResetRequest(username) {
+    if (!confirm(`Are you sure you want to reject and delete the password reset request for user "${username}"?`)) return;
+
+    try {
+        const response = await fetch('/api/admin/reset-requests/reject', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username })
+        });
+        const data = await response.json();
+        if (response.ok && data.success) {
+            playAlertBeep(900, 0.15);
+            loadAdminData();
+        } else {
+            alert(data.error || "Failed to reject request.");
+        }
+    } catch (e) {
+        console.error("Reject reset error:", e);
+    }
+}
+
+window.approveResetRequest = approveResetRequest;
+window.rejectResetRequest = rejectResetRequest;
 
 function renderAdminIncidents(incidentsList) {
     const container = document.getElementById('admin-incidents-list');

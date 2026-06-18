@@ -2014,6 +2014,58 @@ body.light-theme .login-header h2 {
     height: 14px;
 }
 
+.admin-actions-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-admin-approve {
+    background: transparent;
+    border: none;
+    color: var(--color-success);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.btn-admin-approve:hover {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+}
+
+.btn-admin-approve svg {
+    width: 14px;
+    height: 14px;
+}
+
+.btn-admin-edit {
+    background: transparent;
+    border: none;
+    color: var(--color-primary);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.btn-admin-edit:hover {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+}
+
+.btn-admin-edit svg {
+    width: 14px;
+    height: 14px;
+}
+
 /* ====================================================
    MOBILE RESPONSIVENESS OVERRIDES (Phones & Tablets)
 ==================================================== */

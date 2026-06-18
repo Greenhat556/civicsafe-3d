@@ -7,6 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const DB_FILE = path.join(__dirname, 'incidents.json');
 const USERS_FILE = path.join(__dirname, 'users.json');
+const RESET_REQUESTS_FILE = path.join(__dirname, 'reset_requests.json');
 const MONGODB_URI = process.env.MONGODB_URI;
 
 // Middleware to parse JSON body payloads
@@ -36,6 +37,41 @@ const IncidentSchema = new mongoose.Schema({
     date: { type: String, required: true } // Store ISO date strings
 });
 const IncidentModel = mongoose.models.Incident || mongoose.model('Incident', IncidentSchema);
+
+// Define Mongoose Schema for MongoDB Password Reset Requests
+const ResetRequestSchema = new mongoose.Schema({
+    username: { type: String, required: true },
+    fullName: { type: String, required: true },
+    phone: { type: String, required: true },
+    newPassword: { type: String, required: true },
+    requestedAt: { type: String, required: true }
+});
+const ResetRequestModel = mongoose.models.ResetRequest || mongoose.model('ResetRequest', ResetRequestSchema);
+
+// Local file helper for reset requests
+function getLocalResetRequests() {
+    try {
+        if (!fs.existsSync(RESET_REQUESTS_FILE)) {
+            fs.writeFileSync(RESET_REQUESTS_FILE, JSON.stringify([], null, 2), 'utf8');
+            return [];
+        }
+        const raw = fs.readFileSync(RESET_REQUESTS_FILE, 'utf8');
+        return JSON.parse(raw);
+    } catch (e) {
+        console.error("Local reset requests db read error:", e);
+        return [];
+    }
+}
+
+function saveLocalResetRequests(list) {
+    try {
+        fs.writeFileSync(RESET_REQUESTS_FILE, JSON.stringify(list, null, 2), 'utf8');
+        return true;
+    } catch (e) {
+        console.error("Local reset requests db write error:", e);
+        return false;
+    }
+}
 
 let useMongoDB = false;
 
@@ -326,6 +362,151 @@ app.post('/api/profile', async (req, res) => {
         return res.json({ success: true });
     }
     res.status(404).json({ error: "User not found" });
+});
+
+// ----------------------------------------------------
+// PASSWORD RESET REQUESTS API ENDPOINTS
+// ----------------------------------------------------
+
+app.post('/api/reset-request', async (req, res) => {
+    const { username, fullName, phone, newPassword } = req.body;
+    if (!username || !fullName || !phone || !newPassword) {
+        return res.status(400).json({ error: "All fields are required" });
+    }
+
+    let userExists = false;
+    if (useMongoDB) {
+        try {
+            const user = await UserModel.findOne({ username });
+            if (user) userExists = true;
+        } catch (e) {
+            console.error("MongoDB check user error:", e);
+        }
+    } else {
+        const users = getLocalUsers();
+        if (users[username]) userExists = true;
+    }
+
+    if (!userExists) {
+        return res.status(404).json({ error: "Username not found in system directory" });
+    }
+
+    // Save reset request
+    const requestedAt = new Date().toISOString();
+    if (useMongoDB) {
+        try {
+            // Remove any existing reset request for this user first
+            await ResetRequestModel.deleteOne({ username });
+            const newReq = new ResetRequestModel({ username, fullName, phone, newPassword, requestedAt });
+            await newReq.save();
+            return res.status(201).json({ success: true, message: "Reset request submitted to Administrator." });
+        } catch (e) {
+            console.error("MongoDB save reset request error:", e);
+        }
+    }
+
+    // Local file fallback
+    const list = getLocalResetRequests();
+    // Filter out previous request for this user
+    const filtered = list.filter(r => r.username !== username);
+    filtered.push({ username, fullName, phone, newPassword, requestedAt });
+    saveLocalResetRequests(filtered);
+    res.status(201).json({ success: true, message: "Reset request submitted to Administrator." });
+});
+
+app.get('/api/admin/reset-requests', async (req, res) => {
+    if (useMongoDB) {
+        try {
+            const list = await ResetRequestModel.find({});
+            return res.json(list);
+        } catch (e) {
+            console.error("MongoDB get reset requests error:", e);
+        }
+    }
+    const list = getLocalResetRequests();
+    res.json(list);
+});
+
+app.post('/api/admin/reset-requests/approve', async (req, res) => {
+    const { username } = req.body;
+    if (!username) {
+        return res.status(400).json({ error: "Username required" });
+    }
+
+    let newPassword = null;
+    if (useMongoDB) {
+        try {
+            const request = await ResetRequestModel.findOne({ username });
+            if (request) {
+                newPassword = request.newPassword;
+                // Update user password
+                await UserModel.findOneAndUpdate({ username }, { password: newPassword });
+                // Delete request
+                await ResetRequestModel.deleteOne({ username });
+                return res.json({ success: true });
+            }
+        } catch (e) {
+            console.error("MongoDB approve reset error:", e);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+    } else {
+        const requests = getLocalResetRequests();
+        const request = requests.find(r => r.username === username);
+        if (request) {
+            newPassword = request.newPassword;
+            
+            // Update user password
+            const users = getLocalUsers();
+            if (users[username]) {
+                if (typeof users[username] === 'object') {
+                    users[username].password = newPassword;
+                } else {
+                    users[username] = {
+                        password: newPassword,
+                        fullName: "",
+                        phone: "",
+                        emergencyContact: "",
+                        autoAnonymous: true,
+                        defaultLocation: ""
+                    };
+                }
+                saveLocalUsers(users);
+            }
+            
+            // Delete request
+            const filtered = requests.filter(r => r.username !== username);
+            saveLocalResetRequests(filtered);
+            return res.json({ success: true });
+        }
+    }
+
+    res.status(404).json({ error: "Reset request not found" });
+});
+
+app.post('/api/admin/reset-requests/reject', async (req, res) => {
+    const { username } = req.body;
+    if (!username) {
+        return res.status(400).json({ error: "Username required" });
+    }
+
+    if (useMongoDB) {
+        try {
+            await ResetRequestModel.deleteOne({ username });
+            return res.json({ success: true });
+        } catch (e) {
+            console.error("MongoDB reject reset error:", e);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+    } else {
+        const requests = getLocalResetRequests();
+        const filtered = requests.filter(r => r.username !== username);
+        if (requests.length !== filtered.length) {
+            saveLocalResetRequests(filtered);
+            return res.json({ success: true });
+        }
+    }
+
+    res.status(404).json({ error: "Reset request not found" });
 });
 
 // ----------------------------------------------------

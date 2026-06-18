@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <!-- CesiumJS CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.104.0/Widgets/widgets.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=1.9">
+    <link rel="stylesheet" href="style.css?v=2.0">
 </head>
 <body>
     <!-- Fullscreen 3D Cesium Map Background -->
@@ -49,7 +49,49 @@
                 <div class="auth-toggle-row">
                     <span id="auth-toggle-text">New to portal? <a href="#" id="link-auth-toggle">Register account</a></span>
                 </div>
+                <div class="auth-toggle-row" style="margin-top: 10px;">
+                    <a href="#" id="link-forgot-password" style="font-size: 0.72rem; color: var(--text-secondary); text-decoration: none;">Forgot Password?</a>
+                </div>
             </form>
+
+            <!-- Forgot password request and direct contact admin panel -->
+            <div id="forgot-password-panel" class="hidden" style="animation: fadeIn 0.3s ease-out;">
+                <h3 style="font-size: 1.1rem; color: white; margin-bottom: 15px; font-weight: 700;">Reset Password</h3>
+                <form id="reset-request-form" onsubmit="return false;" style="text-align: left;">
+                    <div class="form-group">
+                        <label for="reset-username">Username</label>
+                        <input type="text" id="reset-username" placeholder="Enter username" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="reset-fullname">Full Name</label>
+                        <input type="text" id="reset-fullname" placeholder="Enter full name" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="reset-phone">Phone Number</label>
+                        <input type="tel" id="reset-phone" placeholder="Enter registered phone" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="reset-newpassword">Proposed New Password</label>
+                        <input type="password" id="reset-newpassword" placeholder="Enter proposed new password" required>
+                    </div>
+                    <div id="reset-error" class="auth-error-msg hidden"></div>
+                    <div id="reset-success" class="reset-success-msg hidden" style="font-size: 0.75rem; color: var(--color-success); font-weight: 600; margin-top: 6px;"></div>
+
+                    <button type="submit" class="btn-action-primary margin-top-1">Submit Request</button>
+                </form>
+
+                <div class="contact-admin-box" style="margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px; text-align: left;">
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 8px;">Or contact system admin directly:</p>
+                    <div style="font-size: 0.72rem; color: var(--text-primary); line-height: 1.6; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+                        <div>📞 Phone: <strong style="color: var(--color-primary);">+91 99999 99999</strong></div>
+                        <div>📧 Email: <strong style="color: var(--color-primary);">admin@adharma-vinash.in</strong></div>
+                    </div>
+                </div>
+
+                <div class="auth-toggle-row" style="margin-top: 15px;">
+                    <a href="#" id="link-back-to-login">Back to Sign In</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -203,6 +245,13 @@
                 </div>
 
                 <div class="admin-section margin-top-1">
+                    <h4>Password Reset Requests (<span id="admin-reset-count">0</span>)</h4>
+                    <div class="admin-scroll-list" id="admin-resets-list">
+                        <!-- Reset requests loaded dynamically -->
+                    </div>
+                </div>
+
+                <div class="admin-section margin-top-1">
                     <h4>Citizen Directory (<span id="admin-user-count">0</span>)</h4>
                     <div class="admin-scroll-list" id="admin-citizens-list">
                         <!-- Citizens loaded dynamically -->
@@ -335,6 +384,6 @@
 
     <!-- CesiumJS Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.104.0/Cesium.js"></script>
-    <script src="app.js?v=1.9"></script>
+    <script src="app.js?v=2.0"></script>
 </body>
 </html>
