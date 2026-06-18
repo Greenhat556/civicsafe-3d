@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Local databases / user data (sensitive)
+users.json
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db

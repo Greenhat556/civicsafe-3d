@@ -1,0 +1,3652 @@
+[
+  {
+    "id": "user-1781807387905",
+    "category": "harassment",
+    "lat": 22.638071,
+    "lng": 88.410033,
+    "time": "15:25",
+    "description": "Gorabazar, Baranagar, Kolkata Metropolitan Area: under age girl harrased by middle aged man.",
+    "anonymous": true,
+    "date": "6/18/2026"
+  },
+  {
+    "id": "sos-1781807756910",
+    "category": "assault",
+    "lat": 28.651910871394207,
+    "lng": 77.21770000004969,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:56.919Z"
+  },
+  {
+    "id": "sos-1781807756939",
+    "category": "assault",
+    "lat": 28.6519108711484,
+    "lng": 77.21769999998409,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:56.962Z"
+  },
+  {
+    "id": "sos-1781807756968",
+    "category": "assault",
+    "lat": 28.651910871026203,
+    "lng": 77.21769999998409,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:56.992Z"
+  },
+  {
+    "id": "sos-1781807757002",
+    "category": "assault",
+    "lat": 28.651910870379755,
+    "lng": 77.21769999999077,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.033Z"
+  },
+  {
+    "id": "sos-1781807757042",
+    "category": "assault",
+    "lat": 28.651910867988228,
+    "lng": 77.21769999993856,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.068Z"
+  },
+  {
+    "id": "sos-1781807757078",
+    "category": "assault",
+    "lat": 28.65191086708879,
+    "lng": 77.21769999994525,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.098Z"
+  },
+  {
+    "id": "sos-1781807757106",
+    "category": "assault",
+    "lat": 28.651910866776003,
+    "lng": 77.21770000001753,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.129Z"
+  },
+  {
+    "id": "sos-1781807757138",
+    "category": "assault",
+    "lat": 28.651910865989247,
+    "lng": 77.21770000002422,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.161Z"
+  },
+  {
+    "id": "sos-1781807757170",
+    "category": "assault",
+    "lat": 28.65191086589241,
+    "lng": 77.21770000002422,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.193Z"
+  },
+  {
+    "id": "sos-1781807757202",
+    "category": "assault",
+    "lat": 28.651910865220316,
+    "lng": 77.21769999995863,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.224Z"
+  },
+  {
+    "id": "sos-1781807757236",
+    "category": "assault",
+    "lat": 28.651910864298916,
+    "lng": 77.2177000000376,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.258Z"
+  },
+  {
+    "id": "sos-1781807757267",
+    "category": "assault",
+    "lat": 28.65191086419988,
+    "lng": 77.2177000000376,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.288Z"
+  },
+  {
+    "id": "sos-1781807757295",
+    "category": "assault",
+    "lat": 28.651910864053207,
+    "lng": 77.2177000000376,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.319Z"
+  },
+  {
+    "id": "sos-1781807757329",
+    "category": "assault",
+    "lat": 28.651910863536212,
+    "lng": 77.21770000004429,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.351Z"
+  },
+  {
+    "id": "sos-1781807757359",
+    "category": "assault",
+    "lat": 28.65191086340144,
+    "lng": 77.2177000000443,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.385Z"
+  },
+  {
+    "id": "sos-1781807757394",
+    "category": "assault",
+    "lat": 28.651910862834285,
+    "lng": 77.21769999997869,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.416Z"
+  },
+  {
+    "id": "sos-1781807757427",
+    "category": "assault",
+    "lat": 28.651910862434438,
+    "lng": 77.21770000005098,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.451Z"
+  },
+  {
+    "id": "sos-1781807757461",
+    "category": "assault",
+    "lat": 28.65191086195184,
+    "lng": 77.21769999998538,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.486Z"
+  },
+  {
+    "id": "sos-1781807757495",
+    "category": "assault",
+    "lat": 28.651910861266987,
+    "lng": 77.21769999999208,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.513Z"
+  },
+  {
+    "id": "sos-1781807757522",
+    "category": "assault",
+    "lat": 28.651910861148277,
+    "lng": 77.21769999999208,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.544Z"
+  },
+  {
+    "id": "sos-1781807757557",
+    "category": "assault",
+    "lat": 28.651910860202413,
+    "lng": 77.21769999999877,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.578Z"
+  },
+  {
+    "id": "sos-1781807757586",
+    "category": "assault",
+    "lat": 28.651910860091107,
+    "lng": 77.21769999999877,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.604Z"
+  },
+  {
+    "id": "sos-1781807757613",
+    "category": "assault",
+    "lat": 28.65191085995347,
+    "lng": 77.21769999999877,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.637Z"
+  },
+  {
+    "id": "sos-1781807757645",
+    "category": "assault",
+    "lat": 28.651910859673468,
+    "lng": 77.21770000000546,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.666Z"
+  },
+  {
+    "id": "sos-1781807757676",
+    "category": "assault",
+    "lat": 28.651910859403618,
+    "lng": 77.21770000000546,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.699Z"
+  },
+  {
+    "id": "sos-1781807757707",
+    "category": "assault",
+    "lat": 28.651910859451476,
+    "lng": 77.21770000000545,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.724Z"
+  },
+  {
+    "id": "sos-1781807757733",
+    "category": "assault",
+    "lat": 28.65191085928161,
+    "lng": 77.21770000000546,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.752Z"
+  },
+  {
+    "id": "sos-1781807757760",
+    "category": "assault",
+    "lat": 28.65191085931676,
+    "lng": 77.21770000000546,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.779Z"
+  },
+  {
+    "id": "sos-1781807757786",
+    "category": "assault",
+    "lat": 28.65191085917382,
+    "lng": 77.21770000000546,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.808Z"
+  },
+  {
+    "id": "sos-1781807757838",
+    "category": "assault",
+    "lat": 28.651910849425796,
+    "lng": 77.21770000001342,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.854Z"
+  },
+  {
+    "id": "sos-1781807757867",
+    "category": "assault",
+    "lat": 28.651910849280355,
+    "lng": 77.21770000001342,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.890Z"
+  },
+  {
+    "id": "sos-1781807757899",
+    "category": "assault",
+    "lat": 28.65191084888181,
+    "lng": 77.21769999994783,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.919Z"
+  },
+  {
+    "id": "sos-1781807757926",
+    "category": "assault",
+    "lat": 28.65191084873459,
+    "lng": 77.2177000000201,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.949Z"
+  },
+  {
+    "id": "sos-1781807757957",
+    "category": "assault",
+    "lat": 28.65191084878508,
+    "lng": 77.21770000002012,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:57.976Z"
+  },
+  {
+    "id": "sos-1781807757984",
+    "category": "assault",
+    "lat": 28.651910848620894,
+    "lng": 77.21770000002012,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.005Z"
+  },
+  {
+    "id": "sos-1781807758012",
+    "category": "assault",
+    "lat": 28.651910848647006,
+    "lng": 77.21770000002012,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.032Z"
+  },
+  {
+    "id": "sos-1781807758041",
+    "category": "assault",
+    "lat": 28.65191084847912,
+    "lng": 77.21770000002012,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.051Z"
+  },
+  {
+    "id": "sos-1781807758073",
+    "category": "assault",
+    "lat": 28.651910848125095,
+    "lng": 77.21769999995453,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.093Z"
+  },
+  {
+    "id": "sos-1781807758105",
+    "category": "assault",
+    "lat": 28.651910847972708,
+    "lng": 77.2177000000268,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.126Z"
+  },
+  {
+    "id": "sos-1781807758152",
+    "category": "assault",
+    "lat": 28.651910842830954,
+    "lng": 77.21769999999464,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.172Z"
+  },
+  {
+    "id": "sos-1781807758183",
+    "category": "assault",
+    "lat": 28.651910842427032,
+    "lng": 77.21770000000133,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.204Z"
+  },
+  {
+    "id": "sos-1781807758214",
+    "category": "assault",
+    "lat": 28.65191084228942,
+    "lng": 77.21770000000132,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.237Z"
+  },
+  {
+    "id": "sos-1781807758247",
+    "category": "assault",
+    "lat": 28.6519108420221,
+    "lng": 77.21770000000132,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.262Z"
+  },
+  {
+    "id": "sos-1781807758274",
+    "category": "assault",
+    "lat": 28.651910842041133,
+    "lng": 77.21770000000133,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.293Z"
+  },
+  {
+    "id": "sos-1781807758301",
+    "category": "assault",
+    "lat": 28.651910841900783,
+    "lng": 77.21770000000132,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.322Z"
+  },
+  {
+    "id": "sos-1781807758332",
+    "category": "assault",
+    "lat": 28.651910841767453,
+    "lng": 77.21770000000133,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.350Z"
+  },
+  {
+    "id": "sos-1781807758360",
+    "category": "assault",
+    "lat": 28.651910841646604,
+    "lng": 77.21769999993573,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.379Z"
+  },
+  {
+    "id": "sos-1781807758389",
+    "category": "assault",
+    "lat": 28.651910841661472,
+    "lng": 77.21770000000801,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.411Z"
+  },
+  {
+    "id": "sos-1781807758421",
+    "category": "assault",
+    "lat": 28.651910841372924,
+    "lng": 77.21770000000801,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.439Z"
+  },
+  {
+    "id": "sos-1781807758449",
+    "category": "assault",
+    "lat": 28.651910841401506,
+    "lng": 77.21770000000801,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.469Z"
+  },
+  {
+    "id": "sos-1781807758484",
+    "category": "assault",
+    "lat": 28.651910840988773,
+    "lng": 77.217700000008,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.504Z"
+  },
+  {
+    "id": "sos-1781807758514",
+    "category": "assault",
+    "lat": 28.651910840875402,
+    "lng": 77.2176999999424,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.532Z"
+  },
+  {
+    "id": "sos-1781807758542",
+    "category": "assault",
+    "lat": 28.65191084070042,
+    "lng": 77.21769999994241,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.563Z"
+  },
+  {
+    "id": "sos-1781807758575",
+    "category": "assault",
+    "lat": 28.65191084058893,
+    "lng": 77.21770000001469,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.590Z"
+  },
+  {
+    "id": "sos-1781807758604",
+    "category": "assault",
+    "lat": 28.651910840611283,
+    "lng": 77.21770000001469,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.624Z"
+  },
+  {
+    "id": "sos-1781807758638",
+    "category": "assault",
+    "lat": 28.651910840336477,
+    "lng": 77.21770000001469,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.659Z"
+  },
+  {
+    "id": "sos-1781807758679",
+    "category": "assault",
+    "lat": 28.651910838734516,
+    "lng": 77.21770000002806,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.695Z"
+  },
+  {
+    "id": "sos-1781807758715",
+    "category": "assault",
+    "lat": 28.651910838101408,
+    "lng": 77.21769999996246,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.736Z"
+  },
+  {
+    "id": "sos-1781807758749",
+    "category": "assault",
+    "lat": 28.651910837818395,
+    "lng": 77.21770000003475,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.767Z"
+  },
+  {
+    "id": "sos-1781807758776",
+    "category": "assault",
+    "lat": 28.651910837842955,
+    "lng": 77.21770000003475,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.798Z"
+  },
+  {
+    "id": "sos-1781807758809",
+    "category": "assault",
+    "lat": 28.65191083727264,
+    "lng": 77.21769999996916,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.831Z"
+  },
+  {
+    "id": "sos-1781807758840",
+    "category": "assault",
+    "lat": 28.65191083731095,
+    "lng": 77.21769999996914,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.861Z"
+  },
+  {
+    "id": "sos-1781807758874",
+    "category": "assault",
+    "lat": 28.651910837025547,
+    "lng": 77.21770000004142,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.895Z"
+  },
+  {
+    "id": "sos-1781807758907",
+    "category": "assault",
+    "lat": 28.651910836621475,
+    "lng": 77.21769999997584,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.922Z"
+  },
+  {
+    "id": "sos-1781807758938",
+    "category": "assault",
+    "lat": 28.651910836654643,
+    "lng": 77.21769999997584,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.958Z"
+  },
+  {
+    "id": "sos-1781807758971",
+    "category": "assault",
+    "lat": 28.65191083637049,
+    "lng": 77.21769999997584,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:58.994Z"
+  },
+  {
+    "id": "sos-1781807759007",
+    "category": "assault",
+    "lat": 28.6519108361002,
+    "lng": 77.21770000004811,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.029Z"
+  },
+  {
+    "id": "sos-1781807759039",
+    "category": "assault",
+    "lat": 28.6519108358655,
+    "lng": 77.21769999998251,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.056Z"
+  },
+  {
+    "id": "sos-1781807759068",
+    "category": "assault",
+    "lat": 28.65191083570291,
+    "lng": 77.21769999998251,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.091Z"
+  },
+  {
+    "id": "sos-1781807759104",
+    "category": "assault",
+    "lat": 28.651910835451826,
+    "lng": 77.21769999998251,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.125Z"
+  },
+  {
+    "id": "sos-1781807759137",
+    "category": "assault",
+    "lat": 28.651910835171282,
+    "lng": 77.2177000000548,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.153Z"
+  },
+  {
+    "id": "sos-1781807759174",
+    "category": "assault",
+    "lat": 28.65191083465838,
+    "lng": 77.21769999998921,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.194Z"
+  },
+  {
+    "id": "sos-1781807759207",
+    "category": "assault",
+    "lat": 28.65191083455117,
+    "lng": 77.21770000006148,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.230Z"
+  },
+  {
+    "id": "sos-1781807759249",
+    "category": "assault",
+    "lat": 28.65191083398088,
+    "lng": 77.2176999999959,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.273Z"
+  },
+  {
+    "id": "sos-1781807759286",
+    "category": "assault",
+    "lat": 28.651910833903088,
+    "lng": 77.2176999999959,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.306Z"
+  },
+  {
+    "id": "sos-1781807759320",
+    "category": "assault",
+    "lat": 28.65191083359488,
+    "lng": 77.21769999999589,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.339Z"
+  },
+  {
+    "id": "sos-1781807759355",
+    "category": "assault",
+    "lat": 28.651910833336686,
+    "lng": 77.21770000000255,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.375Z"
+  },
+  {
+    "id": "sos-1781807759391",
+    "category": "assault",
+    "lat": 28.65191083322348,
+    "lng": 77.21770000000255,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.412Z"
+  },
+  {
+    "id": "sos-1781807759425",
+    "category": "assault",
+    "lat": 28.65191083309793,
+    "lng": 77.21770000000255,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.447Z"
+  },
+  {
+    "id": "sos-1781807759459",
+    "category": "assault",
+    "lat": 28.65191083298474,
+    "lng": 77.21770000000255,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.481Z"
+  },
+  {
+    "id": "sos-1781807759493",
+    "category": "assault",
+    "lat": 28.65191083253929,
+    "lng": 77.21769999993697,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.516Z"
+  },
+  {
+    "id": "sos-1781807759530",
+    "category": "assault",
+    "lat": 28.651910832441057,
+    "lng": 77.21770000000924,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.549Z"
+  },
+  {
+    "id": "sos-1781807759565",
+    "category": "assault",
+    "lat": 28.651910832307703,
+    "lng": 77.21770000000924,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.585Z"
+  },
+  {
+    "id": "sos-1781807759608",
+    "category": "assault",
+    "lat": 28.651910831656178,
+    "lng": 77.21770000001594,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.633Z"
+  },
+  {
+    "id": "sos-1781807759649",
+    "category": "assault",
+    "lat": 28.651910831257293,
+    "lng": 77.21770000001592,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.673Z"
+  },
+  {
+    "id": "sos-1781807759692",
+    "category": "assault",
+    "lat": 28.651910830554993,
+    "lng": 77.21770000002262,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.717Z"
+  },
+  {
+    "id": "sos-1781807759738",
+    "category": "assault",
+    "lat": 28.651910828846297,
+    "lng": 77.217700000036,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.768Z"
+  },
+  {
+    "id": "sos-1781807759788",
+    "category": "assault",
+    "lat": 28.65191082581716,
+    "lng": 77.21769999999047,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.813Z"
+  },
+  {
+    "id": "sos-1781807759830",
+    "category": "assault",
+    "lat": 28.6519108251509,
+    "lng": 77.21769999999715,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.853Z"
+  },
+  {
+    "id": "sos-1781807759868",
+    "category": "assault",
+    "lat": 28.651910824790946,
+    "lng": 77.21769999999715,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.892Z"
+  },
+  {
+    "id": "sos-1781807759907",
+    "category": "assault",
+    "lat": 28.651910824509095,
+    "lng": 77.21769999999715,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.928Z"
+  },
+  {
+    "id": "sos-1781807759940",
+    "category": "assault",
+    "lat": 28.651910824394584,
+    "lng": 77.21770000000382,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:35:59.970Z"
+  },
+  {
+    "id": "sos-1781807759990",
+    "category": "assault",
+    "lat": 28.65191082242292,
+    "lng": 77.21770000001719,
+    "time": "00:05",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.023Z"
+  },
+  {
+    "id": "sos-1781807760040",
+    "category": "assault",
+    "lat": 28.651910820840868,
+    "lng": 77.21770000003055,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.066Z"
+  },
+  {
+    "id": "sos-1781807760083",
+    "category": "assault",
+    "lat": 28.651910820598598,
+    "lng": 77.21770000003055,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.111Z"
+  },
+  {
+    "id": "sos-1781807760132",
+    "category": "assault",
+    "lat": 28.651910819534073,
+    "lng": 77.21769999997164,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.160Z"
+  },
+  {
+    "id": "sos-1781807760181",
+    "category": "assault",
+    "lat": 28.651910818438186,
+    "lng": 77.21769999997834,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.209Z"
+  },
+  {
+    "id": "sos-1781807760227",
+    "category": "assault",
+    "lat": 28.651910817657356,
+    "lng": 77.21769999998502,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.259Z"
+  },
+  {
+    "id": "sos-1781807760277",
+    "category": "assault",
+    "lat": 28.651910816724275,
+    "lng": 77.2176999999917,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.298Z"
+  },
+  {
+    "id": "sos-1781807760331",
+    "category": "assault",
+    "lat": 28.651910815831886,
+    "lng": 77.21769999999839,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.354Z"
+  },
+  {
+    "id": "sos-1781807760381",
+    "category": "assault",
+    "lat": 28.651910814101704,
+    "lng": 77.21770000001177,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.406Z"
+  },
+  {
+    "id": "sos-1781807760425",
+    "category": "assault",
+    "lat": 28.65191081357687,
+    "lng": 77.21769999994618,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.452Z"
+  },
+  {
+    "id": "sos-1781807760477",
+    "category": "assault",
+    "lat": 28.651910811484395,
+    "lng": 77.21770000003185,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.502Z"
+  },
+  {
+    "id": "sos-1781807760522",
+    "category": "assault",
+    "lat": 28.651910811097487,
+    "lng": 77.21769999996626,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.531Z"
+  },
+  {
+    "id": "sos-1781807760567",
+    "category": "assault",
+    "lat": 28.65191081045104,
+    "lng": 77.21769999997294,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.590Z"
+  },
+  {
+    "id": "sos-1781807760609",
+    "category": "assault",
+    "lat": 28.651910810031744,
+    "lng": 77.21769999997294,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.633Z"
+  },
+  {
+    "id": "sos-1781807760659",
+    "category": "assault",
+    "lat": 28.651910808429815,
+    "lng": 77.21769999998631,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.689Z"
+  },
+  {
+    "id": "sos-1781807760706",
+    "category": "assault",
+    "lat": 28.65191080738455,
+    "lng": 77.217699999993,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.731Z"
+  },
+  {
+    "id": "sos-1781807760748",
+    "category": "assault",
+    "lat": 28.651910806998703,
+    "lng": 77.21769999999968,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.777Z"
+  },
+  {
+    "id": "sos-1781807760803",
+    "category": "assault",
+    "lat": 28.651910802931756,
+    "lng": 77.21769999996084,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.833Z"
+  },
+  {
+    "id": "sos-1781807760853",
+    "category": "assault",
+    "lat": 28.651910801180623,
+    "lng": 77.2176999999742,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.883Z"
+  },
+  {
+    "id": "sos-1781807760902",
+    "category": "assault",
+    "lat": 28.651910800036692,
+    "lng": 77.21770000005316,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.930Z"
+  },
+  {
+    "id": "sos-1781807760965",
+    "category": "assault",
+    "lat": 28.65191079040064,
+    "lng": 77.21769999998885,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:00.997Z"
+  },
+  {
+    "id": "sos-1781807761017",
+    "category": "assault",
+    "lat": 28.651910788968834,
+    "lng": 77.21770000000224,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.041Z"
+  },
+  {
+    "id": "sos-1781807761072",
+    "category": "assault",
+    "lat": 28.6519107868454,
+    "lng": 77.21770000001561,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.097Z"
+  },
+  {
+    "id": "sos-1781807761123",
+    "category": "assault",
+    "lat": 28.65191078476685,
+    "lng": 77.21769999996339,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.150Z"
+  },
+  {
+    "id": "sos-1781807761171",
+    "category": "assault",
+    "lat": 28.651910784507603,
+    "lng": 77.21770000003566,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.204Z"
+  },
+  {
+    "id": "sos-1781807761227",
+    "category": "assault",
+    "lat": 28.651910783037728,
+    "lng": 77.21769999997676,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.257Z"
+  },
+  {
+    "id": "sos-1781807761280",
+    "category": "assault",
+    "lat": 28.65191078185896,
+    "lng": 77.21770000005574,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.312Z"
+  },
+  {
+    "id": "sos-1781807761343",
+    "category": "assault",
+    "lat": 28.651910776710707,
+    "lng": 77.217699999958,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.373Z"
+  },
+  {
+    "id": "sos-1781807761397",
+    "category": "assault",
+    "lat": 28.651910775423538,
+    "lng": 77.21770000003697,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.427Z"
+  },
+  {
+    "id": "sos-1781807761454",
+    "category": "assault",
+    "lat": 28.651910773018486,
+    "lng": 77.21769999998475,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.482Z"
+  },
+  {
+    "id": "sos-1781807761509",
+    "category": "assault",
+    "lat": 28.651910771965042,
+    "lng": 77.21770000006372,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.534Z"
+  },
+  {
+    "id": "sos-1781807761566",
+    "category": "assault",
+    "lat": 28.651910768952852,
+    "lng": 77.21770000001817,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.591Z"
+  },
+  {
+    "id": "sos-1781807761627",
+    "category": "assault",
+    "lat": 28.651910763923926,
+    "lng": 77.21769999998602,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.652Z"
+  },
+  {
+    "id": "sos-1781807761675",
+    "category": "assault",
+    "lat": 28.651910763262496,
+    "lng": 77.21769999999272,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.703Z"
+  },
+  {
+    "id": "sos-1781807761721",
+    "category": "assault",
+    "lat": 28.651910762626418,
+    "lng": 77.21769999999941,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.750Z"
+  },
+  {
+    "id": "sos-1781807761775",
+    "category": "assault",
+    "lat": 28.651910761422858,
+    "lng": 77.2177000000061,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.791Z"
+  },
+  {
+    "id": "sos-1781807761827",
+    "category": "assault",
+    "lat": 28.651910759972175,
+    "lng": 77.21770000001948,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.855Z"
+  },
+  {
+    "id": "sos-1781807761873",
+    "category": "assault",
+    "lat": 28.651910759165478,
+    "lng": 77.21769999995388,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.898Z"
+  },
+  {
+    "id": "sos-1781807761920",
+    "category": "assault",
+    "lat": 28.651910758921154,
+    "lng": 77.21770000002616,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:01.949Z"
+  },
+  {
+    "id": "sos-1781807761973",
+    "category": "assault",
+    "lat": 28.651910756922977,
+    "lng": 77.21769999997395,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.003Z"
+  },
+  {
+    "id": "sos-1781807762025",
+    "category": "assault",
+    "lat": 28.6519107561604,
+    "lng": 77.21769999998064,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.052Z"
+  },
+  {
+    "id": "sos-1781807762074",
+    "category": "assault",
+    "lat": 28.65191075484416,
+    "lng": 77.21769999998732,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.098Z"
+  },
+  {
+    "id": "sos-1781807762132",
+    "category": "assault",
+    "lat": 28.65191075274471,
+    "lng": 77.2177000000074,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.161Z"
+  },
+  {
+    "id": "sos-1781807762191",
+    "category": "assault",
+    "lat": 28.65191074576163,
+    "lng": 77.21769999998862,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.218Z"
+  },
+  {
+    "id": "sos-1781807762237",
+    "category": "assault",
+    "lat": 28.651910744974916,
+    "lng": 77.2176999999953,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.265Z"
+  },
+  {
+    "id": "sos-1781807762286",
+    "category": "assault",
+    "lat": 28.65191074366004,
+    "lng": 77.21770000000869,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.312Z"
+  },
+  {
+    "id": "sos-1781807762339",
+    "category": "assault",
+    "lat": 28.651910741417957,
+    "lng": 77.21769999995647,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.374Z"
+  },
+  {
+    "id": "sos-1781807762399",
+    "category": "assault",
+    "lat": 28.651910738124265,
+    "lng": 77.2176999999832,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.423Z"
+  },
+  {
+    "id": "sos-1781807762447",
+    "category": "assault",
+    "lat": 28.65191073772899,
+    "lng": 77.21769999998321,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.473Z"
+  },
+  {
+    "id": "sos-1781807762505",
+    "category": "assault",
+    "lat": 28.651910735604513,
+    "lng": 77.21770000000328,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.531Z"
+  },
+  {
+    "id": "sos-1781807762558",
+    "category": "assault",
+    "lat": 28.65191073523624,
+    "lng": 77.21770000000328,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.583Z"
+  },
+  {
+    "id": "sos-1781807762621",
+    "category": "assault",
+    "lat": 28.651910729042655,
+    "lng": 77.2176999999845,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.649Z"
+  },
+  {
+    "id": "sos-1781807762676",
+    "category": "assault",
+    "lat": 28.651910726124903,
+    "lng": 77.21770000000457,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.705Z"
+  },
+  {
+    "id": "sos-1781807762733",
+    "category": "assault",
+    "lat": 28.651910724021043,
+    "lng": 77.21769999995236,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.761Z"
+  },
+  {
+    "id": "sos-1781807762784",
+    "category": "assault",
+    "lat": 28.651910722428983,
+    "lng": 77.21769999996573,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.816Z"
+  },
+  {
+    "id": "sos-1781807762837",
+    "category": "assault",
+    "lat": 28.65191072153659,
+    "lng": 77.21769999997242,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.872Z"
+  },
+  {
+    "id": "sos-1781807762902",
+    "category": "assault",
+    "lat": 28.651910717418478,
+    "lng": 77.21770000000586,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.934Z"
+  },
+  {
+    "id": "sos-1781807762960",
+    "category": "assault",
+    "lat": 28.651910716655884,
+    "lng": 77.21770000001256,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:02.988Z"
+  },
+  {
+    "id": "sos-1781807763010",
+    "category": "assault",
+    "lat": 28.651910716119414,
+    "lng": 77.21770000001256,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.023Z"
+  },
+  {
+    "id": "sos-1781807763065",
+    "category": "assault",
+    "lat": 28.651910715363076,
+    "lng": 77.21770000001925,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.093Z"
+  },
+  {
+    "id": "sos-1781807763115",
+    "category": "assault",
+    "lat": 28.651910714692075,
+    "lng": 77.21770000002593,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.147Z"
+  },
+  {
+    "id": "sos-1781807763181",
+    "category": "assault",
+    "lat": 28.65191070923416,
+    "lng": 77.21770000000046,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.209Z"
+  },
+  {
+    "id": "sos-1781807763234",
+    "category": "assault",
+    "lat": 28.651910708107447,
+    "lng": 77.21770000000716,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.262Z"
+  },
+  {
+    "id": "sos-1781807763288",
+    "category": "assault",
+    "lat": 28.65191070595483,
+    "lng": 77.21769999995493,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.321Z"
+  },
+  {
+    "id": "sos-1781807763356",
+    "category": "assault",
+    "lat": 28.65191070096865,
+    "lng": 77.21769999999509,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.384Z"
+  },
+  {
+    "id": "sos-1781807763407",
+    "category": "assault",
+    "lat": 28.65191070045522,
+    "lng": 77.21769999999506,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.441Z"
+  },
+  {
+    "id": "sos-1781807763471",
+    "category": "assault",
+    "lat": 28.65191069582486,
+    "lng": 77.2176999999629,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.501Z"
+  },
+  {
+    "id": "sos-1781807763525",
+    "category": "assault",
+    "lat": 28.651910694896753,
+    "lng": 77.21770000004187,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.560Z"
+  },
+  {
+    "id": "sos-1781807763592",
+    "category": "assault",
+    "lat": 28.651910689356512,
+    "lng": 77.2177000000164,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.616Z"
+  },
+  {
+    "id": "sos-1781807763656",
+    "category": "assault",
+    "lat": 28.651910689009572,
+    "lng": 77.2177000000164,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.671Z"
+  },
+  {
+    "id": "sos-1781807763718",
+    "category": "assault",
+    "lat": 28.651910683578063,
+    "lng": 77.21769999999094,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.746Z"
+  },
+  {
+    "id": "sos-1781807763773",
+    "category": "assault",
+    "lat": 28.65191068256405,
+    "lng": 77.21769999999763,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.801Z"
+  },
+  {
+    "id": "sos-1781807763834",
+    "category": "assault",
+    "lat": 28.651910679234334,
+    "lng": 77.21770000002438,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.870Z"
+  },
+  {
+    "id": "sos-1781807763892",
+    "category": "assault",
+    "lat": 28.651910676992234,
+    "lng": 77.21769999997215,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.923Z"
+  },
+  {
+    "id": "sos-1781807763953",
+    "category": "assault",
+    "lat": 28.65191067542037,
+    "lng": 77.21769999998553,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:03.981Z"
+  },
+  {
+    "id": "sos-1781807764002",
+    "category": "assault",
+    "lat": 28.65191067477393,
+    "lng": 77.21769999999223,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.015Z"
+  },
+  {
+    "id": "sos-1781807764051",
+    "category": "assault",
+    "lat": 28.651910674237456,
+    "lng": 77.21769999999222,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.079Z"
+  },
+  {
+    "id": "sos-1781807764107",
+    "category": "assault",
+    "lat": 28.65191067255085,
+    "lng": 77.21770000000559,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.137Z"
+  },
+  {
+    "id": "sos-1781807764182",
+    "category": "assault",
+    "lat": 28.65191066711935,
+    "lng": 77.21769999998014,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.213Z"
+  },
+  {
+    "id": "sos-1781807764262",
+    "category": "assault",
+    "lat": 28.65191065221484,
+    "lng": 77.21770000002824,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.284Z"
+  },
+  {
+    "id": "sos-1781807764328",
+    "category": "assault",
+    "lat": 28.65191064908286,
+    "lng": 77.2176999999827,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.358Z"
+  },
+  {
+    "id": "sos-1781807764386",
+    "category": "assault",
+    "lat": 28.65191064713626,
+    "lng": 77.21769999999607,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.415Z"
+  },
+  {
+    "id": "sos-1781807764441",
+    "category": "assault",
+    "lat": 28.651910645514945,
+    "lng": 77.21770000000946,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.467Z"
+  },
+  {
+    "id": "sos-1781807764491",
+    "category": "assault",
+    "lat": 28.651910644722427,
+    "lng": 77.21770000001615,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.516Z"
+  },
+  {
+    "id": "sos-1781807764538",
+    "category": "assault",
+    "lat": 28.65191064432112,
+    "lng": 77.21769999995055,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.568Z"
+  },
+  {
+    "id": "sos-1781807764597",
+    "category": "assault",
+    "lat": 28.65191064275951,
+    "lng": 77.21769999996391,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.626Z"
+  },
+  {
+    "id": "sos-1781807764662",
+    "category": "assault",
+    "lat": 28.651910632619565,
+    "lng": 77.21769999997188,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.687Z"
+  },
+  {
+    "id": "sos-1781807764714",
+    "category": "assault",
+    "lat": 28.65191063078926,
+    "lng": 77.21769999998526,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.748Z"
+  },
+  {
+    "id": "sos-1781807764773",
+    "category": "assault",
+    "lat": 28.65191062763138,
+    "lng": 77.217700000012,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.799Z"
+  },
+  {
+    "id": "sos-1781807764823",
+    "category": "assault",
+    "lat": 28.651910626941543,
+    "lng": 77.21769999994642,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.858Z"
+  },
+  {
+    "id": "sos-1781807764883",
+    "category": "assault",
+    "lat": 28.651910623012988,
+    "lng": 77.21769999997986,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.908Z"
+  },
+  {
+    "id": "sos-1781807764942",
+    "category": "assault",
+    "lat": 28.65191062088959,
+    "lng": 77.21769999999323,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:04.977Z"
+  },
+  {
+    "id": "sos-1781807765003",
+    "category": "assault",
+    "lat": 28.651910617204937,
+    "lng": 77.21769999995438,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:05.028Z"
+  },
+  {
+    "id": "sos-1781807765049",
+    "category": "assault",
+    "lat": 28.651910616794297,
+    "lng": 77.21770000002667,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:05.081Z"
+  },
+  {
+    "id": "sos-1781807765109",
+    "category": "assault",
+    "lat": 28.651910612852795,
+    "lng": 77.2176999999878,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:05.134Z"
+  },
+  {
+    "id": "sos-1781807765158",
+    "category": "assault",
+    "lat": 28.651910611673806,
+    "lng": 77.2176999999945,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:05.188Z"
+  },
+  {
+    "id": "sos-1781807765221",
+    "category": "assault",
+    "lat": 28.651910603102856,
+    "lng": 77.21769999999579,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:05.250Z"
+  },
+  {
+    "id": "sos-1781807765274",
+    "category": "assault",
+    "lat": 28.651910602035294,
+    "lng": 77.21770000000247,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:05.298Z"
+  },
+  {
+    "id": "sos-1781807765327",
+    "category": "assault",
+    "lat": 28.651910600228796,
+    "lng": 77.21770000001585,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:05.355Z"
+  },
+  {
+    "id": "sos-1781807765377",
+    "category": "assault",
+    "lat": 28.65191059943056,
+    "lng": 77.21770000002253,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:05.404Z"
+  },
+  {
+    "id": "sos-1781807765428",
+    "category": "assault",
+    "lat": 28.651910598741264,
+    "lng": 77.21770000002923,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:05.456Z"
+  },
+  {
+    "id": "sos-1781807765506",
+    "category": "assault",
+    "lat": 28.65191057265148,
+    "lng": 77.2176999999541,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:05.532Z"
+  },
+  {
+    "id": "sos-1781807765571",
+    "category": "assault",
+    "lat": 28.651910569151323,
+    "lng": 77.21769999998087,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:05.604Z"
+  },
+  {
+    "id": "sos-1781807765630",
+    "category": "assault",
+    "lat": 28.651910566901094,
+    "lng": 77.21770000000092,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:05.659Z"
+  },
+  {
+    "id": "sos-1781807765701",
+    "category": "assault",
+    "lat": 28.6519105538368,
+    "lng": 77.21769999996336,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:05.741Z"
+  },
+  {
+    "id": "sos-1781807765777",
+    "category": "assault",
+    "lat": 28.651910539473906,
+    "lng": 77.21770000000477,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:05.814Z"
+  },
+  {
+    "id": "sos-1781807765846",
+    "category": "assault",
+    "lat": 28.65191053305478,
+    "lng": 77.21769999998598,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:05.881Z"
+  },
+  {
+    "id": "sos-1781807765941",
+    "category": "assault",
+    "lat": 28.651910512597347,
+    "lng": 77.2177000000086,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:05.975Z"
+  },
+  {
+    "id": "sos-1781807766006",
+    "category": "assault",
+    "lat": 28.651910508508927,
+    "lng": 77.21769999996977,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:06.041Z"
+  },
+  {
+    "id": "sos-1781807766075",
+    "category": "assault",
+    "lat": 28.651910501798312,
+    "lng": 77.21770000002327,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:06.108Z"
+  },
+  {
+    "id": "sos-1781807766134",
+    "category": "assault",
+    "lat": 28.651910498666364,
+    "lng": 77.21769999997774,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:06.166Z"
+  },
+  {
+    "id": "sos-1781807766193",
+    "category": "assault",
+    "lat": 28.651910496670375,
+    "lng": 77.21769999999111,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:06.229Z"
+  },
+  {
+    "id": "sos-1781807766260",
+    "category": "assault",
+    "lat": 28.651910493376782,
+    "lng": 77.21770000001786,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:06.298Z"
+  },
+  {
+    "id": "sos-1781807766331",
+    "category": "assault",
+    "lat": 28.65191048299343,
+    "lng": 77.21769999996023,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:06.363Z"
+  },
+  {
+    "id": "sos-1781807766413",
+    "category": "assault",
+    "lat": 28.651910472172318,
+    "lng": 77.2176999999749,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:06.442Z"
+  },
+  {
+    "id": "sos-1781807766475",
+    "category": "assault",
+    "lat": 28.651910466253756,
+    "lng": 77.21770000002171,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:06.509Z"
+  },
+  {
+    "id": "sos-1781807766540",
+    "category": "assault",
+    "lat": 28.651910461789704,
+    "lng": 77.21769999998956,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:06.565Z"
+  },
+  {
+    "id": "sos-1781807766590",
+    "category": "assault",
+    "lat": 28.651910461527613,
+    "lng": 77.21769999998956,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:06.625Z"
+  },
+  {
+    "id": "sos-1781807766649",
+    "category": "assault",
+    "lat": 28.65191045903794,
+    "lng": 77.21770000000961,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:06.680Z"
+  },
+  {
+    "id": "sos-1781807766717",
+    "category": "assault",
+    "lat": 28.65191045729725,
+    "lng": 77.217700000023,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:06.756Z"
+  },
+  {
+    "id": "sos-1781807766802",
+    "category": "assault",
+    "lat": 28.651910445153263,
+    "lng": 77.21769999997875,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:06.839Z"
+  },
+  {
+    "id": "sos-1781807766879",
+    "category": "assault",
+    "lat": 28.651910437564645,
+    "lng": 77.21770000003892,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:06.918Z"
+  },
+  {
+    "id": "sos-1781807766959",
+    "category": "assault",
+    "lat": 28.651910426080864,
+    "lng": 77.21769999998799,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:06.996Z"
+  },
+  {
+    "id": "sos-1781807767030",
+    "category": "assault",
+    "lat": 28.651910420703068,
+    "lng": 77.21769999996252,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:07.044Z"
+  },
+  {
+    "id": "sos-1781807767088",
+    "category": "assault",
+    "lat": 28.65191041881589,
+    "lng": 77.2176999999759,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:07.116Z"
+  },
+  {
+    "id": "sos-1781807767150",
+    "category": "assault",
+    "lat": 28.65191041555915,
+    "lng": 77.21770000000264,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:07.179Z"
+  },
+  {
+    "id": "sos-1781807767220",
+    "category": "assault",
+    "lat": 28.651910406727318,
+    "lng": 77.21770000000394,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:07.249Z"
+  },
+  {
+    "id": "sos-1781807767285",
+    "category": "assault",
+    "lat": 28.651910403326987,
+    "lng": 77.21769999995841,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:07.325Z"
+  },
+  {
+    "id": "sos-1781807767370",
+    "category": "assault",
+    "lat": 28.65191037921584,
+    "lng": 77.21770000000778,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:07.399Z"
+  },
+  {
+    "id": "sos-1781807767429",
+    "category": "assault",
+    "lat": 28.65191037708739,
+    "lng": 77.21769999995557,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:07.461Z"
+  },
+  {
+    "id": "sos-1781807767492",
+    "category": "assault",
+    "lat": 28.651910372744986,
+    "lng": 77.21769999998901,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:07.522Z"
+  },
+  {
+    "id": "sos-1781807767549",
+    "category": "assault",
+    "lat": 28.651910371404902,
+    "lng": 77.21770000000238,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:07.584Z"
+  },
+  {
+    "id": "sos-1781807767608",
+    "category": "assault",
+    "lat": 28.651910368779152,
+    "lng": 77.21769999995016,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:07.646Z"
+  },
+  {
+    "id": "sos-1781807767675",
+    "category": "assault",
+    "lat": 28.651910365101593,
+    "lng": 77.21770000004919,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:07.710Z"
+  },
+  {
+    "id": "sos-1781807767756",
+    "category": "assault",
+    "lat": 28.651910359678478,
+    "lng": 77.21769999995145,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:07.786Z"
+  },
+  {
+    "id": "sos-1781807767817",
+    "category": "assault",
+    "lat": 28.65191035704452,
+    "lng": 77.21769999997152,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:07.845Z"
+  },
+  {
+    "id": "sos-1781807767883",
+    "category": "assault",
+    "lat": 28.651910353222352,
+    "lng": 77.21770000000494,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:07.914Z"
+  },
+  {
+    "id": "sos-1781807767945",
+    "category": "assault",
+    "lat": 28.651910351263226,
+    "lng": 77.21770000001833,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:07.984Z"
+  },
+  {
+    "id": "sos-1781807768014",
+    "category": "assault",
+    "lat": 28.65191034388453,
+    "lng": 77.21770000000625,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:08.049Z"
+  },
+  {
+    "id": "sos-1781807768083",
+    "category": "assault",
+    "lat": 28.65191034149863,
+    "lng": 77.2177000000263,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:08.117Z"
+  },
+  {
+    "id": "sos-1781807768148",
+    "category": "assault",
+    "lat": 28.65191033916306,
+    "lng": 77.21769999997409,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:08.181Z"
+  },
+  {
+    "id": "sos-1781807768224",
+    "category": "assault",
+    "lat": 28.651910334290584,
+    "lng": 77.2177000000142,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:08.256Z"
+  },
+  {
+    "id": "sos-1781807768305",
+    "category": "assault",
+    "lat": 28.65191032200872,
+    "lng": 77.21769999996995,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:08.337Z"
+  },
+  {
+    "id": "sos-1781807768379",
+    "category": "assault",
+    "lat": 28.651910314895588,
+    "lng": 77.21770000002346,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:08.407Z"
+  },
+  {
+    "id": "sos-1781807768441",
+    "category": "assault",
+    "lat": 28.65191031306442,
+    "lng": 77.21769999997123,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:08.474Z"
+  },
+  {
+    "id": "sos-1781807768504",
+    "category": "assault",
+    "lat": 28.651910309374838,
+    "lng": 77.217699999998,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:08.532Z"
+  },
+  {
+    "id": "sos-1781807768571",
+    "category": "assault",
+    "lat": 28.65191030768828,
+    "lng": 77.21770000001136,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:08.604Z"
+  },
+  {
+    "id": "sos-1781807768642",
+    "category": "assault",
+    "lat": 28.651910301238033,
+    "lng": 77.21769999999259,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:08.675Z"
+  },
+  {
+    "id": "sos-1781807768704",
+    "category": "assault",
+    "lat": 28.651910297017494,
+    "lng": 77.21770000002603,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:08.734Z"
+  },
+  {
+    "id": "sos-1781807768765",
+    "category": "assault",
+    "lat": 28.651910295425484,
+    "lng": 77.2177000000394,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:08.798Z"
+  },
+  {
+    "id": "sos-1781807768841",
+    "category": "assault",
+    "lat": 28.651910292900403,
+    "lng": 77.21769999998718,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:08.875Z"
+  },
+  {
+    "id": "sos-1781807768931",
+    "category": "assault",
+    "lat": 28.651910279614654,
+    "lng": 77.21770000002189,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:08.966Z"
+  },
+  {
+    "id": "sos-1781807769003",
+    "category": "assault",
+    "lat": 28.651910271692046,
+    "lng": 77.21770000001646,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:09.033Z"
+  },
+  {
+    "id": "sos-1781807769081",
+    "category": "assault",
+    "lat": 28.651910262495925,
+    "lng": 77.21770000001774,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:09.110Z"
+  },
+  {
+    "id": "sos-1781807769139",
+    "category": "assault",
+    "lat": 28.651910260934393,
+    "lng": 77.21770000003113,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:09.176Z"
+  },
+  {
+    "id": "sos-1781807769208",
+    "category": "assault",
+    "lat": 28.65191025448419,
+    "lng": 77.21770000001234,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:09.238Z"
+  },
+  {
+    "id": "sos-1781807769269",
+    "category": "assault",
+    "lat": 28.651910251850257,
+    "lng": 77.21770000003241,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:09.297Z"
+  },
+  {
+    "id": "sos-1781807769336",
+    "category": "assault",
+    "lat": 28.651910248412275,
+    "lng": 77.21769999998688,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:09.351Z"
+  },
+  {
+    "id": "sos-1781807769413",
+    "category": "assault",
+    "lat": 28.651910243797442,
+    "lng": 77.21770000002701,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:09.443Z"
+  },
+  {
+    "id": "sos-1781807769485",
+    "category": "assault",
+    "lat": 28.651910233758436,
+    "lng": 77.21770000003497,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:09.520Z"
+  },
+  {
+    "id": "sos-1781807769557",
+    "category": "assault",
+    "lat": 28.651910225604873,
+    "lng": 77.21770000002958,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:09.590Z"
+  },
+  {
+    "id": "sos-1781807769634",
+    "category": "assault",
+    "lat": 28.65191021164372,
+    "lng": 77.21769999999871,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:09.665Z"
+  },
+  {
+    "id": "sos-1781807769700",
+    "category": "assault",
+    "lat": 28.65191020821633,
+    "lng": 77.21770000002546,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:09.737Z"
+  },
+  {
+    "id": "sos-1781807769776",
+    "category": "assault",
+    "lat": 28.651910200992763,
+    "lng": 77.21770000001337,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:09.800Z"
+  },
+  {
+    "id": "sos-1781807769837",
+    "category": "assault",
+    "lat": 28.65191019980555,
+    "lng": 77.21770000002005,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:09.869Z"
+  },
+  {
+    "id": "sos-1781807769921",
+    "category": "assault",
+    "lat": 28.651910175840115,
+    "lng": 77.21770000000383,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:09.957Z"
+  },
+  {
+    "id": "sos-1781807770011",
+    "category": "assault",
+    "lat": 28.65191014010963,
+    "lng": 77.21770000000227,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:10.044Z"
+  },
+  {
+    "id": "sos-1781807770082",
+    "category": "assault",
+    "lat": 28.651910131994082,
+    "lng": 77.21769999999688,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:10.118Z"
+  },
+  {
+    "id": "sos-1781807770162",
+    "category": "assault",
+    "lat": 28.65191012510245,
+    "lng": 77.2176999999781,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:10.191Z"
+  },
+  {
+    "id": "sos-1781807770231",
+    "category": "assault",
+    "lat": 28.65191012262775,
+    "lng": 77.21769999999816,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:10.261Z"
+  },
+  {
+    "id": "sos-1781807770310",
+    "category": "assault",
+    "lat": 28.651910114741757,
+    "lng": 77.21769999999276,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:10.333Z"
+  },
+  {
+    "id": "sos-1781807770373",
+    "category": "assault",
+    "lat": 28.651910111162977,
+    "lng": 77.2177000000195,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:10.410Z"
+  },
+  {
+    "id": "sos-1781807770459",
+    "category": "assault",
+    "lat": 28.651910072153136,
+    "lng": 77.21769999997912,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:10.490Z"
+  },
+  {
+    "id": "sos-1781807770520",
+    "category": "assault",
+    "lat": 28.651910070194052,
+    "lng": 77.21769999999249,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:10.557Z"
+  },
+  {
+    "id": "sos-1781807770598",
+    "category": "assault",
+    "lat": 28.65191006377526,
+    "lng": 77.21769999997372,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:10.630Z"
+  },
+  {
+    "id": "sos-1781807770675",
+    "category": "assault",
+    "lat": 28.651910056233874,
+    "lng": 77.21770000003391,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:10.717Z"
+  },
+  {
+    "id": "sos-1781807770760",
+    "category": "assault",
+    "lat": 28.651910032522636,
+    "lng": 77.217700000011,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:10.789Z"
+  },
+  {
+    "id": "sos-1781807770823",
+    "category": "assault",
+    "lat": 28.65191003055115,
+    "lng": 77.21770000002438,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:10.857Z"
+  },
+  {
+    "id": "sos-1781807770909",
+    "category": "assault",
+    "lat": 28.651910025565293,
+    "lng": 77.21770000006453,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:10.938Z"
+  },
+  {
+    "id": "sos-1781807770986",
+    "category": "assault",
+    "lat": 28.651910010525366,
+    "lng": 77.21769999997477,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:11.015Z"
+  },
+  {
+    "id": "sos-1781807771046",
+    "category": "assault",
+    "lat": 28.65191000938085,
+    "lng": 77.21769999998145,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:11.067Z"
+  },
+  {
+    "id": "sos-1781807771121",
+    "category": "assault",
+    "lat": 28.651909999088748,
+    "lng": 77.2176999999961,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:11.151Z"
+  },
+  {
+    "id": "sos-1781807771196",
+    "category": "assault",
+    "lat": 28.651909989451333,
+    "lng": 77.2176999999974,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:11.233Z"
+  },
+  {
+    "id": "sos-1781807771272",
+    "category": "assault",
+    "lat": 28.651909984439925,
+    "lng": 77.21770000003751,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:11.293Z"
+  },
+  {
+    "id": "sos-1781807771339",
+    "category": "assault",
+    "lat": 28.65190998272056,
+    "lng": 77.21770000005088,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:11.375Z"
+  },
+  {
+    "id": "sos-1781807771407",
+    "category": "assault",
+    "lat": 28.65190997785649,
+    "lng": 77.21770000001874,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:11.441Z"
+  },
+  {
+    "id": "sos-1781807771506",
+    "category": "assault",
+    "lat": 28.65190991150899,
+    "lng": 77.21769999998219,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:11.524Z"
+  },
+  {
+    "id": "sos-1781807771579",
+    "category": "assault",
+    "lat": 28.651909904373756,
+    "lng": 77.21769999997008,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:11.610Z"
+  },
+  {
+    "id": "sos-1781807771649",
+    "category": "assault",
+    "lat": 28.65190989842638,
+    "lng": 77.21770000001689,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:11.681Z"
+  },
+  {
+    "id": "sos-1781807771733",
+    "category": "assault",
+    "lat": 28.65190987853694,
+    "lng": 77.21770000003283,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:11.763Z"
+  },
+  {
+    "id": "sos-1781807771821",
+    "category": "assault",
+    "lat": 28.651909862915105,
+    "lng": 77.21770000001536,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:11.853Z"
+  },
+  {
+    "id": "sos-1781807771899",
+    "category": "assault",
+    "lat": 28.65190985805112,
+    "lng": 77.21769999998318,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:11.929Z"
+  },
+  {
+    "id": "sos-1781807771969",
+    "category": "assault",
+    "lat": 28.65190985287585,
+    "lng": 77.21770000002333,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:11.995Z"
+  },
+  {
+    "id": "sos-1781807772029",
+    "category": "assault",
+    "lat": 28.651909850877892,
+    "lng": 77.21769999997112,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:12.062Z"
+  },
+  {
+    "id": "sos-1781807772099",
+    "category": "assault",
+    "lat": 28.651909845780974,
+    "lng": 77.21770000001125,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:12.135Z"
+  },
+  {
+    "id": "sos-1781807772175",
+    "category": "assault",
+    "lat": 28.65190984010696,
+    "lng": 77.21769999998575,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:12.204Z"
+  },
+  {
+    "id": "sos-1781807772236",
+    "category": "assault",
+    "lat": 28.651909838288642,
+    "lng": 77.21769999999916,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:12.272Z"
+  },
+  {
+    "id": "sos-1781807772307",
+    "category": "assault",
+    "lat": 28.651909832341303,
+    "lng": 77.21770000004595,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:12.337Z"
+  },
+  {
+    "id": "sos-1781807772386",
+    "category": "assault",
+    "lat": 28.651909814660172,
+    "lng": 77.21769999997625,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:12.418Z"
+  },
+  {
+    "id": "sos-1781807772488",
+    "category": "assault",
+    "lat": 28.651909766103568,
+    "lng": 77.2177000000094,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:12.525Z"
+  },
+  {
+    "id": "sos-1781807772567",
+    "category": "assault",
+    "lat": 28.651909755283256,
+    "lng": 77.21770000002407,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:12.606Z"
+  },
+  {
+    "id": "sos-1781807772655",
+    "category": "assault",
+    "lat": 28.651909739598064,
+    "lng": 77.21770000000654,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:12.696Z"
+  },
+  {
+    "id": "sos-1781807772746",
+    "category": "assault",
+    "lat": 28.65190971012391,
+    "lng": 77.21770000003045,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:12.780Z"
+  },
+  {
+    "id": "sos-1781807772835",
+    "category": "assault",
+    "lat": 28.651909684465522,
+    "lng": 77.21770000002093,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:12.871Z"
+  },
+  {
+    "id": "sos-1781807772915",
+    "category": "assault",
+    "lat": 28.65190967321641,
+    "lng": 77.21769999997001,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:12.948Z"
+  },
+  {
+    "id": "sos-1781807773001",
+    "category": "assault",
+    "lat": 28.651909663616014,
+    "lng": 77.21769999997797,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:13.034Z"
+  },
+  {
+    "id": "sos-1781807773081",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:13.108Z"
+  },
+  {
+    "id": "sos-1781807773159",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:13.188Z"
+  },
+  {
+    "id": "sos-1781807773266",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:13.293Z"
+  },
+  {
+    "id": "sos-1781807773326",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:13.352Z"
+  },
+  {
+    "id": "sos-1781807773399",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:13.422Z"
+  },
+  {
+    "id": "sos-1781807773478",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:13.501Z"
+  },
+  {
+    "id": "sos-1781807773535",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:13.566Z"
+  },
+  {
+    "id": "sos-1781807773628",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:13.648Z"
+  },
+  {
+    "id": "sos-1781807773686",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:13.711Z"
+  },
+  {
+    "id": "sos-1781807773767",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:13.796Z"
+  },
+  {
+    "id": "sos-1781807773842",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:13.862Z"
+  },
+  {
+    "id": "sos-1781807773896",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:13.917Z"
+  },
+  {
+    "id": "sos-1781807773976",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:14.002Z"
+  },
+  {
+    "id": "sos-1781807774055",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:14.098Z"
+  },
+  {
+    "id": "sos-1781807774141",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:14.173Z"
+  },
+  {
+    "id": "sos-1781807774222",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:14.248Z"
+  },
+  {
+    "id": "sos-1781807774286",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:14.312Z"
+  },
+  {
+    "id": "sos-1781807774357",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:14.387Z"
+  },
+  {
+    "id": "sos-1781807774423",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:14.446Z"
+  },
+  {
+    "id": "sos-1781807774502",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:14.533Z"
+  },
+  {
+    "id": "sos-1781807774592",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:14.628Z"
+  },
+  {
+    "id": "sos-1781807774671",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:14.720Z"
+  },
+  {
+    "id": "sos-1781807774759",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:14.783Z"
+  },
+  {
+    "id": "sos-1781807774830",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:14.852Z"
+  },
+  {
+    "id": "sos-1781807774910",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:14.940Z"
+  },
+  {
+    "id": "sos-1781807774979",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:15.007Z"
+  },
+  {
+    "id": "sos-1781807775043",
+    "category": "assault",
+    "lat": 28.65190965627266,
+    "lng": 77.2176999999659,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:15.099Z"
+  },
+  {
+    "id": "sos-1781807775173",
+    "category": "assault",
+    "lat": 28.651909489815335,
+    "lng": 77.21770000001572,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:15.205Z"
+  },
+  {
+    "id": "sos-1781807775270",
+    "category": "assault",
+    "lat": 28.651909481208733,
+    "lng": 77.21770000001032,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:15.304Z"
+  },
+  {
+    "id": "sos-1781807775351",
+    "category": "assault",
+    "lat": 28.651909466762323,
+    "lng": 77.21769999998612,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:15.387Z"
+  },
+  {
+    "id": "sos-1781807775441",
+    "category": "assault",
+    "lat": 28.651909429456172,
+    "lng": 77.21769999999796,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:15.478Z"
+  },
+  {
+    "id": "sos-1781807775537",
+    "category": "assault",
+    "lat": 28.651909396378418,
+    "lng": 77.21769999998303,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:15.568Z"
+  },
+  {
+    "id": "sos-1781807775616",
+    "category": "assault",
+    "lat": 28.65190939233391,
+    "lng": 77.21769999994417,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:15.658Z"
+  },
+  {
+    "id": "sos-1781807775700",
+    "category": "assault",
+    "lat": 28.651909383245354,
+    "lng": 77.21769999994545,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:15.749Z"
+  },
+  {
+    "id": "sos-1781807775815",
+    "category": "assault",
+    "lat": 28.6519092884348,
+    "lng": 77.21769999999171,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:15.833Z"
+  },
+  {
+    "id": "sos-1781807775914",
+    "category": "assault",
+    "lat": 28.651909209766618,
+    "lng": 77.21769999998318,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:15.944Z"
+  },
+  {
+    "id": "sos-1781807775997",
+    "category": "assault",
+    "lat": 28.65190920599145,
+    "lng": 77.21770000000994,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:16.036Z"
+  },
+  {
+    "id": "sos-1781807776080",
+    "category": "assault",
+    "lat": 28.65190919002843,
+    "lng": 77.21769999999914,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:16.108Z"
+  },
+  {
+    "id": "sos-1781807776157",
+    "category": "assault",
+    "lat": 28.651909185838917,
+    "lng": 77.2176999999603,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:16.187Z"
+  },
+  {
+    "id": "sos-1781807776274",
+    "category": "assault",
+    "lat": 28.6519090508797,
+    "lng": 77.21769999997284,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:16.308Z"
+  },
+  {
+    "id": "sos-1781807776357",
+    "category": "assault",
+    "lat": 28.65190904452782,
+    "lng": 77.21769999995405,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:16.388Z"
+  },
+  {
+    "id": "sos-1781807776433",
+    "category": "assault",
+    "lat": 28.65190904006638,
+    "lng": 77.2176999999875,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:16.471Z"
+  },
+  {
+    "id": "sos-1781807776524",
+    "category": "assault",
+    "lat": 28.651909017102348,
+    "lng": 77.21770000003018,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:16.560Z"
+  },
+  {
+    "id": "sos-1781807776609",
+    "category": "assault",
+    "lat": 28.651908999636834,
+    "lng": 77.21770000002604,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:16.649Z"
+  },
+  {
+    "id": "sos-1781807776704",
+    "category": "assault",
+    "lat": 28.65190898513173,
+    "lng": 77.21770000000186,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:16.743Z"
+  },
+  {
+    "id": "sos-1781807776811",
+    "category": "assault",
+    "lat": 28.651908866508155,
+    "lng": 77.2177000000252,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:16.854Z"
+  },
+  {
+    "id": "sos-1781807776899",
+    "category": "assault",
+    "lat": 28.65190885187326,
+    "lng": 77.21770000000103,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:16.912Z"
+  },
+  {
+    "id": "sos-1781807776969",
+    "category": "assault",
+    "lat": 28.65190884818931,
+    "lng": 77.21769999996218,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:16.977Z"
+  },
+  {
+    "id": "sos-1781807777045",
+    "category": "assault",
+    "lat": 28.651908842242584,
+    "lng": 77.21770000000897,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:17.075Z"
+  },
+  {
+    "id": "sos-1781807777119",
+    "category": "assault",
+    "lat": 28.651908837639564,
+    "lng": 77.21770000004243,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:17.149Z"
+  },
+  {
+    "id": "sos-1781807777201",
+    "category": "assault",
+    "lat": 28.651908832372232,
+    "lng": 77.21770000001696,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:17.241Z"
+  },
+  {
+    "id": "sos-1781807777295",
+    "category": "assault",
+    "lat": 28.651908796171842,
+    "lng": 77.2177000000221,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:17.328Z"
+  },
+  {
+    "id": "sos-1781807777367",
+    "category": "assault",
+    "lat": 28.651908792612932,
+    "lng": 77.21770000004884,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:17.399Z"
+  },
+  {
+    "id": "sos-1781807777452",
+    "category": "assault",
+    "lat": 28.651908771167076,
+    "lng": 77.2177000000059,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:17.484Z"
+  },
+  {
+    "id": "sos-1781807777550",
+    "category": "assault",
+    "lat": 28.65190873595696,
+    "lng": 77.21770000000434,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:17.580Z"
+  },
+  {
+    "id": "sos-1781807777663",
+    "category": "assault",
+    "lat": 28.651908730068968,
+    "lng": 77.21770000005115,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:17.686Z"
+  },
+  {
+    "id": "sos-1781807777749",
+    "category": "assault",
+    "lat": 28.651908724262494,
+    "lng": 77.2177000000257,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:17.791Z"
+  },
+  {
+    "id": "sos-1781807777845",
+    "category": "assault",
+    "lat": 28.651908684365925,
+    "lng": 77.21769999999199,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:17.874Z"
+  },
+  {
+    "id": "sos-1781807777942",
+    "category": "assault",
+    "lat": 28.651908641700317,
+    "lng": 77.21769999997834,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:18.007Z"
+  },
+  {
+    "id": "sos-1781807778066",
+    "category": "assault",
+    "lat": 28.65190841161768,
+    "lng": 77.21769999997154,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:18.093Z"
+  },
+  {
+    "id": "sos-1781807778143",
+    "category": "assault",
+    "lat": 28.651908403877762,
+    "lng": 77.21770000003174,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:18.166Z"
+  },
+  {
+    "id": "sos-1781807778240",
+    "category": "assault",
+    "lat": 28.651908388068904,
+    "lng": 77.21770000001423,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:18.263Z"
+  },
+  {
+    "id": "sos-1781807778320",
+    "category": "assault",
+    "lat": 28.651908377679664,
+    "lng": 77.21770000002888,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:18.352Z"
+  },
+  {
+    "id": "sos-1781807778407",
+    "category": "assault",
+    "lat": 28.65190836253046,
+    "lng": 77.2177000000047,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:18.452Z"
+  },
+  {
+    "id": "sos-1781807778510",
+    "category": "assault",
+    "lat": 28.651908310134072,
+    "lng": 77.21769999999901,
+    "time": "00:06",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"seventhofspring\" (Phone: Not specified) triggered distress beacon. Emergency Contact: Not specified.",
+    "anonymous": false,
+    "date": "2026-06-18T18:36:18.550Z"
+  },
+  {
+    "id": "sos-1781808247999",
+    "category": "assault",
+    "lat": 28.586905393700345,
+    "lng": 79.30527204104526,
+    "time": "00:14",
+    "description": "🚨 EMERGENCY POLICE SOS DISPATCH: Citizen \"Sayan MUkherjee\" (Phone: 7439393007) triggered distress beacon. Emergency Contact: 9903262214.",
+    "anonymous": false,
+    "date": "2026-06-18T18:44:08.008Z"
+  }
+]

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADHARM VINASH - Citizen Incident Portal</title>
+    <!-- Google Fonts: Inter for professional typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- CesiumJS CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.104.0/Widgets/widgets.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=1.7">
+</head>
+<body>
+    <!-- Fullscreen 3D Cesium Map Background -->
+    <div id="map"></div>
+    <div class="map-vignette"></div>
+
+    <!-- Custom 3D Map Popup Overlay -->
+    <div id="cesium-popup-container" class="cesium-popup-container hidden">
+        <button id="cesium-popup-close" class="cesium-popup-close" type="button">&times;</button>
+        <div id="cesium-popup-content"></div>
+    </div>
+
+    <!-- 1. FULLSCREEN USER LOGIN/REGISTER OVERLAY -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-card">
+            <div class="login-header">
+                <!-- Indian Shield branding icon -->
+                <svg class="branding-logo" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                <h2>ADHARM VINASH</h2>
+                <p>Citizen Incident Reporting Portal</p>
+            </div>
+            
+            <form id="auth-form" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="auth-username">Username</label>
+                    <input type="text" id="auth-username" placeholder="Choose or enter username" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="auth-password">Password</label>
+                    <input type="password" id="auth-password" placeholder="Enter password" required>
+                </div>
+                <div id="auth-error" class="auth-error-msg hidden">Invalid username or password</div>
+                
+                <button type="submit" id="btn-auth-submit" class="btn-action-primary margin-top-1">Sign In</button>
+                
+                <div class="auth-toggle-row">
+                    <span id="auth-toggle-text">New to portal? <a href="#" id="link-auth-toggle">Register account</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. FLOATING 3D GLOBAL LOCATION SEARCH BAR (Top Center) -->
+    <div id="global-search-container" class="map-search-bar hidden">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" id="map-search-input" placeholder="Search New Delhi location (e.g. Connaught Place)..." autocomplete="off">
+        <button id="btn-map-search" type="button">Locate Position</button>
+    </div>
+    <div id="search-suggestions" class="search-suggestions-box hidden"></div>
+
+    <!-- 3. FLOATING CONTROL PANEL (Left Side Sidebar, floating on top of map) -->
+    <aside class="civicsafe-sidebar hidden" id="main-sidebar">
+        <!-- Sidebar Header -->
+        <header class="sidebar-header">
+            <div class="header-branding">
+                <svg class="branding-logo" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                <div class="header-titles">
+                    <h1>ADHARM VINASH</h1>
+                    <p>Citizen Incident Portal</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sidebar Navigation Tabs -->
+        <nav class="sidebar-tabs">
+            <button class="tab-link active" data-tab="tab-feed" type="button">Active Logs</button>
+            <button class="tab-link" data-tab="tab-report" type="button">File Report</button>
+            <button class="tab-link" data-tab="tab-profile" type="button">Profile</button>
+            <button class="tab-link hidden" data-tab="tab-admin" id="tab-link-admin" type="button">Admin</button>
+        </nav>
+
+        <!-- Sidebar Panel Contents -->
+        <div class="sidebar-content">
+            <!-- TAB 1: INCIDENT LOGS FEED -->
+            <div id="tab-feed" class="tab-panel active">
+                <div class="section-meta">
+                    <h3>Incidents in Scanning Area (<span id="incident-count">0</span>)</h3>
+                </div>
+                <div class="feed-list" id="fnsm-feed-list">
+                    <!-- Logs dynamically loaded here -->
+                </div>
+            </div>
+
+            <!-- TAB 2: INCIDENT REPORT FORM -->
+            <div id="tab-report" class="tab-panel">
+                <form id="incident-form" class="dashboard-form" onsubmit="return false;">
+                    <div class="form-group">
+                        <label for="report-category">Incident Category</label>
+                        <select id="report-category" required>
+                            <option value="assault">⚠️ Assault / Threat</option>
+                            <option value="theft">💸 Larceny / Theft</option>
+                            <option value="harassment">👁️ Public Harassment</option>
+                            <option value="suspicious">🕵️ Suspicious Activity</option>
+                            <option value="vandalism">🎨 Property Damage / Vandalism</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="report-address">Incident Address or Landmark</label>
+                        <div class="coords-input-wrapper">
+                            <input type="text" id="report-address" placeholder="e.g. India Gate or CP" required>
+                            <button type="button" id="btn-search-address" class="btn-action-outline">Locate</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="report-location">Resolved Coordinates</label>
+                        <div class="coords-input-wrapper">
+                            <input type="text" id="report-location" placeholder="GPS coordinates resolved here" readonly required>
+                            <button type="button" id="btn-select-location" class="btn-action-outline">GPS Capture</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="report-time">Incident Time</label>
+                        <input type="time" id="report-time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="report-description">Detailed Description</label>
+                        <textarea id="report-description" rows="4" placeholder="Detail the observed sin / crime incident..." required></textarea>
+                    </div>
+                    <div class="form-group checkbox-row">
+                        <input type="checkbox" id="report-anonymous" checked>
+                        <label for="report-anonymous">Submit as Anonymous Log</label>
+                    </div>
+                    <button type="submit" class="btn-action-primary">Submit Report to Portal</button>
+                </form>
+            </div>
+
+            <!-- TAB 3: USER PROFILE & PREFERENCES -->
+            <div id="tab-profile" class="tab-panel">
+                <form id="profile-form" class="dashboard-form" onsubmit="return false;">
+                    <div class="form-group">
+                        <label for="profile-fullname">Full Name</label>
+                        <input type="text" id="profile-fullname" placeholder="Enter full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-phone">Phone Number</label>
+                        <input type="tel" id="profile-phone" placeholder="e.g. +91 9999999999" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-emergency">Emergency Contact</label>
+                        <input type="tel" id="profile-emergency" placeholder="e.g. +91 8888888888" required>
+                    </div>
+                    <div class="form-group checkbox-row">
+                        <input type="checkbox" id="pref-auto-anonymous" checked>
+                        <label for="pref-auto-anonymous">Default Reports to Anonymous</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="pref-default-location">Default Home Location (Address/Landmark)</label>
+                        <div class="coords-input-wrapper">
+                            <input type="text" id="pref-default-location" placeholder="e.g. India Gate, New Delhi">
+                            <button type="button" id="btn-pref-locate" class="btn-action-outline">Locate</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pref-resolved-coords">Resolved Home Coordinates</label>
+                        <input type="text" id="pref-resolved-coords" placeholder="No default location set" readonly>
+                      </div>
+                    <button type="submit" class="btn-action-primary">Save Settings</button>
+                </form>
+            </div>
+
+            <!-- TAB 4: ADMINISTRATOR CONTROLS -->
+            <div id="tab-admin" class="tab-panel">
+                <div class="section-meta">
+                    <h3>Administrator Controls</h3>
+                </div>
+                
+                <div class="admin-section">
+                    <h4>System Maintenance</h4>
+                    <div class="admin-box">
+                        <p class="admin-box-desc">Clean database incidents older than 30 days.</p>
+                        <button id="btn-admin-purge" class="btn-action-primary btn-warning-action">Purge Database Logs</button>
+                    </div>
+                </div>
+
+                <div class="admin-section margin-top-1">
+                    <h4>Citizen Directory (<span id="admin-user-count">0</span>)</h4>
+                    <div class="admin-scroll-list" id="admin-citizens-list">
+                        <!-- Citizens loaded dynamically -->
+                    </div>
+                </div>
+
+                <div class="admin-section margin-top-1">
+                    <h4>Moderate Logs (<span id="admin-incident-count">0</span>)</h4>
+                    <div class="admin-scroll-list" id="admin-incidents-list">
+                        <!-- Incidents loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Sign Out footer -->
+        <div class="sidebar-footer">
+            <div class="user-greeting">Signed in: <strong id="logged-user-name">User</strong></div>
+            <button id="btn-logout" class="btn-logout-action">Sign Out</button>
+        </div>
+    </aside>
+
+    <!-- 4. FLOATING MAP OVERLAYS -->
+    <!-- Theme Toggle Button (Floats top right) -->
+    <button id="btn-theme-toggle" class="btn-theme-toggle hidden" title="Toggle Light/Dark Theme" type="button">
+        <svg class="theme-icon-sun hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+    </button>
+
+    <!-- Route Planner Toggle (Floats bottom right) -->
+    <div id="route-toggle-container" class="map-controls-group hidden">
+        <button id="btn-route-toggle" class="map-ctrl-btn" title="Toggle SafePath Router">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0021 18.83V8.058a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Routing Legend Panel -->
+    <div id="routing-legend" class="routing-legend hidden">
+        <div class="legend-header">SafePath Navigation Routing</div>
+        <div class="legend-body">
+            <div class="legend-item"><span class="line-blue"></span> <span>Solid Blue: SafePath Route (3D Corridor avoiding incidents)</span></div>
+            <div class="legend-item"><span class="line-red"></span> <span>Dotted Red: Shortest Path (Exposed to incidents)</span></div>
+        </div>
+        <button id="btn-clear-route" class="btn-clear-route">Disable Routing</button>
+    </div>
+
+    <!-- Compass & HUD Coordinate Overlays -->
+    <div id="hud-coordinates" class="hud-overlay coords-overlay hidden">PORTAL STATE: WEBGL_ACTIVE // SECURE_SESSION</div>
+
+    <!-- 5. FLOATING EMERGENCY SOS TRIGGER -->
+    <div id="sos-trigger-container" class="sos-container hidden">
+        <button id="btn-emergency-sos" class="btn-sos-pulse" title="EMERGENCY SOS - CALL POLICE" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            <span>POLICE SOS</span>
+        </button>
+    </div>
+
+    <!-- SOS Countdown Overlay Modal -->
+    <div id="sos-countdown-overlay" class="sos-countdown-overlay hidden">
+        <div class="sos-modal">
+            <h2>EMERGENCY POLICE CALL</h2>
+            <p class="sos-alert-text">Initiating police dispatch & dialing responder in...</p>
+            <div id="sos-timer" class="sos-timer">5</div>
+            <div class="sos-modal-actions">
+                <button id="btn-cancel-sos" class="btn-action-outline">CANCEL ALERT</button>
+                <a id="btn-trigger-sos-now" href="tel:112" class="btn-action-primary btn-danger-action">CALL NOW (112)</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CesiumJS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.104.0/Cesium.js"></script>
+    <script src="app.js?v=1.7"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: civicsafe-3d
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: MONGODB_URI
+        value: "" # Set your MongoDB Atlas connection string here or in the Render Dashboard
+        sync: false
