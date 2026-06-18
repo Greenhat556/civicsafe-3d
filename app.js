@@ -89,6 +89,7 @@ function checkAuthSession() {
     const routeContainer = document.getElementById('route-toggle-container');
     const sosContainer = document.getElementById('sos-trigger-container');
     const adminTabLink = document.getElementById('tab-link-admin');
+    const burgerMenu = document.getElementById('sidebar-toggle-container');
 
     if (activeUser) {
         // Logged in: Hide login and reveal citizen UI
@@ -99,6 +100,7 @@ function checkAuthSession() {
         hudCoords.classList.remove('hidden');
         routeContainer.classList.remove('hidden');
         if (sosContainer) sosContainer.classList.remove('hidden');
+        if (burgerMenu) burgerMenu.classList.remove('hidden');
         
         document.getElementById('logged-user-name').textContent = activeUser;
         
@@ -123,6 +125,7 @@ function checkAuthSession() {
         routeContainer.classList.add('hidden');
         if (sosContainer) sosContainer.classList.add('hidden');
         if (adminTabLink) adminTabLink.classList.add('hidden');
+        if (burgerMenu) burgerMenu.classList.add('hidden');
     }
 }
 
@@ -213,6 +216,9 @@ function initMap() {
                 isSettingLocation = false;
                 document.getElementById('btn-select-location').textContent = "GPS Capture";
                 playAlertBeep(600, 0.1);
+
+                const mainSidebar = document.getElementById('main-sidebar');
+                if (mainSidebar) mainSidebar.classList.add('sidebar-open');
 
                 // Auto reverse geocode and fill the address input
                 const addrInput = document.getElementById('report-address');
@@ -373,6 +379,9 @@ function updateFeedList() {
 
         card.addEventListener('click', () => {
             closeCesiumPopup();
+
+            const mainSidebar = document.getElementById('main-sidebar');
+            if (mainSidebar) mainSidebar.classList.remove('sidebar-open');
 
             // Fly camera to location
             viewer.camera.flyTo({
@@ -567,6 +576,25 @@ function setupUIEventListeners() {
         playAlertBeep(400, 0.1);
     });
 
+    // Mobile Sidebar Drawer Toggle
+    const sidebarToggleBtn = document.getElementById('btn-sidebar-toggle');
+    const sidebarCloseBtn = document.getElementById('btn-sidebar-close');
+    const mainSidebarPanel = document.getElementById('main-sidebar');
+
+    if (sidebarToggleBtn && mainSidebarPanel) {
+        sidebarToggleBtn.addEventListener('click', () => {
+            mainSidebarPanel.classList.toggle('sidebar-open');
+            playAlertBeep(440, 0.08);
+        });
+    }
+
+    if (sidebarCloseBtn && mainSidebarPanel) {
+        sidebarCloseBtn.addEventListener('click', () => {
+            mainSidebarPanel.classList.remove('sidebar-open');
+            playAlertBeep(400, 0.08);
+        });
+    }
+
     // User settings profile update
     const profileForm = document.getElementById('profile-form');
     if (profileForm) {
@@ -639,6 +667,9 @@ function setupUIEventListeners() {
         isSettingLocation = true;
         gpsBtn.textContent = "Select map point...";
         playAlertBeep(520, 0.1);
+        
+        const mainSidebar = document.getElementById('main-sidebar');
+        if (mainSidebar) mainSidebar.classList.remove('sidebar-open');
     });
 
     // Report Form Address Search Geocoder
@@ -710,6 +741,9 @@ function setupUIEventListeners() {
                         globalSearchInput.value = item.display_name;
                         suggestionsBox.classList.add('hidden');
                         
+                        const mainSidebar = document.getElementById('main-sidebar');
+                        if (mainSidebar) mainSidebar.classList.remove('sidebar-open');
+                        
                         const lat = parseFloat(item.lat);
                         const lng = parseFloat(item.lon);
                         
@@ -752,6 +786,9 @@ function setupUIEventListeners() {
         globalSearchBtn.textContent = "Locating...";
         playAlertBeep(520, 0.1);
         suggestionsBox.classList.add('hidden');
+
+        const mainSidebar = document.getElementById('main-sidebar');
+        if (mainSidebar) mainSidebar.classList.remove('sidebar-open');
 
         const coords = await geocodeAddress(address);
         globalSearchBtn.textContent = "Locate Position";
@@ -1075,6 +1112,9 @@ let sosAudioInterval = null;
 function triggerSOS() {
     const activeUser = sessionStorage.getItem('auth_user');
     if (!activeUser) return;
+
+    const mainSidebar = document.getElementById('main-sidebar');
+    if (mainSidebar) mainSidebar.classList.remove('sidebar-open');
 
     isDispatchingSOS = false;
     const overlay = document.getElementById('sos-countdown-overlay');

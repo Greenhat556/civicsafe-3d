@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <!-- CesiumJS CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.104.0/Widgets/widgets.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=1.7">
+    <link rel="stylesheet" href="style.css?v=1.8">
 </head>
 <body>
     <!-- Fullscreen 3D Cesium Map Background -->
@@ -53,6 +53,17 @@
         </div>
     </div>
 
+    <!-- Floating Sidebar Toggle Button (Only visible on Mobile) -->
+    <div id="sidebar-toggle-container" class="sidebar-toggle-container hidden">
+        <button id="btn-sidebar-toggle" class="btn-sidebar-toggle" title="Toggle Sidebar Menu" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+
     <!-- 2. FLOATING 3D GLOBAL LOCATION SEARCH BAR (Top Center) -->
     <div id="global-search-container" class="map-search-bar hidden">
         <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -77,6 +88,7 @@
                     <p>Citizen Incident Portal</p>
                 </div>
             </div>
+            <button id="btn-sidebar-close" class="btn-sidebar-close" type="button" title="Close Panel">&times;</button>
         </header>
 
         <!-- Sidebar Navigation Tabs -->
@@ -281,6 +293,6 @@
 
     <!-- CesiumJS Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.104.0/Cesium.js"></script>
-    <script src="app.js?v=1.7"></script>
+    <script src="app.js?v=1.8"></script>
 </body>
 </html>
