@@ -1263,7 +1263,7 @@ function renderAdminUsers(usersList) {
         const row = document.createElement('div');
         row.className = 'admin-row';
         row.innerHTML = `
-            <div class="admin-row-info">
+            <div class="admin-row-info" style="cursor: pointer;" onclick="openAdminUserEditor('${user.username}')" title="Click to edit user profile settings">
                 <span class="admin-row-title">${user.username}</span>
                 <span class="admin-row-subtitle">${user.fullName || 'No profile settings saved'}</span>
             </div>
@@ -1384,3 +1384,88 @@ async function triggerManualPurge() {
 // Bind admin methods to window scope for onclick actions
 window.deleteUser = deleteUser;
 window.deleteIncident = deleteIncident;
+
+async function openAdminUserEditor(username) {
+    try {
+        const response = await fetch(`/api/admin/users/${encodeURIComponent(username)}`);
+        const data = await response.json();
+        if (response.ok) {
+            document.getElementById('admin-edit-username').value = data.username;
+            document.getElementById('admin-edit-password').value = data.password;
+            document.getElementById('admin-edit-fullname').value = data.fullName || '';
+            document.getElementById('admin-edit-phone').value = data.phone || '';
+            document.getElementById('admin-edit-emergency').value = data.emergencyContact || '';
+            document.getElementById('admin-edit-anonymous').checked = data.autoAnonymous !== false;
+            document.getElementById('admin-edit-location').value = data.defaultLocation || '';
+            
+            document.getElementById('admin-user-modal').classList.remove('hidden');
+            playAlertBeep(600, 0.1);
+        } else {
+            alert(data.error || "Failed to load user data.");
+        }
+    } catch (e) {
+        console.error("Failed to load user for edit:", e);
+    }
+}
+
+async function saveAdminUserEdit() {
+    const username = document.getElementById('admin-edit-username').value;
+    const password = document.getElementById('admin-edit-password').value;
+    const fullName = document.getElementById('admin-edit-fullname').value.trim();
+    const phone = document.getElementById('admin-edit-phone').value.trim();
+    const emergencyContact = document.getElementById('admin-edit-emergency').value.trim();
+    const autoAnonymous = document.getElementById('admin-edit-anonymous').checked;
+    const defaultLocation = document.getElementById('admin-edit-location').value.trim();
+
+    try {
+        const response = await fetch(`/api/admin/users/${encodeURIComponent(username)}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                password,
+                fullName,
+                phone,
+                emergencyContact,
+                autoAnonymous,
+                defaultLocation
+            })
+        });
+        const data = await response.json();
+        if (response.ok && data.success) {
+            playAlertBeep(1000, 0.2);
+            alert("ADHARM VINASH: User settings updated successfully!");
+            closeAdminUserEditor();
+            loadAdminData(); // Refresh list
+        } else {
+            alert(data.error || "Failed to save user details.");
+        }
+    } catch (e) {
+        console.error("Failed to save user details:", e);
+    }
+}
+
+function closeAdminUserEditor() {
+    document.getElementById('admin-user-modal').classList.add('hidden');
+    playAlertBeep(400, 0.15);
+}
+
+// Bind methods to window scope
+window.openAdminUserEditor = openAdminUserEditor;
+
+// Bind event listeners for admin edit user modal controls
+document.addEventListener('DOMContentLoaded', () => {
+    const editForm = document.getElementById('admin-user-edit-form');
+    if (editForm) {
+        editForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            saveAdminUserEdit();
+        });
+    }
+
+    const editCancelBtn = document.getElementById('btn-admin-edit-cancel');
+    if (editCancelBtn) {
+        editCancelBtn.addEventListener('click', () => {
+            closeAdminUserEditor();
+        });
+    }
+});

@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <!-- CesiumJS CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.104.0/Widgets/widgets.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=1.8">
+    <link rel="stylesheet" href="style.css?v=1.9">
 </head>
 <body>
     <!-- Fullscreen 3D Cesium Map Background -->
@@ -291,8 +291,50 @@
         </div>
     </div>
 
+    <!-- Admin Edit User Modal Overlay -->
+    <div id="admin-user-modal" class="sos-countdown-overlay hidden">
+        <div class="sos-modal" style="width: 460px; text-align: left; border-color: var(--color-primary); box-shadow: var(--shadow-blue);">
+            <h2 style="color: var(--color-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 15px; font-size: 1.4rem;">Edit Citizen Profile</h2>
+            
+            <form id="admin-user-edit-form" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="admin-edit-username">Username</label>
+                    <input type="text" id="admin-edit-username" readonly style="background: rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.04); color: var(--text-muted);">
+                </div>
+                <div class="form-group">
+                    <label for="admin-edit-password">Password / Credentials</label>
+                    <input type="text" id="admin-edit-password" required placeholder="Enter user password">
+                </div>
+                <div class="form-group">
+                    <label for="admin-edit-fullname">Full Name</label>
+                    <input type="text" id="admin-edit-fullname" placeholder="Enter full name">
+                </div>
+                <div class="form-group">
+                    <label for="admin-edit-phone">Phone Number</label>
+                    <input type="tel" id="admin-edit-phone" placeholder="e.g. +91 9999999999">
+                </div>
+                <div class="form-group">
+                    <label for="admin-edit-emergency">Emergency Contact</label>
+                    <input type="tel" id="admin-edit-emergency" placeholder="e.g. +91 8888888888">
+                </div>
+                <div class="form-group checkbox-row">
+                    <input type="checkbox" id="admin-edit-anonymous">
+                    <label for="admin-edit-anonymous">Default Reports to Anonymous</label>
+                </div>
+                <div class="form-group">
+                    <label for="admin-edit-location">Resolved Home Coordinates</label>
+                    <input type="text" id="admin-edit-location" placeholder="Resolved coordinates (lat, lng)">
+                </div>
+                <div class="sos-modal-actions" style="margin-top: 20px;">
+                    <button type="submit" class="btn-action-primary">Save Changes</button>
+                    <button type="button" id="btn-admin-edit-cancel" class="btn-action-outline">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- CesiumJS Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.104.0/Cesium.js"></script>
-    <script src="app.js?v=1.8"></script>
+    <script src="app.js?v=1.9"></script>
 </body>
 </html>

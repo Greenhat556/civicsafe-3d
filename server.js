@@ -436,6 +436,92 @@ app.delete('/api/admin/users/:username', async (req, res) => {
     res.status(404).json({ error: "User not found" });
 });
 
+app.get('/api/admin/users/:username', async (req, res) => {
+    const { username } = req.params;
+
+    if (useMongoDB) {
+        try {
+            const user = await UserModel.findOne({ username });
+            if (user) {
+                return res.json({
+                    username: user.username,
+                    password: user.password,
+                    fullName: user.fullName || "",
+                    phone: user.phone || "",
+                    emergencyContact: user.emergencyContact || "",
+                    autoAnonymous: user.autoAnonymous !== false,
+                    defaultLocation: user.defaultLocation || ""
+                });
+            }
+        } catch (e) {
+            console.error("MongoDB get user admin error, falling back to local file:", e);
+        }
+    }
+
+    const users = getLocalUsers();
+    const userData = users[username];
+    if (userData) {
+        if (typeof userData === 'object') {
+            return res.json({
+                username,
+                password: userData.password,
+                fullName: userData.fullName || "",
+                phone: userData.phone || "",
+                emergencyContact: userData.emergencyContact || "",
+                autoAnonymous: userData.autoAnonymous !== false,
+                defaultLocation: userData.defaultLocation || ""
+            });
+        } else {
+            return res.json({
+                username,
+                password: userData,
+                fullName: "",
+                phone: "",
+                emergencyContact: "",
+                autoAnonymous: true,
+                defaultLocation: ""
+            });
+        }
+    }
+    res.status(404).json({ error: "User not found" });
+});
+
+app.post('/api/admin/users/:username', async (req, res) => {
+    const { username } = req.params;
+    const { password, fullName, phone, emergencyContact, autoAnonymous, defaultLocation } = req.body;
+
+    if (useMongoDB) {
+        try {
+            const user = await UserModel.findOneAndUpdate(
+                { username },
+                { password, fullName, phone, emergencyContact, autoAnonymous, defaultLocation },
+                { new: true }
+            );
+            if (user) {
+                return res.json({ success: true });
+            }
+        } catch (e) {
+            console.error("MongoDB save user admin error, falling back to local file:", e);
+        }
+    }
+
+    const users = getLocalUsers();
+    const userData = users[username];
+    if (userData) {
+        users[username] = {
+            password,
+            fullName,
+            phone,
+            emergencyContact,
+            autoAnonymous,
+            defaultLocation
+        };
+        saveLocalUsers(users);
+        return res.json({ success: true });
+    }
+    res.status(404).json({ error: "User not found" });
+});
+
 // DELETE an incident report
 app.delete('/api/admin/incidents/:id', async (req, res) => {
     const { id } = req.params;

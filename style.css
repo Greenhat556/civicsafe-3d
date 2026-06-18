@@ -2167,3 +2167,9 @@ body.light-theme .login-header h2 {
         font-size: 1.3rem;
     }
 }
+
+/* Disable alarm flashing for admin user management modal */
+#admin-user-modal {
+    animation: none;
+    background: rgba(10, 15, 30, 0.82);
+}
