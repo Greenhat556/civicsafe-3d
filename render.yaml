@@ -7,5 +7,4 @@ services:
     startCommand: npm start
     envVars:
       - key: MONGODB_URI
-        value: "" # Set your MongoDB Atlas connection string here or in the Render Dashboard
         sync: false
