@@ -2516,6 +2516,20 @@ body.light-theme .login-header h2 {
         right: 20px;
     }
 
+    #btn-terminal-toggle, .btn-terminal-toggle {
+        top: 80px;
+        right: 76px;
+    }
+
+    .floating-admin-terminal {
+        top: 155px;
+        right: 20px;
+        width: calc(100% - 40px);
+        max-width: 380px;
+        height: 350px;
+    }
+
+
     /* Scale down Login Card */
     .login-card {
         padding: 24px 20px;
