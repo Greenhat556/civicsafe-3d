@@ -20,6 +20,127 @@ let hasLocatedOnce = false;
 let isNavigating = false;
 let navigationRouteEntities = [];
 
+// --- LIVE TOPOGRAPHIC CANVAS ANIMATION SYSTEM ---
+let isLoginCanvasRunning = false;
+let loginCanvasAnimationFrameId = null;
+
+// Fast 2D Value Noise
+const NOISE_LATTICE_SIZE = 32;
+const noiseLattice = new Float32Array(NOISE_LATTICE_SIZE * NOISE_LATTICE_SIZE);
+for (let i = 0; i < noiseLattice.length; i++) noiseLattice[i] = Math.random();
+
+function loginNoise2D(x, y) {
+    const xi = Math.floor(x) & (NOISE_LATTICE_SIZE - 1);
+    const yi = Math.floor(y) & (NOISE_LATTICE_SIZE - 1);
+    const xf = x - Math.floor(x);
+    const yf = y - Math.floor(y);
+    
+    // Smoothstep
+    const u = xf * xf * (3 - 2 * xf);
+    const v = yf * yf * (3 - 2 * yf);
+    
+    const index = yi * NOISE_LATTICE_SIZE + xi;
+    const n00 = noiseLattice[index];
+    const n10 = noiseLattice[yi * NOISE_LATTICE_SIZE + ((xi + 1) & (NOISE_LATTICE_SIZE - 1))];
+    const n01 = noiseLattice[((yi + 1) & (NOISE_LATTICE_SIZE - 1)) * NOISE_LATTICE_SIZE + xi];
+    const n11 = noiseLattice[((yi + 1) & (NOISE_LATTICE_SIZE - 1)) * NOISE_LATTICE_SIZE + ((xi + 1) & (NOISE_LATTICE_SIZE - 1))];
+    
+    return n00 * (1 - u) * (1 - v) +
+           n10 * u * (1 - v) +
+           n01 * (1 - u) * v +
+           n11 * u * v;
+}
+
+const loginPeaks = [
+    { x: 0, y: 0, rx: 0.12, ry: 0.22, phaseX: 0, phaseY: 2.1, baseRadius: 200, speed: 0.0003 },
+    { x: 0, y: 0, rx: 0.24, ry: 0.14, phaseX: 1.8, phaseY: 0.7, baseRadius: 260, speed: 0.0004 },
+    { x: 0, y: 0, rx: 0.18, ry: 0.28, phaseX: 3.2, phaseY: 1.1, baseRadius: 220, speed: 0.0002 },
+    { x: 0, y: 0, rx: 0.28, ry: 0.18, phaseX: 0.5, phaseY: 3.5, baseRadius: 240, speed: 0.0003 }
+];
+
+function drawLoginTopography() {
+    if (!isLoginCanvasRunning) return;
+    
+    const canvas = document.getElementById('login-canvas');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+    
+    ctx.clearRect(0, 0, width, height);
+    
+    const time = Date.now();
+    
+    // Update drifting peak coordinates
+    loginPeaks.forEach(p => {
+        p.x = width * 0.5 + Math.sin(time * p.speed + p.phaseX) * (width * p.rx);
+        p.y = height * 0.5 + Math.cos(time * p.speed + p.phaseY) * (height * p.ry);
+    });
+    
+    // Draw concentric contour loops around each drifting center
+    loginPeaks.forEach((peak, peakIdx) => {
+        // Subtle shift in line color to create a beautiful cyan/white neon map
+        const color = peakIdx % 2 === 0 ? 'rgba(6, 182, 212, 0.11)' : 'rgba(255, 255, 255, 0.08)';
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1.0;
+        
+        for (let rBase = 30; rBase < peak.baseRadius; rBase += 15) {
+            ctx.beginPath();
+            
+            for (let theta = 0; theta <= Math.PI * 2 + 0.1; theta += 0.06) {
+                const cx = peak.x;
+                const cy = peak.y;
+                const bx = cx + rBase * Math.cos(theta);
+                const by = cy + rBase * Math.sin(theta);
+                
+                const nx = bx * 0.0035;
+                const ny = by * 0.0035;
+                const nt = time * 0.00015;
+                const n = loginNoise2D(nx + nt, ny - nt);
+                
+                // organic topographic warps
+                const deform = n * 45;
+                const r = rBase + deform;
+                
+                const px = cx + r * Math.cos(theta);
+                const py = cy + r * Math.sin(theta);
+                
+                if (theta === 0) ctx.moveTo(px, py);
+                else ctx.lineTo(px, py);
+            }
+            ctx.stroke();
+        }
+    });
+    
+    loginCanvasAnimationFrameId = requestAnimationFrame(drawLoginTopography);
+}
+
+function startLoginCanvas() {
+    const canvas = document.getElementById('login-canvas');
+    if (!canvas) return;
+    
+    isLoginCanvasRunning = true;
+    
+    // Setup dimensions
+    const resize = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', resize);
+    resize();
+    
+    drawLoginTopography();
+}
+
+function stopLoginCanvas() {
+    isLoginCanvasRunning = false;
+    if (loginCanvasAnimationFrameId) {
+        cancelAnimationFrame(loginCanvasAnimationFrameId);
+        loginCanvasAnimationFrameId = null;
+    }
+}
+
 // For 3D Popup overlay tracking
 let selectedEntity = null;
 const popupElement = document.getElementById('cesium-popup-container');
@@ -89,7 +210,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setupUIEventListeners();
 });
 
-function checkAuthSession() {
+function checkAuthSession(animate = false) {
     const activeUser = sessionStorage.getItem('auth_user');
     const authRole = sessionStorage.getItem('auth_role') || 'citizen';
     const loginScreen = document.getElementById('login-screen');
@@ -107,14 +228,37 @@ function checkAuthSession() {
 
     if (activeUser) {
         // Logged in: Hide login and reveal citizen UI
-        loginScreen.classList.add('hidden');
-        mainSidebar.classList.remove('hidden');
-        searchBar.classList.remove('hidden');
-        themeBtn.classList.remove('hidden');
-        hudCoords.classList.remove('hidden');
-        routeContainer.classList.remove('hidden');
-        if (sosContainer) sosContainer.classList.remove('hidden');
-        if (burgerMenu) burgerMenu.classList.remove('hidden');
+        if (animate) {
+            // Smooth slide up reveal transition
+            loginScreen.classList.add('slide-up');
+            
+            // Instantly reveal main UI behind it so it's loaded as the screen slides up
+            mainSidebar.classList.remove('hidden');
+            searchBar.classList.remove('hidden');
+            themeBtn.classList.remove('hidden');
+            hudCoords.classList.remove('hidden');
+            routeContainer.classList.remove('hidden');
+            if (sosContainer) sosContainer.classList.remove('hidden');
+            if (burgerMenu) burgerMenu.classList.remove('hidden');
+            
+            setTimeout(() => {
+                loginScreen.classList.add('hidden');
+                loginScreen.classList.remove('slide-up');
+                stopLoginCanvas();
+            }, 1200);
+        } else {
+            loginScreen.classList.add('hidden');
+            loginScreen.classList.remove('slide-up');
+            stopLoginCanvas();
+            
+            mainSidebar.classList.remove('hidden');
+            searchBar.classList.remove('hidden');
+            themeBtn.classList.remove('hidden');
+            hudCoords.classList.remove('hidden');
+            routeContainer.classList.remove('hidden');
+            if (sosContainer) sosContainer.classList.remove('hidden');
+            if (burgerMenu) burgerMenu.classList.remove('hidden');
+        }
         
         document.getElementById('logged-user-name').textContent = activeUser;
         
@@ -184,6 +328,9 @@ function checkAuthSession() {
     } else {
         // Not Logged in: Show login and keep UI hidden
         loginScreen.classList.remove('hidden');
+        loginScreen.classList.remove('slide-up');
+        startLoginCanvas();
+        
         mainSidebar.classList.add('hidden');
         searchBar.classList.add('hidden');
         themeBtn.classList.add('hidden');
@@ -996,7 +1143,7 @@ function setupUIEventListeners() {
                 // Login success: save session and reveal maps
                 sessionStorage.setItem('auth_user', data.username);
                 sessionStorage.setItem('auth_role', data.role || 'citizen');
-                checkAuthSession();
+                checkAuthSession(true);
                 playAlertBeep(1000, 0.15);
             }
         } catch (err) {

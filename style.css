@@ -1770,12 +1770,27 @@ body.light-theme .hud-overlay {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: #ffffff url('login_background_cyber.png') no-repeat center center / cover;
+    background-color: #050811;
     z-index: 5000;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
+}
+
+.login-screen.slide-up {
+    transform: translateY(-100%);
+}
+
+#login-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .login-card {
@@ -1820,7 +1835,7 @@ body.light-theme .hud-overlay {
 .branding-logo-tactical {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 4px 10px rgba(6, 182, 212, 0.15));
+    filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.25));
     object-fit: contain;
 }
 
@@ -1843,12 +1858,12 @@ body.light-theme .hud-overlay {
     letter-spacing: -0.5px;
     margin-top: 15px;
     text-transform: none;
-    color: #0f172a;
-    text-shadow: none;
+    color: #ffffff;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .login-header h2 span:first-child {
-    color: #0f172a;
+    color: #ffffff;
 }
 
 .login-header h2 span:last-child {
@@ -1857,12 +1872,12 @@ body.light-theme .hud-overlay {
 
 .login-header p {
     font-size: 0.95rem;
-    color: #4b5563;
+    color: #94a3b8;
     margin-top: 8px;
     font-family: var(--font-sans);
     text-transform: none;
     letter-spacing: 0;
-    text-shadow: none;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .login-card .form-group {
@@ -1873,8 +1888,8 @@ body.light-theme .hud-overlay {
 .login-card .form-group label {
     font-family: var(--font-sans);
     font-size: 0.85rem;
-    color: #374151;
-    text-shadow: none;
+    color: #cbd5e1;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     text-align: left;
     margin-bottom: 8px;
     display: block;
@@ -1883,44 +1898,45 @@ body.light-theme .hud-overlay {
 
 .login-card .form-group input {
     width: 100% !important;
-    background: #ffffff !important;
-    border: 1px solid #d1d5db !important;
+    background: rgba(15, 23, 42, 0.45) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
     border-radius: 8px !important;
     padding: 12px 16px 12px 42px !important;
     font-family: var(--font-sans);
     font-size: 0.95rem;
-    color: #1f2937 !important;
-    transition: all 0.2s ease;
-    backdrop-filter: none !important;
+    color: #ffffff !important;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(10px) !important;
 }
 
 .login-card .form-group input::placeholder {
-    color: #9ca3af !important;
+    color: #64748b !important;
 }
 
 .login-card .form-group input:focus {
-    border-color: #3b82f6 !important;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
-    background: #ffffff !important;
+    border-color: #06b6d4 !important;
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.25) !important;
+    background: rgba(15, 23, 42, 0.6) !important;
     outline: none;
 }
 
 .login-card .form-select-small {
     width: 100% !important;
     height: 44px !important;
-    background: #ffffff !important;
-    border: 1px solid #d1d5db !important;
+    background: rgba(15, 23, 42, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
     border-radius: 8px !important;
     padding: 10px 14px !important;
-    color: #1f2937 !important;
+    color: #ffffff !important;
     font-family: var(--font-sans);
     font-size: 0.88rem !important;
     transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
 }
 
 .login-card .form-select-small:focus {
-    border-color: #3b82f6 !important;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
+    border-color: #06b6d4 !important;
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.25) !important;
     outline: none;
 }
 
@@ -1936,51 +1952,51 @@ body.light-theme .hud-overlay {
     transform: translateY(-50%);
     width: 18px;
     height: 18px;
-    color: #9ca3af;
+    color: #64748b;
     pointer-events: none;
     transition: color 0.2s ease;
 }
 
 .login-card .form-group input:focus + .input-icon {
-    color: #3b82f6;
+    color: #06b6d4;
 }
 
 .btn-login-custom {
     width: 100% !important;
-    background: #111827 !important;
-    border: 1px solid #111827 !important;
-    color: #ffffff !important;
+    background: #06b6d4 !important;
+    border: 1px solid #06b6d4 !important;
+    color: #0a0e1a !important;
     font-family: var(--font-heading) !important;
     font-size: 0.95rem !important;
-    font-weight: 700 !important;
+    font-weight: 800 !important;
     letter-spacing: 0.5px !important;
     border-radius: 8px !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.2) !important;
     padding: 12px 20px !important;
     cursor: pointer;
-    transition: all 0.2s ease !important;
+    transition: all 0.25s ease !important;
 }
 
 .btn-login-custom:hover {
-    background: #1f2937 !important;
-    border-color: #1f2937 !important;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
-    transform: translateY(-1px) !important;
+    background: #22d3ee !important;
+    border-color: #22d3ee !important;
+    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.35) !important;
+    transform: translateY(-1.5px) !important;
 }
 
 .btn-login-custom:active {
-    transform: translateY(1px) !important;
+    transform: translateY(0.5px) !important;
 }
 
 .auth-toggle-row {
     margin-top: 18px;
     font-size: 0.88rem;
-    color: #4b5563;
+    color: #94a3b8;
     font-family: var(--font-sans);
 }
 
 .auth-toggle-row a {
-    color: #2563eb !important;
+    color: #00e5ff !important;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s ease;
@@ -1989,13 +2005,13 @@ body.light-theme .hud-overlay {
 }
 
 .auth-toggle-row a:hover {
-    color: #1d4ed8 !important;
+    color: #22d3ee !important;
     text-decoration: underline;
 }
 
 #link-forgot-password {
     font-size: 0.88rem !important;
-    color: #2563eb !important;
+    color: #00e5ff !important;
     text-decoration: none !important;
     font-weight: 600 !important;
     text-shadow: none !important;
@@ -2003,30 +2019,30 @@ body.light-theme .hud-overlay {
 }
 
 #link-forgot-password:hover {
-    color: #1d4ed8 !important;
+    color: #22d3ee !important;
     text-decoration: underline !important;
 }
 
 .contact-admin-box {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    background: rgba(15, 23, 42, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 8px;
     padding: 12px;
     margin-top: 20px;
 }
 
 .contact-admin-box p {
-    color: #475569 !important;
+    color: #94a3b8 !important;
     font-size: 0.78rem !important;
     text-shadow: none !important;
 }
 
 .contact-admin-box strong {
-    color: #0f172a !important;
+    color: #00e5ff !important;
 }
 
 #forgot-password-panel h3 {
-    color: #0f172a !important;
+    color: #ffffff !important;
     font-family: var(--font-heading);
     font-weight: 700;
     margin-bottom: 16px;
@@ -2039,24 +2055,6 @@ body.light-theme .hud-overlay {
     text-align: left;
     font-family: var(--font-code);
     font-weight: 600;
-}
-
-.auth-toggle-row {
-    margin-top: 20px;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.8);
-    font-family: 'Lora', serif;
-}
-
-.auth-toggle-row a {
-    color: #ffffff;
-    text-decoration: underline;
-    font-weight: 700;
-    transition: all 0.2s ease;
-}
-
-.auth-toggle-row a:hover {
-    color: rgba(255, 255, 255, 0.8);
 }
 
 
