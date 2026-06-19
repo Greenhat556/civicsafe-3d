@@ -1852,22 +1852,28 @@ body.light-theme .hud-overlay {
 }
 
 .login-header h2 {
-    font-size: 2.2rem;
-    font-family: var(--font-heading);
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    margin-top: 15px;
-    text-transform: none;
-    color: #ffffff;
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    font-size: 2.6rem;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin-top: 18px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 15px rgba(6, 182, 212, 0.35));
 }
 
 .login-header h2 span:first-child {
-    color: #ffffff;
+    background: linear-gradient(180deg, #ffffff 30%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .login-header h2 span:last-child {
-    color: var(--color-primary);
+    background: linear-gradient(180deg, #00f2fe 0%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .login-header p {
@@ -2593,7 +2599,9 @@ body.light-theme .hud-overlay {
     }
 
     .login-header h2 {
-        font-size: 1.5rem;
+        font-size: 1.7rem;
+        letter-spacing: 1.5px;
+        gap: 8px;
     }
 
     /* Adjust SOS countdown overlay modal */
