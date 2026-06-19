@@ -371,7 +371,7 @@ function checkAuthSession(animate = false) {
             }
         } else if (authRole === 'vigilante') {
             document.body.classList.add('vigilante-mode');
-            if (subtitleEl) subtitleEl.innerHTML = '<span style="color: #10b981; font-weight: bold; text-shadow: 0 0 5px rgba(16,185,129,0.3);">🕵️ Vigilante Mode Active</span>';
+            if (subtitleEl) subtitleEl.innerHTML = '<span style="color: #06b6d4; font-weight: bold; text-shadow: 0 0 5px rgba(6,182,212,0.3);">🕵️ Vigilante Mode Active</span>';
             if (adminTabLink) adminTabLink.classList.add('hidden');
             if (terminalToggle) {
                 terminalToggle.classList.add('hidden');
@@ -1786,7 +1786,7 @@ function updateUserLocationOnMap(lat, lng, accuracy) {
     if (!viewer) return;
     
     const activeRole = sessionStorage.getItem('auth_role');
-    const colorHex = (activeRole === 'vigilante') ? '#10b981' : '#38bdf8'; // green for vigilante, blue/cyan for citizen
+    const colorHex = '#38bdf8'; // blue/cyan for both citizen and vigilante
     const markerColor = Cesium.Color.fromCssColorString(colorHex);
     
     const position = Cesium.Cartesian3.fromDegrees(lng, lat, 0.0);
@@ -1867,8 +1867,7 @@ function showGPSToast(title, description) {
     const toast = document.createElement('div');
     toast.className = 'notification-toast';
     
-    const activeRole = sessionStorage.getItem('auth_role');
-    const color = (activeRole === 'vigilante') ? '#10b981' : '#38bdf8';
+    const color = '#38bdf8';
     
     toast.style.borderColor = `${color}44`;
     
@@ -1988,9 +1987,7 @@ function initiateNavigation(destLat, destLng, destId) {
     // 3. Generate route positions
     const routePositions = generateMockNavigationRoute(startLat, startLng, destLat, destLng);
     
-    // 4. Draw route polyline (neon green for vigilante theme, cyan/blue for citizen)
-    const activeRole = sessionStorage.getItem('auth_role');
-    const colorHex = (activeRole === 'vigilante') ? '#10b981' : '#38bdf8';
+    const colorHex = '#38bdf8';
     
     const routeLine = viewer.entities.add({
         id: `nav-route-${destId}`,
