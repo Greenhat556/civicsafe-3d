@@ -77,12 +77,54 @@ function saveLocalResetRequests(list) {
     }
 }
 
+// Helper to automatically URL encode MongoDB passwords with special characters (like '@')
+function sanitizeMongoUri(uri) {
+    if (!uri) return uri;
+    try {
+        const protoEndIndex = uri.indexOf("://");
+        if (protoEndIndex === -1) return uri;
+        
+        const protocol = uri.substring(0, protoEndIndex + 3);
+        const rest = uri.substring(protoEndIndex + 3);
+        
+        const pathStart = rest.indexOf('/');
+        const queryStart = rest.indexOf('?');
+        let endIndex = rest.length;
+        if (pathStart !== -1) endIndex = pathStart;
+        else if (queryStart !== -1) endIndex = queryStart;
+        
+        const hostAndUserinfo = rest.substring(0, endIndex);
+        const remaining = rest.substring(endIndex);
+        
+        const lastAt = hostAndUserinfo.lastIndexOf('@');
+        if (lastAt === -1) return uri;
+        
+        const credentials = hostAndUserinfo.substring(0, lastAt);
+        const host = hostAndUserinfo.substring(lastAt + 1);
+        
+        const colonIndex = credentials.indexOf(':');
+        if (colonIndex === -1) return uri;
+        
+        const username = credentials.substring(0, colonIndex);
+        const password = credentials.substring(colonIndex + 1);
+        
+        const decodedPassword = decodeURIComponent(password);
+        const encodedPassword = encodeURIComponent(decodedPassword);
+        
+        return `${protocol}${username}:${encodedPassword}@${host}${remaining}`;
+    } catch (e) {
+        console.error("Failed to sanitize MongoDB URI:", e);
+        return uri;
+    }
+}
+
 let useMongoDB = false;
 
 // Connect to MongoDB if MONGODB_URI is provided
 if (MONGODB_URI) {
+    const sanitizedUri = sanitizeMongoUri(MONGODB_URI);
     console.log("Connecting to MongoDB online database...");
-    mongoose.connect(MONGODB_URI, {
+    mongoose.connect(sanitizedUri, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
