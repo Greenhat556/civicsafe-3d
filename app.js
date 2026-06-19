@@ -24,39 +24,85 @@ let navigationRouteEntities = [];
 let isLoginCanvasRunning = false;
 let loginCanvasAnimationFrameId = null;
 
-// Fast 2D Value Noise
-const NOISE_LATTICE_SIZE = 32;
-const noiseLattice = new Float32Array(NOISE_LATTICE_SIZE * NOISE_LATTICE_SIZE);
-for (let i = 0; i < noiseLattice.length; i++) noiseLattice[i] = Math.random();
-
-function loginNoise2D(x, y) {
-    const xi = Math.floor(x) & (NOISE_LATTICE_SIZE - 1);
-    const yi = Math.floor(y) & (NOISE_LATTICE_SIZE - 1);
-    const xf = x - Math.floor(x);
-    const yf = y - Math.floor(y);
-    
-    // Smoothstep
-    const u = xf * xf * (3 - 2 * xf);
-    const v = yf * yf * (3 - 2 * yf);
-    
-    const index = yi * NOISE_LATTICE_SIZE + xi;
-    const n00 = noiseLattice[index];
-    const n10 = noiseLattice[yi * NOISE_LATTICE_SIZE + ((xi + 1) & (NOISE_LATTICE_SIZE - 1))];
-    const n01 = noiseLattice[((yi + 1) & (NOISE_LATTICE_SIZE - 1)) * NOISE_LATTICE_SIZE + xi];
-    const n11 = noiseLattice[((yi + 1) & (NOISE_LATTICE_SIZE - 1)) * NOISE_LATTICE_SIZE + ((xi + 1) & (NOISE_LATTICE_SIZE - 1))];
-    
-    return n00 * (1 - u) * (1 - v) +
-           n10 * u * (1 - v) +
-           n01 * (1 - u) * v +
-           n11 * u * v;
+// Fast 2D Perlin Noise Generator
+const PERM = new Uint8Array([
+    151,160,137,91,90,15,131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,
+    23,190,6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,35,11,32,57,177,33,88,237,149,56,87,
+    174,20,125,136,171,168,68,175,74,165,71,134,139,48,27,166,77,146,158,231,83,111,229,122,60,211,
+    133,230,220,105,92,41,55,46,245,40,244,102,143,54,65,25,63,161, 1,216,80,73,209,76,132,187,208,
+    89,18,169,200,196,135,130,116,188,159,86,164,100,109,198,173,186, 3,64,52,217,226,250,124,123,
+    5,202,38,147,118,126,255,82,85,212,207,206,59,227,47,16,58,17,182,189,28,42,223,183,170,213,119,
+    248,152, 2,44,154,163, 70,221,153,101,155,167, 43,172,9,129,22,39,253, 19,98,108,110,79,113,224,
+    232,178,185, 112,104,218,246,97,228,251,34,242,193,238,210,144,12,191,179,162,241, 81,51,145,235,
+    249,14,239,107,49,192,214, 31,181,199,106,157,184, 84,204,176,115,121,50,45,127, 4,150,254,138,
+    236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180
+]);
+const perm = new Uint8Array(512);
+for (let i = 0; i < 512; i++) {
+    perm[i] = PERM[i & 255];
 }
 
-const loginPeaks = [
-    { x: 0, y: 0, rx: 0.12, ry: 0.22, phaseX: 0, phaseY: 2.1, baseRadius: 200, speed: 0.0003 },
-    { x: 0, y: 0, rx: 0.24, ry: 0.14, phaseX: 1.8, phaseY: 0.7, baseRadius: 260, speed: 0.0004 },
-    { x: 0, y: 0, rx: 0.18, ry: 0.28, phaseX: 3.2, phaseY: 1.1, baseRadius: 220, speed: 0.0002 },
-    { x: 0, y: 0, rx: 0.28, ry: 0.18, phaseX: 0.5, phaseY: 3.5, baseRadius: 240, speed: 0.0003 }
+const perlinGrads = [
+    {x:1, y:1}, {x:-1, y:1}, {x:1, y:-1}, {x:-1, y:-1},
+    {x:1, y:0}, {x:-1, y:0}, {x:0, y:1}, {x:0, y:-1}
 ];
+
+function perlinNoise2D(x, y) {
+    let X = Math.floor(x) & 255;
+    let Y = Math.floor(y) & 255;
+    
+    let xf = x - Math.floor(x);
+    let yf = y - Math.floor(y);
+    
+    // Fade curves
+    let u = xf * xf * xf * (xf * (xf * 6 - 15) + 10);
+    let v = yf * yf * yf * (yf * (yf * 6 - 15) + 10);
+    
+    let gi00 = perm[X + perm[Y]] % perlinGrads.length;
+    let gi10 = perm[X + 1 + perm[Y]] % perlinGrads.length;
+    let gi01 = perm[X + perm[Y + 1]] % perlinGrads.length;
+    let gi11 = perm[X + 1 + perm[Y + 1]] % perlinGrads.length;
+    
+    let n00 = perlinGrads[gi00].x * xf + perlinGrads[gi00].y * yf;
+    let n10 = perlinGrads[gi10].x * (xf - 1) + perlinGrads[gi10].y * yf;
+    let n01 = perlinGrads[gi01].x * xf + perlinGrads[gi01].y * (yf - 1);
+    let n11 = perlinGrads[gi11].x * (xf - 1) + perlinGrads[gi11].y * (yf - 1);
+    
+    let x0 = n00 + (n10 - n00) * u;
+    let x1 = n01 + (n11 - n01) * u;
+    
+    return x0 + (x1 - x0) * v;
+}
+
+// Grid dimensions for sampling noise
+const GRID_COLS = 55;
+const GRID_ROWS = 35;
+const gridValues = Array.from({ length: GRID_ROWS }, () => new Float32Array(GRID_COLS));
+
+// Marching Squares Case Lookup Table
+// Connects edges for each 4-bit corner code: TL TR BR BL
+// midpoints: top, right, bottom, left
+const MARCHING_CASES = {
+    0: [],
+    1: [['left', 'bottom']],
+    2: [['bottom', 'right']],
+    3: [['left', 'right']],
+    4: [['top', 'right']],
+    5: [['left', 'top'], ['bottom', 'right']],
+    6: [['top', 'bottom']],
+    7: [['left', 'top']],
+    8: [['left', 'top']],
+    9: [['top', 'bottom']],
+    10: [['left', 'bottom'], ['top', 'right']],
+    11: [['top', 'right']],
+    12: [['left', 'right']],
+    13: [['bottom', 'right']],
+    14: [['left', 'bottom']],
+    15: []
+};
+
+// Contour levels between 0.15 and 0.85
+const CONTOUR_LEVELS = [0.16, 0.22, 0.28, 0.34, 0.40, 0.46, 0.52, 0.58, 0.64, 0.70, 0.76, 0.82];
 
 function drawLoginTopography() {
     if (!isLoginCanvasRunning) return;
@@ -70,48 +116,83 @@ function drawLoginTopography() {
     
     ctx.clearRect(0, 0, width, height);
     
-    const time = Date.now();
+    // Fill background solid midnight black
+    ctx.fillStyle = '#050811';
+    ctx.fillRect(0, 0, width, height);
     
-    // Update drifting peak coordinates
-    loginPeaks.forEach(p => {
-        p.x = width * 0.5 + Math.sin(time * p.speed + p.phaseX) * (width * p.rx);
-        p.y = height * 0.5 + Math.cos(time * p.speed + p.phaseY) * (height * p.ry);
-    });
+    const time = Date.now() * 0.00015;
     
-    // Draw concentric contour loops around each drifting center
-    loginPeaks.forEach((peak, peakIdx) => {
-        // Subtle shift in line color to create a beautiful cyan/white neon map
-        const color = peakIdx % 2 === 0 ? 'rgba(6, 182, 212, 0.11)' : 'rgba(255, 255, 255, 0.08)';
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 1.0;
-        
-        for (let rBase = 30; rBase < peak.baseRadius; rBase += 15) {
-            ctx.beginPath();
+    // 1. Populate Perlin noise field on grid
+    for (let r = 0; r < GRID_ROWS; r++) {
+        for (let c = 0; c < GRID_COLS; c++) {
+            // Frequency scales for organic contour warping
+            const nx = c * 0.07;
+            const ny = r * 0.07;
+            const nt = time;
             
-            for (let theta = 0; theta <= Math.PI * 2 + 0.1; theta += 0.06) {
-                const cx = peak.x;
-                const cy = peak.y;
-                const bx = cx + rBase * Math.cos(theta);
-                const by = cy + rBase * Math.sin(theta);
-                
-                const nx = bx * 0.0035;
-                const ny = by * 0.0035;
-                const nt = time * 0.00015;
-                const n = loginNoise2D(nx + nt, ny - nt);
-                
-                // organic topographic warps
-                const deform = n * 45;
-                const r = rBase + deform;
-                
-                const px = cx + r * Math.cos(theta);
-                const py = cy + r * Math.sin(theta);
-                
-                if (theta === 0) ctx.moveTo(px, py);
-                else ctx.lineTo(px, py);
-            }
-            ctx.stroke();
+            // Add octaves/harmonics for a richer, more detailed topographic loop look
+            const val1 = perlinNoise2D(nx, ny - nt);
+            const val2 = perlinNoise2D(nx * 2 + nt, ny * 2) * 0.4;
+            
+            // Scale total noise to 0..1 range
+            gridValues[r][c] = (val1 + val2) * 0.38 + 0.5;
         }
-    });
+    }
+    
+    // 2. Marching Squares grid scan
+    const stepX = width / (GRID_COLS - 1);
+    const stepY = height / (GRID_ROWS - 1);
+    
+    ctx.beginPath();
+    // Beautiful subtle semi-transparent white lines
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.085)';
+    ctx.lineWidth = 1.2;
+    
+    for (let r = 0; r < GRID_ROWS - 1; r++) {
+        for (let c = 0; c < GRID_COLS - 1; c++) {
+            const valTL = gridValues[r][c];
+            const valTR = gridValues[r][c + 1];
+            const valBR = gridValues[r + 1][c + 1];
+            const valBL = gridValues[r + 1][c];
+            
+            const x = c * stepX;
+            const y = r * stepY;
+            
+            CONTOUR_LEVELS.forEach(iso => {
+                let code = 0;
+                if (valTL >= iso) code |= 8;
+                if (valTR >= iso) code |= 4;
+                if (valBR >= iso) code |= 2;
+                if (valBL >= iso) code |= 1;
+                
+                if (code === 0 || code === 15) return;
+                
+                // Linear interpolation (lerp) for smooth crossings
+                const t_top = (iso - valTL) / (valTR - valTL || 1e-5);
+                const p_top = { x: x + stepX * Math.min(Math.max(t_top, 0), 1), y: y };
+                
+                const t_right = (iso - valTR) / (valBR - valTR || 1e-5);
+                const p_right = { x: x + stepX, y: y + stepY * Math.min(Math.max(t_right, 0), 1) };
+                
+                const t_bottom = (iso - valBL) / (valBR - valBL || 1e-5);
+                const p_bottom = { x: x + stepX * Math.min(Math.max(t_bottom, 0), 1), y: y + stepY };
+                
+                const t_left = (iso - valTL) / (valBL - valTL || 1e-5);
+                const p_left = { x: x, y: y + stepY * Math.min(Math.max(t_left, 0), 1) };
+                
+                const points = { top: p_top, right: p_right, bottom: p_bottom, left: p_left };
+                
+                const edges = MARCHING_CASES[code];
+                edges.forEach(edge => {
+                    const p1 = points[edge[0]];
+                    const p2 = points[edge[1]];
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                });
+            });
+        }
+    }
+    ctx.stroke();
     
     loginCanvasAnimationFrameId = requestAnimationFrame(drawLoginTopography);
 }
