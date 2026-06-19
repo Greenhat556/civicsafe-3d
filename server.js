@@ -834,12 +834,14 @@ app.post('/api/incidents/:id/vote', async (req, res) => {
 // ADMINISTRATOR API ENDPOINTS
 // ----------------------------------------------------
 
-// POST create a new user/citizen from admin
+// POST create a new user/citizen/vigilante from admin
 app.post('/api/admin/users/create', async (req, res) => {
-    const { username, password, fullName, phone, emergencyContact, autoAnonymous, defaultLocation } = req.body;
+    const { username, password, fullName, phone, emergencyContact, autoAnonymous, defaultLocation, role } = req.body;
     if (!username || !password) {
         return res.status(400).json({ error: "Username and password required" });
     }
+
+    const assignedRole = (role === 'vigilante' || role === 'admin') ? role : 'citizen';
 
     if (useMongoDB) {
         try {
@@ -855,7 +857,7 @@ app.post('/api/admin/users/create', async (req, res) => {
                 emergencyContact: emergencyContact || "",
                 autoAnonymous: autoAnonymous !== false,
                 defaultLocation: defaultLocation || "",
-                role: 'citizen',
+                role: assignedRole,
                 approved: true // Admins create approved users directly
             });
             await newUser.save();
@@ -878,7 +880,7 @@ app.post('/api/admin/users/create', async (req, res) => {
             emergencyContact: emergencyContact || "",
             autoAnonymous: autoAnonymous !== false,
             defaultLocation: defaultLocation || "",
-            role: 'citizen',
+            role: assignedRole,
             approved: true // Admins create approved users directly
         };
         saveLocalUsers(users);

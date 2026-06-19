@@ -2682,6 +2682,7 @@ function closeAdminCreateUserModal() {
 async function handleAdminCreateUserSubmit() {
     const username = document.getElementById('admin-create-username').value.trim();
     const password = document.getElementById('admin-create-password').value;
+    const role = document.getElementById('admin-create-role').value;
     const fullName = document.getElementById('admin-create-fullname').value.trim();
     const phone = document.getElementById('admin-create-phone').value.trim();
     const emergencyContact = document.getElementById('admin-create-emergency').value.trim();
@@ -2698,6 +2699,7 @@ async function handleAdminCreateUserSubmit() {
             body: JSON.stringify({
                 username,
                 password,
+                role,
                 fullName,
                 phone,
                 emergencyContact,
@@ -2709,7 +2711,7 @@ async function handleAdminCreateUserSubmit() {
         const data = await response.json();
         if (response.ok && data.success) {
             playAlertBeep(1000, 0.2);
-            alert(`Citizen "${username}" registered successfully!`);
+            alert(`User "${username}" registered successfully with role "${role}"!`);
             closeAdminCreateUserModal();
             loadAdminData();
         } else {
@@ -2947,7 +2949,7 @@ function printTerminalHelp() {
         ["incidents", "List active reports and danger markings"],
         ["approvals", "List pending citizen registration requests"],
         ["resets", "List pending password reset requests"],
-        ["add [citizen|admin] <user> <pass>", "Create new account directly"],
+        ["add [citizen|admin|vigilante] <user> <pass>", "Create new account directly"],
         ["delete user <username>", "Remove user account from database"],
         ["delete incident <id>", "Delete incident record by ID"],
         ["approve <username>", "Approve pending citizen registration"],
@@ -3092,15 +3094,15 @@ async function printTerminalResets() {
 
 async function handleTerminalAdd(args) {
     if (args.length < 3) {
-        appendTerminalOutput("Usage: add [citizen|admin] <username> <password>", "warning");
+        appendTerminalOutput("Usage: add [citizen|admin|vigilante] <username> <password>", "warning");
         return;
     }
     const role = args[0].toLowerCase();
     const username = args[1];
     const password = args[2];
     
-    if (role !== 'citizen' && role !== 'admin') {
-        appendTerminalOutput("Role must be 'citizen' or 'admin'", "warning");
+    if (role !== 'citizen' && role !== 'admin' && role !== 'vigilante') {
+        appendTerminalOutput("Role must be 'citizen', 'admin', or 'vigilante'", "warning");
         return;
     }
     
