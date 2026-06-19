@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADHARM VINASH - Citizen Incident Portal</title>
-    <!-- Google Fonts: Inter for professional typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Cinzel for headings, Lora for body text -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- CesiumJS CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.104.0/Widgets/widgets.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=3.2">
+    <link rel="stylesheet" href="style.css?v=4.0">
 </head>
 <body>
     <!-- Fullscreen 3D Cesium Map Background -->
@@ -199,23 +199,11 @@
         <header class="sidebar-header">
             <div class="header-branding">
                 <svg class="branding-logo-mini" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Tech Ring Outer -->
-                    <circle cx="50" cy="50" r="42" stroke="rgba(239, 68, 68, 0.2)" stroke-width="2" stroke-dasharray="10 6" class="tech-ring-outer"/>
-                    <!-- Hexagon Base -->
-                    <polygon points="50,18 78,34 78,66 50,82 22,66 22,34" stroke="url(#gradient-accent-mini)" stroke-width="2.5" fill="rgba(15, 23, 42, 0.4)"/>
-                    <!-- Inner Shield -->
-                    <path d="M50 25 C62 25, 68 29, 68 38 C68 53, 50 70, 50 70 C50 70, 32 53, 32 38 C32 29, 38 25, 50 25 Z" fill="url(#gradient-shield-fill-mini)" stroke="url(#gradient-accent-mini)" stroke-width="1.5"/>
-                    <circle cx="50" cy="50" r="3" fill="#ef4444"/>
-                    <defs>
-                        <linearGradient id="gradient-accent-mini" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#ff4d4d"/>
-                            <stop offset="100%" stop-color="#f59e0b"/>
-                        </linearGradient>
-                        <linearGradient id="gradient-shield-fill-mini" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stop-color="rgba(239, 68, 68, 0.35)"/>
-                            <stop offset="100%" stop-color="rgba(15, 23, 42, 0.85)"/>
-                        </linearGradient>
-                    </defs>
+                    <circle cx="50" cy="50" r="45" stroke="#ffb067" stroke-width="2" fill="rgba(166, 58, 21, 0.2)"/>
+                    <path d="M50 5 L60 30 L95 30 L65 50 L75 85 L50 65 L25 85 L35 50 L5 30 L40 30 Z" stroke="#ffd095" stroke-width="1.5" fill="rgba(255, 176, 103, 0.1)"/>
+                    <path d="M50 15 C60 15, 75 35, 50 85 C25 35, 40 15, 50 15 Z" stroke="#ffb067" stroke-width="1"/>
+                    <circle cx="50" cy="50" r="15" stroke="#ffd095" stroke-width="1.5" fill="none" stroke-dasharray="2 2"/>
+                    <circle cx="50" cy="50" r="5" fill="#ffd095"/>
                 </svg>
                 <div class="header-titles">
                     <h1>ADHARM VINASH</h1>
@@ -584,6 +572,6 @@
 
     <!-- CesiumJS Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.104.0/Cesium.js"></script>
-    <script src="app.js?v=3.2"></script>
+    <script src="app.js?v=4.0"></script>
 </body>
 </html>
