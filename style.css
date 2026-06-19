@@ -192,7 +192,9 @@ body {
 .branding-logo-mini {
     width: 42px;
     height: 42px;
-    filter: drop-shadow(0 0 3px rgba(0,0,0,0.6));
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    object-fit: cover;
 }
 
 .header-titles h1 {
@@ -1787,13 +1789,9 @@ body.light-theme .hud-overlay {
 .branding-logo-tactical {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.5));
-    animation: shieldGlow 3s infinite alternate;
-}
-
-@keyframes shieldGlow {
-    0% { filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.35)); }
-    100% { filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.7)); }
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    object-fit: cover;
 }
 
 .tech-ring-outer {
@@ -1829,8 +1827,10 @@ body.light-theme .hud-overlay {
 .branding-logo-mini {
     width: 32px;
     height: 32px;
-    filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.4));
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     flex-shrink: 0;
+    object-fit: cover;
 }
 
 .login-card {
