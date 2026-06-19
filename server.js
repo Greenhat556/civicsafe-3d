@@ -34,7 +34,10 @@ const IncidentSchema = new mongoose.Schema({
     time: { type: String, required: true },
     description: { type: String, required: true },
     anonymous: { type: Boolean, required: true },
-    date: { type: String, required: true } // Store ISO date strings
+    date: { type: String, required: true }, // Store ISO date strings
+    upvotes: { type: Number, default: 0 },
+    downvotes: { type: Number, default: 0 },
+    votes: { type: Map, of: String, default: {} }
 });
 const IncidentModel = mongoose.models.Incident || mongoose.model('Incident', IncidentSchema);
 
@@ -563,6 +566,9 @@ app.post('/api/incidents', async (req, res) => {
 
     // Force date to ISO String format for clean date comparisons
     newIncident.date = new Date().toISOString();
+    newIncident.upvotes = 0;
+    newIncident.downvotes = 0;
+    newIncident.votes = {};
 
     if (useMongoDB) {
         try {
@@ -583,6 +589,101 @@ app.post('/api/incidents', async (req, res) => {
         res.status(201).json(newIncident);
     } else {
         res.status(500).json({ error: "Failed to persist report data" });
+    }
+});
+
+app.post('/api/incidents/:id/vote', async (req, res) => {
+    const { id } = req.params;
+    const { voteType, username } = req.body; // voteType is 'up' or 'down'
+    if (!voteType || !username) {
+        return res.status(400).json({ error: "voteType and username required" });
+    }
+
+    if (useMongoDB) {
+        try {
+            const incident = await IncidentModel.findOne({ id });
+            if (incident) {
+                // Initialize map if not present
+                if (!incident.votes) incident.votes = new Map();
+                
+                const currentVote = incident.votes.get(username);
+                if (currentVote === voteType) {
+                    // Clicked same vote again: remove vote (toggle off)
+                    incident.votes.delete(username);
+                } else {
+                    // Vote or change vote
+                    incident.votes.set(username, voteType);
+                }
+
+                // Recalculate upvotes and downvotes
+                let up = 0;
+                let down = 0;
+                incident.votes.forEach((v) => {
+                    if (v === 'up') up++;
+                    if (v === 'down') down++;
+                });
+
+                incident.upvotes = up;
+                incident.downvotes = down;
+
+                // Mark modified since we are changing Map contents in Mongoose
+                incident.markModified('votes');
+                const saved = await incident.save();
+
+                // Convert votes map to object for response JSON
+                const votesObj = {};
+                saved.votes.forEach((v, k) => { votesObj[k] = v; });
+
+                return res.json({
+                    success: true,
+                    upvotes: saved.upvotes,
+                    downvotes: saved.downvotes,
+                    votes: votesObj
+                });
+            }
+        } catch (e) {
+            console.error("MongoDB incident vote error:", e);
+        }
+    }
+
+    // Local file fallback
+    try {
+        const localList = getLocalIncidents();
+        const incident = localList.find(i => i.id === id);
+        if (incident) {
+            if (!incident.votes) incident.votes = {};
+            if (incident.upvotes === undefined) incident.upvotes = 0;
+            if (incident.downvotes === undefined) incident.downvotes = 0;
+
+            const currentVote = incident.votes[username];
+            if (currentVote === voteType) {
+                delete incident.votes[username];
+            } else {
+                incident.votes[username] = voteType;
+            }
+
+            // Recalculate upvotes and downvotes
+            let up = 0;
+            let down = 0;
+            for (let u in incident.votes) {
+                if (incident.votes[u] === 'up') up++;
+                if (incident.votes[u] === 'down') down++;
+            }
+
+            incident.upvotes = up;
+            incident.downvotes = down;
+
+            saveLocalIncidentsList(localList);
+            return res.json({
+                success: true,
+                upvotes: incident.upvotes,
+                downvotes: incident.downvotes,
+                votes: incident.votes
+            });
+        }
+        return res.status(404).json({ error: "Incident not found" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 });
 

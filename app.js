@@ -261,16 +261,50 @@ function openCesiumPopup(entity) {
     const desc = entity.properties.description.getValue();
     const time = entity.properties.time.getValue();
     const isAnon = entity.properties.anonymous.getValue();
+    const entityId = entity.id;
+
+    const upCount = entity.properties.upvotes ? entity.properties.upvotes.getValue() : 0;
+    const downCount = entity.properties.downvotes ? entity.properties.downvotes.getValue() : 0;
+    const votesObj = entity.properties.votes ? entity.properties.votes.getValue() : {};
+    
+    const activeUser = sessionStorage.getItem('auth_user') || '';
+    const userVote = votesObj[activeUser] || ''; // 'up' or 'down' or ''
+    
+    const upActive = userVote === 'up' ? 'style="color: var(--color-success); font-weight: bold; border-color: var(--color-success); background: rgba(16,185,129,0.1);"' : '';
+    const downActive = userVote === 'down' ? 'style="color: var(--color-danger); font-weight: bold; border-color: var(--color-danger); background: rgba(239,68,68,0.1);"' : '';
+    
+    const score = upCount - downCount;
+    let statusText = '⚖️ Unverified';
+    let statusStyle = 'color: var(--text-secondary); background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; border: 1px solid var(--border-color);';
+    if (score > 2) {
+        statusText = '✅ Verified Log';
+        statusStyle = 'color: var(--color-success); background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;';
+    } else if (score < -1) {
+        statusText = '❌ Disputed / Fake';
+        statusStyle = 'color: var(--color-danger); background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;';
+    }
     
     const style = CATEGORY_STYLES[cat] || { color: '#3b82f6', label: 'ALERT' };
     
     popupContent.innerHTML = `
         <div style="border-top: 3px solid ${style.color}; padding-top: 4px;">
-            <h4 style="color: ${style.color}; font-weight: 700; margin-bottom: 6px;">${style.label}</h4>
-            <p style="margin-bottom: 8px;">${desc}</p>
-            <div class="popup-footer-hud">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <h4 style="color: ${style.color}; font-weight: 700; margin: 0; font-size: 0.85rem;">${style.label}</h4>
+                <span style="${statusStyle}">${statusText}</span>
+            </div>
+            <p style="margin-bottom: 8px; font-size: 0.8rem; line-height: 1.4;">${desc}</p>
+            <div class="popup-footer-hud" style="margin-bottom: 10px;">
                 <span>Logged: ${time}</span>
                 <span>${isAnon ? 'Anonymous' : 'Precinct Sync'}</span>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center; border-top: 1px solid var(--border-color); padding-top: 8px;">
+                <span style="font-size: 0.7rem; color: var(--text-secondary);">Verify Log:</span>
+                <button onclick="submitVote('${entityId}', 'up')" class="btn-action-outline" style="padding: 2px 8px; font-size: 0.7rem; display: flex; align-items: center; gap: 4px;" ${upActive}>
+                    👍 <span>${upCount}</span>
+                </button>
+                <button onclick="submitVote('${entityId}', 'down')" class="btn-action-outline" style="padding: 2px 8px; font-size: 0.7rem; display: flex; align-items: center; gap: 4px;" ${downActive}>
+                    👎 <span>${downCount}</span>
+                </button>
             </div>
         </div>
     `;
@@ -344,7 +378,10 @@ function renderMarkers() {
                 category: item.category,
                 description: item.description,
                 time: item.time,
-                anonymous: item.anonymous
+                anonymous: item.anonymous,
+                upvotes: item.upvotes || 0,
+                downvotes: item.downvotes || 0,
+                votes: item.votes || {}
             }
         });
     });
@@ -368,6 +405,20 @@ function updateFeedList() {
         const style = CATEGORY_STYLES[item.category] || { color: '#3b82f6', label: 'ALERT' };
         const card = document.createElement('div');
         card.className = `feed-card danger-${item.category}`;
+        
+        const upCount = item.upvotes || 0;
+        const downCount = item.downvotes || 0;
+        const score = upCount - downCount;
+        let badgeText = '⚖️ Unverified';
+        let badgeStyle = 'color: var(--text-secondary); background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border-color);';
+        if (score > 2) {
+            badgeText = '✅ Verified';
+            badgeStyle = 'color: var(--color-success); background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); padding: 2px 6px; border-radius: 4px;';
+        } else if (score < -1) {
+            badgeText = '❌ Disputed';
+            badgeStyle = 'color: var(--color-danger); background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); padding: 2px 6px; border-radius: 4px;';
+        }
+
         card.innerHTML = `
             <div class="card-header-hud">
                 <span class="card-category">${style.label}</span>
@@ -375,6 +426,10 @@ function updateFeedList() {
             </div>
             <div class="card-title">Coordinates: [${item.lat.toFixed(4)}, ${item.lng.toFixed(4)}]</div>
             <div class="card-desc">${item.description}</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.04); padding-top: 6px; font-size: 0.65rem;">
+                <span style="${badgeStyle}">${badgeText}</span>
+                <span style="color: var(--text-secondary);">👍 ${upCount} / 👎 ${downCount}</span>
+            </div>
         `;
 
         card.addEventListener('click', () => {
@@ -998,6 +1053,28 @@ function setupUIEventListeners() {
     clearRouteBtn.addEventListener('click', () => {
         clearRouting();
     });
+
+    // Zoom In/Out bindings
+    const zoomInBtn = document.getElementById('btn-zoom-in');
+    const zoomOutBtn = document.getElementById('btn-zoom-out');
+
+    if (zoomInBtn) {
+        zoomInBtn.addEventListener('click', () => {
+            if (viewer) {
+                viewer.camera.zoomIn(viewer.camera.positionCartographic.height * 0.3);
+                playAlertBeep(700, 0.05);
+            }
+        });
+    }
+
+    if (zoomOutBtn) {
+        zoomOutBtn.addEventListener('click', () => {
+            if (viewer) {
+                viewer.camera.zoomOut(viewer.camera.positionCartographic.height * 0.3);
+                playAlertBeep(650, 0.05);
+            }
+        });
+    }
 }
 
 // ----------------------------------------------------
@@ -1034,7 +1111,8 @@ function toggleWebLineRouting() {
             width: 4,
             material: new Cesium.PolylineDashMaterialProperty({
                 color: Cesium.Color.fromCssColorString('#ef4444')
-            })
+            }),
+            clampToGround: true
         }
     });
 
@@ -1043,7 +1121,8 @@ function toggleWebLineRouting() {
         polyline: {
             positions: bluePositions,
             width: 6,
-            material: Cesium.Color.fromCssColorString('#3b82f6')
+            material: Cesium.Color.fromCssColorString('#3b82f6'),
+            clampToGround: true
         }
     });
 
@@ -1614,6 +1693,49 @@ function closeAdminUserEditor() {
 
 // Bind methods to window scope
 window.openAdminUserEditor = openAdminUserEditor;
+
+async function submitVote(incidentId, voteType) {
+    const activeUser = sessionStorage.getItem('auth_user');
+    if (!activeUser) {
+        alert("Please log in to verify logs.");
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/api/incidents/${incidentId}/vote`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ voteType, username: activeUser })
+        });
+        const data = await response.json();
+        if (response.ok) {
+            playAlertBeep(800, 0.08);
+            
+            // Update incident in local list
+            const idx = incidents.findIndex(i => i.id === incidentId);
+            if (idx !== -1) {
+                incidents[idx].upvotes = data.upvotes;
+                incidents[idx].downvotes = data.downvotes;
+                incidents[idx].votes = data.votes;
+            }
+            
+            // Re-render markers and update feed list
+            renderMarkers();
+            updateFeedList();
+            
+            // Re-open updated popup
+            const entity = viewer.entities.getById(incidentId);
+            if (entity) {
+                openCesiumPopup(entity);
+            }
+        } else {
+            alert(data.error || "Failed to submit verification.");
+        }
+    } catch (e) {
+        console.error("Vote API failed:", e);
+    }
+}
+window.submitVote = submitVote;
 
 // Bind event listeners for admin edit user modal controls
 document.addEventListener('DOMContentLoaded', () => {
