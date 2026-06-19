@@ -1620,6 +1620,7 @@ function stopNavigation() {
     
     const navPanel = document.getElementById('navigation-directions-panel');
     if (navPanel) navPanel.classList.add('hidden');
+    document.body.classList.remove('nav-active');
     
     playAlertBeep(400, 0.15);
 }
@@ -1703,6 +1704,7 @@ function initiateNavigation(destLat, destLng, destId) {
     // 6. Reveal navigation panel
     const navPanel = document.getElementById('navigation-directions-panel');
     if (navPanel) navPanel.classList.remove('hidden');
+    document.body.classList.add('nav-active');
     
     isNavigating = true;
     playAlertBeep(880, 0.12);

@@ -2435,6 +2435,46 @@ body.light-theme .login-header h2 {
         border-radius: 12px 12px 0 0;
         max-height: 45vh;
     }
+
+    /* Shift floating elements up when navigation panel is active to prevent overlap */
+    body.nav-active .sos-container,
+    body.nav-active #route-toggle-container,
+    body.nav-active .routing-legend {
+        bottom: calc(45vh + 20px);
+        transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Center Toasts so they don't overlap Theme/Search in top right */
+    .toast-container {
+        top: 80px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: 90%;
+        align-items: center;
+    }
+
+    /* Modals Responsive scaling */
+    .admin-modal-content {
+        padding: 20px;
+        width: 100%;
+        max-width: 95%;
+        margin: 10px;
+    }
+    
+    .routing-legend {
+        left: 10px;
+        bottom: 20px;
+        font-size: 0.8rem;
+        padding: 10px;
+        width: calc(100% - 170px); /* Leave room for map controls right */
+        max-width: 250px;
+    }
+    
+    .incident-popup-container {
+        max-width: 260px;
+        padding: 12px;
+    }
 }
 
 /* Disable alarm flashing for admin user management modal */
