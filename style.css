@@ -1835,7 +1835,7 @@ body.light-theme .hud-overlay {
 
 .login-card {
     width: 420px;
-    background: transparent;
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 80%);
     border: none;
     border-radius: 0;
     padding: 20px 40px;
@@ -1873,7 +1873,7 @@ body.light-theme .hud-overlay {
     letter-spacing: 2px;
     margin-top: 15px;
     text-transform: uppercase;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .login-header h2 span {
@@ -1886,12 +1886,12 @@ body.light-theme .login-header h2 {
 
 .login-header p {
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95);
     margin-top: 8px;
     font-family: 'Lora', serif;
     text-transform: none;
     letter-spacing: 0.5px;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 /* Glassmorphic Traditional inputs */
@@ -1901,7 +1901,7 @@ body.light-theme .login-header h2 {
     text-transform: none;
     letter-spacing: 0.5px;
     color: rgba(255, 255, 255, 0.95);
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     text-align: left;
     margin-bottom: 6px;
     display: block;
@@ -1909,10 +1909,11 @@ body.light-theme .login-header h2 {
 }
 
 .login-card .form-group input {
-    background: rgba(0, 0, 0, 0.35) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    width: 100% !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
     border-radius: 8px;
-    padding: 14px 16px 14px 40px; /* padding for icon */
+    padding: 14px 16px 14px 42px; /* padding for icon */
     font-family: 'Lora', serif;
     font-size: 0.95rem;
     color: #ffffff !important;
@@ -1925,9 +1926,9 @@ body.light-theme .login-header h2 {
 }
 
 .login-card .form-group input:focus {
-    border-color: rgba(255, 255, 255, 0.7) !important;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3) !important;
-    background: rgba(0, 0, 0, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.4) !important;
+    background: rgba(0, 0, 0, 0.65) !important;
 }
 
 .btn-login-custom {
@@ -1939,14 +1940,14 @@ body.light-theme .login-header h2 {
     font-weight: 700 !important;
     letter-spacing: 1px !important;
     border-radius: 8px !important;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3) !important;
     transition: all 0.25s ease !important;
 }
 
 .btn-login-custom:hover {
     background: rgba(255, 255, 255, 0.9) !important;
     color: #0a0e1a !important;
-    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.35) !important;
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.45) !important;
     transform: translateY(-1px) !important;
 }
 
