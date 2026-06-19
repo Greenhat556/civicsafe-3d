@@ -124,10 +124,18 @@ function checkAuthSession() {
         }
         
         // Apply role specific details
+        const terminalToggle = document.getElementById('btn-terminal-toggle');
+        const floatingTerminal = document.getElementById('floating-admin-terminal');
+
         if (activeUser === 'admin') {
             document.body.classList.remove('vigilante-mode');
             if (subtitleEl) subtitleEl.innerHTML = '<span style="color: #ef4444; font-weight: bold;">⚡ Admin Control Center</span>';
             if (adminTabLink) adminTabLink.classList.remove('hidden');
+            if (terminalToggle) {
+                terminalToggle.classList.remove('hidden');
+                terminalToggle.classList.add('active');
+            }
+            if (floatingTerminal) floatingTerminal.classList.remove('hidden');
             loadAdminData();
             
             // Restore default labels
@@ -140,6 +148,11 @@ function checkAuthSession() {
             document.body.classList.add('vigilante-mode');
             if (subtitleEl) subtitleEl.innerHTML = '<span style="color: #10b981; font-weight: bold; text-shadow: 0 0 5px rgba(16,185,129,0.3);">🕵️ Vigilante Mode Active</span>';
             if (adminTabLink) adminTabLink.classList.add('hidden');
+            if (terminalToggle) {
+                terminalToggle.classList.add('hidden');
+                terminalToggle.classList.remove('active');
+            }
+            if (floatingTerminal) floatingTerminal.classList.add('hidden');
             
             // Update labels to stealth names
             if (tabsList.length >= 3) {
@@ -151,6 +164,11 @@ function checkAuthSession() {
             document.body.classList.remove('vigilante-mode');
             if (subtitleEl) subtitleEl.innerHTML = 'Citizen Incident Portal';
             if (adminTabLink) adminTabLink.classList.add('hidden');
+            if (terminalToggle) {
+                terminalToggle.classList.add('hidden');
+                terminalToggle.classList.remove('active');
+            }
+            if (floatingTerminal) floatingTerminal.classList.add('hidden');
             
             // Restore default labels
             if (tabsList.length >= 3) {
@@ -174,6 +192,14 @@ function checkAuthSession() {
         if (sosContainer) sosContainer.classList.add('hidden');
         if (adminTabLink) adminTabLink.classList.add('hidden');
         if (burgerMenu) burgerMenu.classList.add('hidden');
+        
+        const terminalToggle = document.getElementById('btn-terminal-toggle');
+        const floatingTerminal = document.getElementById('floating-admin-terminal');
+        if (terminalToggle) {
+            terminalToggle.classList.add('hidden');
+            terminalToggle.classList.remove('active');
+        }
+        if (floatingTerminal) floatingTerminal.classList.add('hidden');
         
         document.body.classList.remove('vigilante-mode');
         
@@ -2788,6 +2814,31 @@ function initTerminal() {
     if (terminalBox) {
         terminalBox.addEventListener('click', () => {
             input.focus();
+        });
+    }
+
+    const toggleBtn = document.getElementById('btn-terminal-toggle');
+    const floatingPanel = document.getElementById('floating-admin-terminal');
+    const minimizeBtn = document.getElementById('btn-terminal-minimize');
+
+    if (toggleBtn && floatingPanel) {
+        toggleBtn.addEventListener('click', () => {
+            const isHidden = floatingPanel.classList.toggle('hidden');
+            if (isHidden) {
+                toggleBtn.classList.remove('active');
+            } else {
+                toggleBtn.classList.add('active');
+                input.focus();
+            }
+            playAlertBeep(700, 0.05);
+        });
+    }
+
+    if (minimizeBtn && floatingPanel && toggleBtn) {
+        minimizeBtn.addEventListener('click', () => {
+            floatingPanel.classList.add('hidden');
+            toggleBtn.classList.remove('active');
+            playAlertBeep(500, 0.05);
         });
     }
 }

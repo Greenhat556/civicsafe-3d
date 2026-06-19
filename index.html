@@ -320,22 +320,7 @@
                 <div class="section-meta">
                     <h3>Administrator Controls</h3>
                 </div>
-                
-                <!-- Admin Terminal Section -->
-                <div class="admin-section">
-                    <h4>Tactical Command Console</h4>
-                    <div class="admin-terminal" id="admin-terminal">
-                        <div class="terminal-output" id="terminal-output">
-                            <div class="terminal-line-header">CivicSafe Tactical OS v4.3 [Secure Connection]</div>
-                            <div class="terminal-line-muted">Type 'help' to view available system commands.</div>
-                        </div>
-                        <div class="terminal-input-line">
-                            <span class="terminal-prompt">admin@civicsafe:~$</span>
-                            <input type="text" id="terminal-input" placeholder="Type command here..." autocomplete="off" spellcheck="false">
-                        </div>
-                    </div>
-                </div>
-                
+
                 <div class="admin-section">
                     <h4>System Maintenance</h4>
                     <div class="admin-box">
@@ -587,6 +572,38 @@
                     <button type="button" id="btn-admin-create-cancel" class="btn-action-outline">Cancel</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Floating Admin Terminal Toggle Button (Floats right side) -->
+    <button id="btn-terminal-toggle" class="btn-terminal-toggle hidden" title="Toggle Command Console" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+        </svg>
+    </button>
+
+    <!-- Floating Admin Terminal Container (Floats right side below Panic Exit) -->
+    <div id="floating-admin-terminal" class="floating-admin-terminal hidden">
+        <div class="terminal-header">
+            <div class="terminal-header-title">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px; display: inline-block; vertical-align: middle;">
+                    <polyline points="4 17 10 11 4 5"></polyline>
+                    <line x1="12" y1="19" x2="20" y2="19"></line>
+                </svg>
+                Tactical Command Console
+            </div>
+            <button id="btn-terminal-minimize" class="btn-terminal-minimize" title="Minimize Terminal" type="button">&times;</button>
+        </div>
+        <div class="admin-terminal" id="admin-terminal">
+            <div class="terminal-output" id="terminal-output">
+                <div class="terminal-line-header">CivicSafe Tactical OS v4.3 [Secure Connection]</div>
+                <div class="terminal-line-muted">Type 'help' to view available system commands.</div>
+            </div>
+            <div class="terminal-input-line">
+                <span class="terminal-prompt">admin@civicsafe:~$</span>
+                <input type="text" id="terminal-input" placeholder="Type command here..." autocomplete="off" spellcheck="false">
+            </div>
         </div>
     </div>
 

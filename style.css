@@ -2919,30 +2919,187 @@ body.vigilante-mode .map-ctrl-btn.gps-tracking {
 /* ====================================================
    ADMIN COMMAND CONSOLE (TERMINAL) STYLES
    ==================================================== */
-.admin-terminal {
-    background: #0c0f1d;
-    border: 1px solid var(--border-color);
+.floating-admin-terminal {
+    position: absolute;
+    top: 90px;
+    right: 20px;
+    width: 460px;
+    z-index: 999;
+    background: rgba(10, 15, 28, 0.95);
+    border: 2px solid var(--border-color);
     border-radius: 8px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    transform-origin: top right;
+}
+
+.floating-admin-terminal.hidden {
+    display: none !important;
+}
+
+body.vigilante-mode .floating-admin-terminal {
+    border-color: rgba(16, 185, 129, 0.45);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(16, 185, 129, 0.15);
+}
+
+body.light-theme .floating-admin-terminal {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(15, 23, 42, 0.15);
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15);
+}
+
+.terminal-header {
+    background: rgba(15, 23, 42, 0.4);
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+
+body.vigilante-mode .terminal-header {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.25);
+}
+
+body.light-theme .terminal-header {
+    background: rgba(15, 23, 42, 0.05);
+    border-color: rgba(15, 23, 42, 0.1);
+}
+
+.terminal-header-title {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-light);
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+}
+
+body.light-theme .terminal-header-title {
+    color: #0f172a;
+}
+
+.btn-terminal-minimize {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 4px;
+    transition: color 0.2s;
+}
+
+.btn-terminal-minimize:hover {
+    color: var(--color-danger);
+}
+
+body.light-theme .btn-terminal-minimize {
+    color: #64748b;
+}
+body.light-theme .btn-terminal-minimize:hover {
+    color: #ef4444;
+}
+
+.floating-admin-terminal .admin-terminal {
+    background: #0c0f1d;
     padding: 14px;
-    height: 320px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
     font-family: 'Consolas', 'Courier New', monospace;
     font-size: 0.85rem;
-    margin-bottom: 15px;
-    transition: all 0.3s;
+    margin-bottom: 0;
+    border: none;
+    border-radius: 0;
 }
 
-body.vigilante-mode .admin-terminal {
-    border-color: rgba(16, 185, 129, 0.45);
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8), 0 0 10px rgba(16, 185, 129, 0.1);
-}
-
-body.light-theme .admin-terminal {
+body.light-theme .floating-admin-terminal .admin-terminal {
     background: #0f172a;
-    border-color: rgba(15, 23, 42, 0.15);
     box-shadow: inset 0 0 15px rgba(0,0,0,0.9);
+}
+
+.btn-terminal-toggle {
+    position: absolute;
+    top: 0px;
+    right: 140px;
+    z-index: 10;
+    width: 48px;
+    height: 64px;
+    background: var(--bg-parchment);
+    border: 2px solid var(--border-wood-dark);
+    border-top: none;
+    color: var(--text-primary);
+    border-radius: 0 0 24px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-raised);
+    transition: all 0.2s;
+    padding-top: 10px;
+}
+
+.btn-terminal-toggle.hidden {
+    display: none !important;
+}
+
+.btn-terminal-toggle svg {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-terminal-toggle:hover {
+    background: var(--bg-parchment-dark);
+    color: var(--color-primary);
+    transform: translateY(2px);
+}
+
+body.light-theme .btn-terminal-toggle {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(15, 23, 42, 0.15);
+    color: #475569;
+}
+body.light-theme .btn-terminal-toggle:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+body.vigilante-mode .btn-terminal-toggle {
+    background: rgba(10, 20, 15, 0.85);
+    border: 1.5px solid rgba(16, 185, 129, 0.4);
+    border-top: none;
+    color: #10b981;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+}
+body.vigilante-mode .btn-terminal-toggle:hover {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+}
+
+.btn-terminal-toggle.active {
+    background: var(--border-wood-dark);
+    color: var(--color-warning);
+    box-shadow: var(--shadow-carved);
+}
+
+body.light-theme .btn-terminal-toggle.active {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+}
+
+body.vigilante-mode .btn-terminal-toggle.active {
+    background: #10b981;
+    color: #0c0f1d;
+    border-color: #34d399;
 }
 
 .terminal-output {
