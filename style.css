@@ -2375,6 +2375,17 @@ body.light-theme .login-header h2 {
         transform: none;
         width: calc(100% - 90px); /* Fill screen minus burger menu spacing */
         max-width: 380px;
+        padding-right: 4px;
+    }
+
+    #map-search-input {
+        min-width: 0;
+    }
+
+    #btn-map-search {
+        padding: 6px 10px;
+        font-size: 0.7rem;
+        white-space: nowrap;
     }
 
     .search-suggestions-box {
@@ -2392,8 +2403,16 @@ body.light-theme .login-header h2 {
     }
 
     #route-toggle-container {
-        bottom: 20px;
-        right: 155px; /* Offset from SOS button */
+        bottom: 85px; /* Stacked above SOS button */
+        right: 20px;
+    }
+    
+    .cesium-viewer-bottom {
+        left: 10px !important;
+        right: auto !important;
+        bottom: 10px !important;
+        transform: scale(0.75);
+        transform-origin: bottom left;
     }
 
     #btn-theme-toggle {
