@@ -2554,10 +2554,15 @@ body.vigilante-mode .input-icon-wrapper:focus-within .input-icon {
     filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.6));
 }
 
-/* Night-Vision Sepia Map Overlay */
+/* Night-Vision Map Overlay (Dark Theme: Inverted to allow coloring grayscale dark basemap) */
 body.vigilante-mode #map {
-    filter: brightness(0.65) contrast(1.45) saturate(0.85) sepia(1) hue-rotate(85deg);
+    filter: invert(0.9) sepia(1) saturate(3) hue-rotate(85deg) brightness(0.7) contrast(1.3);
     transition: filter 0.8s ease-in-out;
+}
+
+/* Night-Vision Map Overlay (Light Theme: Direct color shift) */
+body.vigilante-mode.light-theme #map {
+    filter: brightness(0.65) contrast(1.45) saturate(0.85) sepia(1) hue-rotate(85deg);
 }
 
 /* Vigilante Radar Scanner Grid Overlay */
