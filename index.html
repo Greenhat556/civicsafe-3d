@@ -15,6 +15,11 @@
     <div id="map"></div>
     <div class="map-vignette"></div>
 
+    <!-- Vigilante Radar Scanner Overlay -->
+    <div class="vigilante-radar-scanner">
+        <div class="vigilante-radar-sweep"></div>
+    </div>
+
     <!-- Custom 3D Map Popup Overlay -->
     <div id="cesium-popup-container" class="cesium-popup-container hidden">
         <button id="cesium-popup-close" class="cesium-popup-close" type="button">&times;</button>
@@ -80,6 +85,13 @@
                         </svg>
                         <input type="password" id="auth-password" placeholder="Enter password" required>
                     </div>
+                </div>
+                <div class="form-group hidden" id="register-role-group">
+                    <label for="auth-role">Access Role</label>
+                    <select id="auth-role" class="form-select-small" style="width: 100%; height: 42px; font-size: 0.85rem; padding: 10px 14px; border-radius: 8px; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); color: white;">
+                        <option value="citizen">👤 Register as Citizen</option>
+                        <option value="vigilante">🕵️ Register as Vigilante</option>
+                    </select>
                 </div>
                 <div id="auth-error" class="auth-error-msg hidden">Invalid username or password</div>
                 
@@ -207,7 +219,7 @@
                 </svg>
                 <div class="header-titles">
                     <h1>ADHARM VINASH</h1>
-                    <p>Citizen Incident Portal</p>
+                    <p id="sidebar-subtitle">Citizen Incident Portal</p>
                 </div>
             </div>
             <button id="btn-sidebar-close" class="btn-sidebar-close" type="button" title="Close Panel">&times;</button>
@@ -321,6 +333,13 @@
                     <div class="admin-box">
                         <p class="admin-box-desc">Clean database incidents older than 30 days.</p>
                         <button id="btn-admin-purge" class="btn-action-primary btn-warning-action">Purge Database Logs</button>
+                    </div>
+                </div>
+
+                <div class="admin-section margin-top-1">
+                    <h4>Pending Registrations (<span id="admin-approval-count">0</span>)</h4>
+                    <div class="admin-scroll-list" id="admin-approvals-list">
+                        <!-- Pending registrations loaded dynamically -->
                     </div>
                 </div>
 

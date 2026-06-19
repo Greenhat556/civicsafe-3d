@@ -21,7 +21,9 @@ const UserSchema = new mongoose.Schema({
     phone: { type: String, default: "" },
     emergencyContact: { type: String, default: "" },
     autoAnonymous: { type: Boolean, default: true },
-    defaultLocation: { type: String, default: "" }
+    defaultLocation: { type: String, default: "" },
+    role: { type: String, default: "citizen" },
+    approved: { type: Boolean, default: false }
 }, { bufferCommands: false });
 const UserModel = mongoose.models.User || mongoose.model('User', UserSchema);
 
@@ -132,6 +134,15 @@ if (MONGODB_URI) {
     .then(async () => {
         console.log("Successfully connected to MongoDB cloud database!");
         useMongoDB = true;
+        
+        // Migrate existing users to have default role and approved status
+        try {
+            await UserModel.updateMany({ role: { $exists: false } }, { $set: { role: 'citizen', approved: true } });
+            await UserModel.updateMany({ approved: { $exists: false } }, { $set: { approved: true } });
+        } catch (err) {
+            console.error("MongoDB user migration failed:", err);
+        }
+
         try {
             const adminExists = await UserModel.findOne({ username: 'admin' });
             if (!adminExists) {
@@ -142,10 +153,18 @@ if (MONGODB_URI) {
                     phone: '112',
                     emergencyContact: '112',
                     autoAnonymous: false,
-                    defaultLocation: '28.6304,77.2177'
+                    defaultLocation: '28.6304,77.2177',
+                    role: 'admin',
+                    approved: true
                 });
                 await adminUser.save();
                 console.log("Seeded default admin user into MongoDB.");
+            } else {
+                if (adminExists.role !== 'admin' || !adminExists.approved) {
+                    adminExists.role = 'admin';
+                    adminExists.approved = true;
+                    await adminExists.save();
+                }
             }
         } catch (e) {
             console.error("Failed to seed admin in MongoDB:", e);
@@ -218,6 +237,9 @@ function getLocalUsers() {
                 users = JSON.parse(raw);
             }
         }
+        
+        let modified = false;
+
         // Seed default admin if not present
         if (!users['admin']) {
             users['admin'] = {
@@ -226,10 +248,36 @@ function getLocalUsers() {
                 phone: "112",
                 emergencyContact: "112",
                 autoAnonymous: false,
-                defaultLocation: "28.6304,77.2177"
+                defaultLocation: "28.6304,77.2177",
+                role: "admin",
+                approved: true
             };
+            modified = true;
+        } else {
+            if (users['admin'].role !== 'admin' || users['admin'].approved !== true) {
+                users['admin'].role = 'admin';
+                users['admin'].approved = true;
+                modified = true;
+            }
+        }
+
+        // Migrate other existing users
+        for (let username in users) {
+            if (username === 'admin') continue;
+            if (users[username].role === undefined) {
+                users[username].role = 'citizen';
+                modified = true;
+            }
+            if (users[username].approved === undefined) {
+                users[username].approved = true; // existing accounts approved by default
+                modified = true;
+            }
+        }
+
+        if (modified) {
             fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf8');
         }
+
         return users;
     } catch (e) {
         console.error("Local users db read error:", e);
@@ -282,10 +330,12 @@ app.get('/api/notifications/subscribe', (req, res) => {
 // AUTHENTICATION API ENDPOINTS
 // ----------------------------------------------------
 app.post('/api/register', async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, role } = req.body;
     if (!username || !password) {
         return res.status(400).json({ error: "Username and password required" });
     }
+
+    const assignedRole = (role === 'vigilante') ? 'vigilante' : 'citizen';
 
     if (useMongoDB) {
         try {
@@ -293,9 +343,14 @@ app.post('/api/register', async (req, res) => {
             if (exists) {
                 return res.status(400).json({ error: "Username already exists" });
             }
-            const newUser = new UserModel({ username, password });
+            const newUser = new UserModel({
+                username,
+                password,
+                role: assignedRole,
+                approved: false // pending approval
+            });
             await newUser.save();
-            return res.status(201).json({ success: true });
+            return res.status(201).json({ success: true, pendingApproval: true });
         } catch (e) {
             console.error("MongoDB register error, falling back to local file:", e);
         }
@@ -313,10 +368,12 @@ app.post('/api/register', async (req, res) => {
             phone: "",
             emergencyContact: "",
             autoAnonymous: true,
-            defaultLocation: ""
+            defaultLocation: "",
+            role: assignedRole,
+            approved: false // pending approval
         };
         saveLocalUsers(users);
-        res.status(201).json({ success: true });
+        res.status(201).json({ success: true, pendingApproval: true });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -332,7 +389,10 @@ app.post('/api/login', async (req, res) => {
         try {
             const user = await UserModel.findOne({ username, password });
             if (user) {
-                return res.json({ success: true, username });
+                if (user.approved === false) {
+                    return res.status(403).json({ error: "Your account is pending administrator approval." });
+                }
+                return res.json({ success: true, username, role: user.role || 'citizen' });
             } else {
                 return res.status(401).json({ error: "Invalid username or password" });
             }
@@ -345,12 +405,19 @@ app.post('/api/login', async (req, res) => {
     try {
         const users = getLocalUsers();
         const userData = users[username];
-        const userPassword = (userData && typeof userData === 'object') ? userData.password : userData;
-        if (userData && userPassword === password) {
-            res.json({ success: true, username });
-        } else {
-            res.status(401).json({ error: "Invalid username or password" });
+        if (userData) {
+            const userPassword = (typeof userData === 'object') ? userData.password : userData;
+            const isApproved = (typeof userData === 'object') ? (userData.approved !== false) : true;
+            const userRole = (typeof userData === 'object') ? userData.role || 'citizen' : 'citizen';
+            
+            if (userPassword === password) {
+                if (!isApproved) {
+                    return res.status(403).json({ error: "Your account is pending administrator approval." });
+                }
+                return res.json({ success: true, username, role: userRole });
+            }
         }
+        res.status(401).json({ error: "Invalid username or password" });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -787,7 +854,9 @@ app.post('/api/admin/users/create', async (req, res) => {
                 phone: phone || "",
                 emergencyContact: emergencyContact || "",
                 autoAnonymous: autoAnonymous !== false,
-                defaultLocation: defaultLocation || ""
+                defaultLocation: defaultLocation || "",
+                role: 'citizen',
+                approved: true // Admins create approved users directly
             });
             await newUser.save();
             return res.status(201).json({ success: true });
@@ -808,7 +877,9 @@ app.post('/api/admin/users/create', async (req, res) => {
             phone: phone || "",
             emergencyContact: emergencyContact || "",
             autoAnonymous: autoAnonymous !== false,
-            defaultLocation: defaultLocation || ""
+            defaultLocation: defaultLocation || "",
+            role: 'citizen',
+            approved: true // Admins create approved users directly
         };
         saveLocalUsers(users);
         res.status(201).json({ success: true });
@@ -817,11 +888,98 @@ app.post('/api/admin/users/create', async (req, res) => {
     }
 });
 
+// GET all pending approvals
+app.get('/api/admin/pending-approvals', async (req, res) => {
+    if (useMongoDB) {
+        try {
+            const list = await UserModel.find({ approved: false }, 'username fullName phone emergencyContact role approved');
+            return res.json(list);
+        } catch (e) {
+            console.error("MongoDB get pending approvals error, falling back to local file:", e);
+        }
+    }
+
+    const users = getLocalUsers();
+    const list = Object.keys(users)
+        .filter(username => users[username] && users[username].approved === false)
+        .map(username => {
+            const u = users[username];
+            return {
+                username,
+                fullName: u.fullName || "",
+                phone: u.phone || "",
+                emergencyContact: u.emergencyContact || "",
+                role: u.role || "citizen",
+                approved: false
+            };
+        });
+    res.json(list);
+});
+
+// POST approve a user account
+app.post('/api/admin/approve-user', async (req, res) => {
+    const { username } = req.body;
+    if (!username) {
+        return res.status(400).json({ error: "Username is required" });
+    }
+
+    if (useMongoDB) {
+        try {
+            const user = await UserModel.findOneAndUpdate({ username }, { approved: true }, { new: true });
+            if (user) {
+                return res.json({ success: true });
+            }
+            return res.status(404).json({ error: "User not found" });
+        } catch (e) {
+            console.error("MongoDB approve user error, falling back to local file:", e);
+        }
+    }
+
+    const users = getLocalUsers();
+    if (users[username]) {
+        users[username].approved = true;
+        saveLocalUsers(users);
+        return res.json({ success: true });
+    }
+    res.status(404).json({ error: "User not found" });
+});
+
+// POST reject/delete a pending user account
+app.post('/api/admin/reject-user', async (req, res) => {
+    const { username } = req.body;
+    if (!username) {
+        return res.status(400).json({ error: "Username is required" });
+    }
+    if (username === 'admin') {
+        return res.status(400).json({ error: "Cannot reject admin account" });
+    }
+
+    if (useMongoDB) {
+        try {
+            const result = await UserModel.deleteOne({ username });
+            if (result.deletedCount > 0) {
+                return res.json({ success: true });
+            }
+            return res.status(404).json({ error: "User not found" });
+        } catch (e) {
+            console.error("MongoDB reject user error, falling back to local file:", e);
+        }
+    }
+
+    const users = getLocalUsers();
+    if (users[username]) {
+        delete users[username];
+        saveLocalUsers(users);
+        return res.json({ success: true });
+    }
+    res.status(404).json({ error: "User not found" });
+});
+
 // GET all registered users
 app.get('/api/admin/users', async (req, res) => {
     if (useMongoDB) {
         try {
-            const list = await UserModel.find({}, 'username fullName phone emergencyContact');
+            const list = await UserModel.find({}, 'username fullName phone emergencyContact role approved');
             return res.json(list);
         } catch (e) {
             console.error("MongoDB get users admin error, falling back to local file:", e);
@@ -835,7 +993,9 @@ app.get('/api/admin/users', async (req, res) => {
             username,
             fullName: typeof u === 'object' ? u.fullName || "" : "",
             phone: typeof u === 'object' ? u.phone || "" : "",
-            emergencyContact: typeof u === 'object' ? u.emergencyContact || "" : ""
+            emergencyContact: typeof u === 'object' ? u.emergencyContact || "" : "",
+            role: typeof u === 'object' ? u.role || 'citizen' : 'citizen',
+            approved: typeof u === 'object' ? (u.approved !== false) : true
         };
     });
     res.json(list);

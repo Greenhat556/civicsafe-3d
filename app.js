@@ -82,6 +82,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function checkAuthSession() {
     const activeUser = sessionStorage.getItem('auth_user');
+    const authRole = sessionStorage.getItem('auth_role') || 'citizen';
     const loginScreen = document.getElementById('login-screen');
     const mainSidebar = document.getElementById('main-sidebar');
     const searchBar = document.getElementById('global-search-container');
@@ -91,6 +92,9 @@ function checkAuthSession() {
     const sosContainer = document.getElementById('sos-trigger-container');
     const adminTabLink = document.getElementById('tab-link-admin');
     const burgerMenu = document.getElementById('sidebar-toggle-container');
+    
+    const subtitleEl = document.getElementById('sidebar-subtitle');
+    const tabsList = document.querySelectorAll('.sidebar-tabs .tab-link');
 
     if (activeUser) {
         // Logged in: Hide login and reveal citizen UI
@@ -110,12 +114,41 @@ function checkAuthSession() {
             startSSEConnection();
         }
         
-        // Show admin tab option only if user is 'admin'
+        // Apply role specific details
         if (activeUser === 'admin') {
+            document.body.classList.remove('vigilante-mode');
+            if (subtitleEl) subtitleEl.innerHTML = '<span style="color: #ef4444; font-weight: bold;">⚡ Admin Control Center</span>';
             if (adminTabLink) adminTabLink.classList.remove('hidden');
             loadAdminData();
-        } else {
+            
+            // Restore default labels
+            if (tabsList.length >= 3) {
+                tabsList[0].textContent = "Active Logs";
+                tabsList[1].textContent = "File Report";
+                tabsList[2].textContent = "Profile";
+            }
+        } else if (authRole === 'vigilante') {
+            document.body.classList.add('vigilante-mode');
+            if (subtitleEl) subtitleEl.innerHTML = '<span style="color: #10b981; font-weight: bold; text-shadow: 0 0 5px rgba(16,185,129,0.3);">🕵️ Vigilante Mode Active</span>';
             if (adminTabLink) adminTabLink.classList.add('hidden');
+            
+            // Update labels to stealth names
+            if (tabsList.length >= 3) {
+                tabsList[0].textContent = "Threat Radar";
+                tabsList[1].textContent = "Submit Intel";
+                tabsList[2].textContent = "Agent Profile";
+            }
+        } else {
+            document.body.classList.remove('vigilante-mode');
+            if (subtitleEl) subtitleEl.innerHTML = 'Citizen Incident Portal';
+            if (adminTabLink) adminTabLink.classList.add('hidden');
+            
+            // Restore default labels
+            if (tabsList.length >= 3) {
+                tabsList[0].textContent = "Active Logs";
+                tabsList[1].textContent = "File Report";
+                tabsList[2].textContent = "Profile";
+            }
         }
 
         // Load data
@@ -132,6 +165,8 @@ function checkAuthSession() {
         if (sosContainer) sosContainer.classList.add('hidden');
         if (adminTabLink) adminTabLink.classList.add('hidden');
         if (burgerMenu) burgerMenu.classList.add('hidden');
+        
+        document.body.classList.remove('vigilante-mode');
         
         // Stop SSE connection
         stopSSEConnection();
@@ -790,12 +825,16 @@ function setupUIEventListeners() {
         if (forgotPasswordPanel) forgotPasswordPanel.classList.add('hidden');
         authForm.classList.remove('hidden');
 
+        const roleGroup = document.getElementById('register-role-group');
+
         if (isRegisterState) {
             btnAuthSubmit.textContent = "Register Account";
             authToggleText.innerHTML = `Already have an account? <a href="#" id="link-auth-toggle">Sign In</a>`;
+            if (roleGroup) roleGroup.classList.remove('hidden');
         } else {
             btnAuthSubmit.textContent = "Sign In";
             authToggleText.innerHTML = `New to portal? <a href="#" id="link-auth-toggle">Register account</a>`;
+            if (roleGroup) roleGroup.classList.add('hidden');
         }
         
         // Rebind the newly generated toggle link
@@ -813,12 +852,13 @@ function setupUIEventListeners() {
         authErrorMsg.classList.add('hidden');
 
         const url = isRegisterState ? '/api/register' : '/api/login';
+        const role = isRegisterState ? document.getElementById('auth-role').value : 'citizen';
 
         try {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({ username, password, role })
             });
             const data = await response.json();
 
@@ -828,12 +868,13 @@ function setupUIEventListeners() {
 
             if (isRegisterState) {
                 // Registration success: switch to login state
-                alert("Account created successfully! Please sign in using your credentials.");
+                alert("Registration submitted! Please wait for Administrator approval before signing in.");
                 linkAuthToggle.click();
                 document.getElementById('auth-password').value = '';
             } else {
                 // Login success: save session and reveal maps
                 sessionStorage.setItem('auth_user', data.username);
+                sessionStorage.setItem('auth_role', data.role || 'citizen');
                 checkAuthSession();
                 playAlertBeep(1000, 0.15);
             }
@@ -847,6 +888,7 @@ function setupUIEventListeners() {
     // Logout trigger
     document.getElementById('btn-logout').addEventListener('click', () => {
         sessionStorage.removeItem('auth_user');
+        sessionStorage.removeItem('auth_role');
         checkAuthSession();
         playAlertBeep(400, 0.1);
     });
@@ -1554,12 +1596,17 @@ async function loadAdminData() {
         const usersList = await uResponse.json();
         renderAdminUsers(usersList);
 
-        // 2. Fetch and render password reset requests
+        // 2. Fetch and render pending approvals
+        const aResponse = await fetch('/api/admin/pending-approvals');
+        const approvalsList = await aResponse.json();
+        renderAdminApprovals(approvalsList);
+
+        // 3. Fetch and render password reset requests
         const rResponse = await fetch('/api/admin/reset-requests');
         const resetsList = await rResponse.json();
         renderAdminResetRequests(resetsList);
 
-        // 3. Fetch and render moderation incidents
+        // 4. Fetch and render moderation incidents
         const iResponse = await fetch('/api/incidents');
         const incidentsList = await iResponse.json();
         renderAdminIncidents(incidentsList);
@@ -1583,9 +1630,21 @@ function renderAdminUsers(usersList) {
     usersList.forEach(user => {
         const row = document.createElement('div');
         row.className = 'admin-row';
+
+        let roleBadge = '';
+        if (user.role === 'admin') {
+            roleBadge = `<span class="badge" style="font-size: 0.6rem; padding: 1px 4px; border-radius: 4px; color: #ef4444; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25);">⚡ Admin</span>`;
+        } else if (user.role === 'vigilante') {
+            roleBadge = `<span class="badge" style="font-size: 0.6rem; padding: 1px 4px; border-radius: 4px; color: #ff9f43; background: rgba(255,159,67,0.1); border: 1px solid rgba(255,159,67,0.25);">🕵️ Vigilante</span>`;
+        } else {
+            roleBadge = `<span class="badge" style="font-size: 0.6rem; padding: 1px 4px; border-radius: 4px; color: #38bdf8; background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.25);">👤 Citizen</span>`;
+        }
+
+        const approvalBadge = (user.approved !== false) ? '' : ' <span style="color: var(--color-warning); font-size: 0.65rem;">(Pending Approval)</span>';
+
         row.innerHTML = `
             <div class="admin-row-info" style="cursor: pointer;" onclick="openAdminUserEditor('${user.username}')" title="Click to edit user profile settings">
-                <span class="admin-row-title">${user.username}</span>
+                <span class="admin-row-title">${user.username} ${roleBadge}${approvalBadge}</span>
                 <span class="admin-row-subtitle">${user.fullName || 'No profile settings saved'}</span>
             </div>
             <div class="admin-actions-group">
@@ -1693,6 +1752,93 @@ async function rejectResetRequest(username) {
 
 window.approveResetRequest = approveResetRequest;
 window.rejectResetRequest = rejectResetRequest;
+
+function renderAdminApprovals(approvalsList) {
+    const container = document.getElementById('admin-approvals-list');
+    const countEl = document.getElementById('admin-approval-count');
+    
+    countEl.textContent = approvalsList.length;
+    container.innerHTML = '';
+
+    if (approvalsList.length === 0) {
+        container.innerHTML = '<div class="status-msg">No pending registrations.</div>';
+        return;
+    }
+
+    approvalsList.forEach(user => {
+        const row = document.createElement('div');
+        row.className = 'admin-row';
+        
+        const roleLabel = user.role === 'vigilante' ? '🕵️ Vigilante' : '👤 Citizen';
+        const roleColor = user.role === 'vigilante' ? 'color: #ff9f43; background: rgba(255,159,67,0.1); border: 1px solid rgba(255,159,67,0.25);' : 'color: #38bdf8; background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.25);';
+
+        row.innerHTML = `
+            <div class="admin-row-info">
+                <span class="admin-row-title">${user.username} <span class="badge" style="font-size: 0.6rem; padding: 1px 4px; border-radius: 4px; ${roleColor}">${roleLabel}</span></span>
+                <span class="admin-row-subtitle">${user.fullName || 'New registration'}</span>
+            </div>
+            <div class="admin-actions-group">
+                <button class="btn-admin-approve" title="Approve Registration" onclick="approveUser('${user.username}')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </button>
+                <button class="btn-admin-delete" title="Reject Registration" onclick="rejectUser('${user.username}')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        `;
+        container.appendChild(row);
+    });
+}
+
+async function approveUser(username) {
+    if (!confirm(`Are you sure you want to approve user account "${username}"?`)) return;
+    try {
+        const res = await fetch('/api/admin/approve-user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username })
+        });
+        if (res.ok) {
+            playAlertBeep(900, 0.15);
+            alert(`User account "${username}" approved successfully!`);
+            loadAdminData();
+        } else {
+            const data = await res.json();
+            alert(`Approval failed: ${data.error}`);
+        }
+    } catch (e) {
+        console.error("Approve request error:", e);
+    }
+}
+
+async function rejectUser(username) {
+    if (!confirm(`Are you sure you want to reject and delete user account "${username}"?`)) return;
+    try {
+        const res = await fetch('/api/admin/reject-user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username })
+        });
+        if (res.ok) {
+            playAlertBeep(400, 0.15);
+            alert(`User account "${username}" rejected and removed.`);
+            loadAdminData();
+        } else {
+            const data = await res.json();
+            alert(`Rejection failed: ${data.error}`);
+        }
+    } catch (e) {
+        console.error("Reject request error:", e);
+    }
+}
+
+window.approveUser = approveUser;
+window.rejectUser = rejectUser;
 
 function renderAdminIncidents(incidentsList) {
     const container = document.getElementById('admin-incidents-list');

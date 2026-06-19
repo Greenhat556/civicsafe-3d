@@ -2534,3 +2534,73 @@ body.light-theme .login-header h2 {
     color: #ff4d4d;
     filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.6));
 }
+
+/* ====================================================
+   VIGILANTE MODE STYLING & RADAR SCANNER OVERLAYS
+   ==================================================== */
+
+/* Neon Green Accent Palette Override */
+body.vigilante-mode {
+    --color-primary: #10b981; /* Neon Grid-Green */
+    --color-primary-hover: #059669;
+    --shadow-blue: 0 0 15px rgba(16, 185, 129, 0.45);
+    --shadow-red: 0 0 15px rgba(16, 185, 129, 0.6);
+    --border-color-glow: rgba(16, 185, 129, 0.35);
+}
+
+/* Green focused input icon in Vigilante Mode */
+body.vigilante-mode .input-icon-wrapper:focus-within .input-icon {
+    color: #10b981;
+    filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.6));
+}
+
+/* Night-Vision Sepia Map Overlay */
+body.vigilante-mode #map {
+    filter: brightness(0.65) contrast(1.45) saturate(0.85) sepia(1) hue-rotate(85deg);
+    transition: filter 0.8s ease-in-out;
+}
+
+/* Vigilante Radar Scanner Grid Overlay */
+.vigilante-radar-scanner {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 2; /* Sits above Cesium canvas but below panels */
+    background: radial-gradient(circle at center, transparent 35%, rgba(16, 185, 129, 0.04) 65%, rgba(10, 14, 26, 0.45) 100%),
+                linear-gradient(rgba(16, 185, 129, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, 0.02) 1px, transparent 1px);
+    background-size: 100% 100%, 45px 45px, 45px 45px;
+    overflow: hidden;
+}
+
+body.vigilante-mode .vigilante-radar-scanner {
+    display: block;
+}
+
+/* Rotating Radar Conic Sweep Line */
+.vigilante-radar-sweep {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150vmax;
+    height: 150vmax;
+    background: conic-gradient(from 0deg, rgba(16, 185, 129, 0.12) 0deg, transparent 75deg, transparent 360deg);
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    animation: radarSweep 6s linear infinite;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+@keyframes radarSweep {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
