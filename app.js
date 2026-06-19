@@ -1233,6 +1233,21 @@ function setupUIEventListeners() {
             }
         });
     }
+
+    // Tech UI micro-feedback sounds using capturing event listeners (for all current and future elements)
+    document.body.addEventListener('mouseenter', (e) => {
+        const target = e.target;
+        if (target && (target.tagName === 'BUTTON' || target.classList.contains('tab-link') || target.tagName === 'A' || target.classList.contains('map-ctrl-btn') || target.classList.contains('btn-sos-pulse'))) {
+            playAlertBeep(1200, 0.03); // light high-pitch tick
+        }
+    }, true);
+
+    document.body.addEventListener('focusin', (e) => {
+        const target = e.target;
+        if (target && (target.tagName === 'INPUT' || target.tagName === 'SELECT' || target.tagName === 'TEXTAREA')) {
+            playAlertBeep(1000, 0.05); // focus click sound
+        }
+    }, true);
 }
 
 // ----------------------------------------------------

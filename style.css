@@ -2,13 +2,13 @@
 
 :root {
     --bg-dark: #06080e;
-    --bg-sidebar: rgba(15, 23, 42, 0.82);
+    --bg-sidebar: rgba(10, 14, 26, 0.82); /* Darker glassmorphic background */
     --border-color: rgba(255, 255, 255, 0.08);
-    --border-color-glow: rgba(59, 130, 246, 0.3);
+    --border-color-glow: rgba(239, 68, 68, 0.3);
     
     /* Formal Alert Levels */
-    --color-primary: #3b82f6; /* Civic Blue */
-    --color-primary-hover: #2563eb;
+    --color-primary: #ef4444; /* Neon Crimson Red (Adharm Vinash accent) */
+    --color-primary-hover: #dc2626;
     
     --color-danger: #ef4444; /* Critical red */
     --color-warning: #f59e0b; /* Warning amber */
@@ -23,8 +23,8 @@
     --font-code: 'Roboto Mono', monospace;
     
     --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.6), 0 8px 15px -6px rgba(0, 0, 0, 0.6);
-    --shadow-blue: 0 0 15px rgba(59, 130, 246, 0.3);
-    --shadow-red: 0 0 15px rgba(239, 68, 68, 0.4);
+    --shadow-blue: 0 0 15px rgba(239, 68, 68, 0.3); /* Crimson glow */
+    --shadow-red: 0 0 15px rgba(239, 68, 68, 0.45);
 }
 
 * {
@@ -1645,7 +1645,7 @@ body.light-theme .hud-overlay {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(6, 8, 14, 0.95);
+    background: radial-gradient(circle at center, rgba(6, 8, 14, 0.82) 0%, rgba(3, 4, 7, 0.98) 100%), url('cyber_portal_background.png') no-repeat center center / cover;
     z-index: 5000;
     display: flex;
     align-items: center;
@@ -1653,48 +1653,178 @@ body.light-theme .hud-overlay {
     backdrop-filter: blur(20px);
 }
 
+/* Moving scanner scanline effect */
+.login-screen::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, transparent, rgba(239, 68, 68, 0.3), rgba(245, 158, 11, 0.5), rgba(239, 68, 68, 0.3), transparent);
+    animation: scanningLine 6s linear infinite;
+    pointer-events: none;
+    z-index: 5001;
+    opacity: 0.8;
+}
+
+@keyframes scanningLine {
+    0% { top: 0%; }
+    50% { top: 100%; }
+    100% { top: 0%; }
+}
+
+.logo-wrapper {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 15px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.branding-logo-tactical {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.5));
+    animation: shieldGlow 3s infinite alternate;
+}
+
+@keyframes shieldGlow {
+    0% { filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.35)); }
+    100% { filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.7)); }
+}
+
+.tech-ring-outer {
+    transform-origin: center;
+    animation: rotateCW 20s linear infinite;
+}
+
+.tech-ring-inner {
+    transform-origin: center;
+    animation: rotateCCW 12s linear infinite;
+}
+
+.tech-center-scan {
+    transform-origin: center;
+    animation: pulseScan 2.5s infinite ease-in-out;
+}
+
+@keyframes rotateCW {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes rotateCCW {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+@keyframes pulseScan {
+    0%, 100% { opacity: 0.3; transform: scale(0.9); }
+    50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+.branding-logo-mini {
+    width: 32px;
+    height: 32px;
+    filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.4));
+    flex-shrink: 0;
+}
+
 .login-card {
-    width: 380px;
-    background: var(--bg-sidebar);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: var(--shadow-lg);
+    width: 400px;
+    background: rgba(10, 14, 26, 0.72); /* Enhanced glassmorphism */
+    border: 1px solid rgba(239, 68, 68, 0.25); /* Neon primary border outline */
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(239, 68, 68, 0.1);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     text-align: center;
+    transition: all 0.3s ease;
+}
+
+.login-card:hover {
+    border-color: rgba(239, 68, 68, 0.45);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(239, 68, 68, 0.2);
+    transform: translateY(-2px);
 }
 
 .login-header {
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .login-header h2 {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: white;
-    letter-spacing: 0.5px;
-    margin-top: 10px;
+    font-size: 1.65rem;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 1.5px;
+    margin-top: 12px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #ffffff 40%, #ff4d4d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
 }
 
 body.light-theme .login-header h2 {
-    color: #0f172a !important;
+    background: linear-gradient(135deg, #0f172a 40%, #dc2626 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .login-header p {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: var(--text-secondary);
-    margin-top: 4px;
+    margin-top: 6px;
+    font-family: var(--font-code);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.85;
+}
+
+/* Glassmorphic Cyber inputs */
+.login-card .form-group label {
+    font-family: var(--font-code);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+    text-align: left;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.login-card .form-group input {
+    background: rgba(0, 0, 0, 0.45) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: var(--font-code);
+    font-size: 0.88rem;
+    color: #ffffff !important;
+    transition: all 0.25s ease;
+}
+
+.login-card .form-group input:focus {
+    border-color: #ff4d4d !important;
+    box-shadow: 0 0 12px rgba(255, 77, 77, 0.3) !important;
+    background: rgba(0, 0, 0, 0.6) !important;
 }
 
 .auth-error-msg {
     font-size: 0.75rem;
     color: var(--color-danger);
-    margin-top: 6px;
+    margin-top: 8px;
     text-align: left;
+    font-family: var(--font-code);
     font-weight: 600;
 }
 
 .auth-toggle-row {
-    margin-top: 16px;
+    margin-top: 20px;
     font-size: 0.78rem;
     color: var(--text-secondary);
 }
@@ -1703,14 +1833,16 @@ body.light-theme .login-header h2 {
     color: var(--color-primary);
     text-decoration: none;
     font-weight: 600;
+    transition: color 0.2s ease;
 }
 
 .auth-toggle-row a:hover {
+    color: #ff4d4d;
     text-decoration: underline;
 }
 
 .margin-top-1 {
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 /* Sidebar Footer profile elements */
