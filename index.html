@@ -435,6 +435,28 @@
         <button id="btn-clear-route" class="btn-clear-route">Disable Routing</button>
     </div>
 
+    <!-- Navigation Directions Panel -->
+    <div id="navigation-directions-panel" class="navigation-panel hidden">
+        <div class="legend-header" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--border-color); background: rgba(15, 23, 42, 0.4); font-weight: bold; font-size: 0.85rem;">
+            <span style="display: flex; align-items: center; gap: 6px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-primary);">
+                    <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                </svg>
+                Tactical Navigation
+            </span>
+            <button id="btn-stop-navigation" style="background: none; border: none; color: var(--color-primary); font-weight: bold; cursor: pointer; font-size: 0.72rem; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-color);" type="button">Stop</button>
+        </div>
+        <div class="legend-body" style="padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 4px;">
+                <span style="font-weight: bold; font-size: 0.8rem; color: var(--text-primary);">Distance: <span id="nav-distance" style="color: var(--color-primary);">--</span></span>
+                <span style="font-weight: bold; font-size: 0.8rem; color: var(--text-primary);">ETA: <span id="nav-duration" style="color: var(--color-primary);">--</span></span>
+            </div>
+            <div id="nav-steps-list" style="display: flex; flex-direction: column; gap: 8px; font-size: 0.72rem; max-height: 180px; overflow-y: auto; padding-right: 4px;">
+                <!-- Steps loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
     <!-- Compass & HUD Coordinate Overlays -->
     <div id="hud-coordinates" class="hud-overlay coords-overlay hidden">PORTAL STATE: WEBGL_ACTIVE // SECURE_SESSION</div>
 

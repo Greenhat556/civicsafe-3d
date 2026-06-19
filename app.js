@@ -16,6 +16,10 @@ let isTrackingLocation = false;
 let watchPositionId = null;
 let hasLocatedOnce = false;
 
+// Navigation system variables
+let isNavigating = false;
+let navigationRouteEntities = [];
+
 // For 3D Popup overlay tracking
 let selectedEntity = null;
 const popupElement = document.getElementById('cesium-popup-container');
@@ -478,6 +482,21 @@ function openCesiumPopup(entity) {
     
     const style = CATEGORY_STYLES[cat] || { color: '#3b82f6', label: 'ALERT' };
     
+    const activeRole = sessionStorage.getItem('auth_role') || 'citizen';
+    let navButtonHtml = '';
+    if (activeRole === 'vigilante') {
+        navButtonHtml = `
+            <div style="border-top: 1px solid var(--border-color); padding-top: 8px; margin-top: 8px;">
+                <button onclick="startNavigationToIncident('${entityId}')" class="btn-action-primary" style="width: 100%; font-size: 0.72rem; padding: 6px; display: flex; align-items: center; justify-content: center; gap: 4px; margin: 0; cursor: pointer; border-radius: 6px;">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transform: rotate(45deg);">
+                        <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                    </svg>
+                    <span>Navigate to Site</span>
+                </button>
+            </div>
+        `;
+    }
+
     popupContent.innerHTML = `
         <div style="border-top: 3px solid ${style.color}; padding-top: 4px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
@@ -498,6 +517,7 @@ function openCesiumPopup(entity) {
                     👎 <span>${downCount}</span>
                 </button>
             </div>
+            ${navButtonHtml}
         </div>
     `;
     
@@ -1302,6 +1322,18 @@ function setupUIEventListeners() {
         });
     }
 
+    // Stop navigation button binding
+    const stopNavBtn = document.getElementById('btn-stop-navigation');
+    if (stopNavBtn) {
+        stopNavBtn.addEventListener('click', () => {
+            stopNavigation();
+        });
+    }
+
+    // Expose navigation methods globally for inline event handlers
+    window.startNavigationToIncident = startNavigationToIncident;
+    window.stopNavigation = stopNavigation;
+
     // Tech UI micro-feedback sounds using capturing event listeners (for all current and future elements)
     document.body.addEventListener('mouseenter', (e) => {
         const target = e.target;
@@ -1529,6 +1561,202 @@ function showGPSToast(title, description) {
     }, 4000);
     
     container.appendChild(toast);
+}
+
+// ----------------------------------------------------
+// GOOGLE MAPS STYLE NAVIGATION SYSTEM FOR VIGILANTES
+// ----------------------------------------------------
+function startNavigationToIncident(entityId) {
+    if (!viewer) return;
+    
+    // Find incident coordinates
+    const incident = incidents.find(item => item.id === entityId);
+    if (!incident) {
+        // Fallback: check if we can get it from entity position
+        const entity = viewer.entities.getById(entityId);
+        if (entity && entity.position) {
+            const pos = entity.position.getValue(viewer.clock.currentTime);
+            const cartographic = Cesium.Cartographic.fromCartesian(pos);
+            const lat = Cesium.Math.toDegrees(cartographic.latitude);
+            const lng = Cesium.Math.toDegrees(cartographic.longitude);
+            initiateNavigation(lat, lng, entityId);
+        } else {
+            alert("Unable to locate incident coordinates.");
+        }
+    } else {
+        initiateNavigation(incident.lat, incident.lng, incident.id);
+    }
+    
+    closeCesiumPopup();
+}
+
+function stopNavigation() {
+    navigationRouteEntities.forEach(ent => viewer.entities.remove(ent));
+    navigationRouteEntities = [];
+    isNavigating = false;
+    
+    const navPanel = document.getElementById('navigation-directions-panel');
+    if (navPanel) navPanel.classList.add('hidden');
+    
+    playAlertBeep(400, 0.15);
+}
+
+function initiateNavigation(destLat, destLng, destId) {
+    // 1. Clear any existing navigation route
+    stopNavigation();
+    
+    // 2. Determine start location (GPS coordinates or profile fallback)
+    let startLat = DEFAULT_CENTER_DEG[0];
+    let startLng = DEFAULT_CENTER_DEG[1];
+    
+    // Check if tracking is active
+    if (isTrackingLocation) {
+        const marker = viewer.entities.getById('user-location-marker');
+        if (marker && marker.position) {
+            const pos = marker.position.getValue(viewer.clock.currentTime);
+            const cartographic = Cesium.Cartographic.fromCartesian(pos);
+            startLat = Cesium.Math.toDegrees(cartographic.latitude);
+            startLng = Cesium.Math.toDegrees(cartographic.longitude);
+        }
+    } else {
+        // Fallback: check profile settings defaultLocation
+        const savedProfile = localStorage.getItem(`profile_${sessionStorage.getItem('auth_user')}`);
+        if (savedProfile) {
+            try {
+                const profile = JSON.parse(savedProfile);
+                if (profile.defaultLocation) {
+                    const parts = profile.defaultLocation.split(',');
+                    if (parts.length === 2) {
+                        startLat = parseFloat(parts[0]);
+                        startLng = parseFloat(parts[1]);
+                    }
+                }
+            } catch (e) {
+                console.error("Profile load error during routing:", e);
+            }
+        }
+    }
+    
+    // 3. Generate route positions
+    const routePositions = generateMockNavigationRoute(startLat, startLng, destLat, destLng);
+    
+    // 4. Draw route polyline (neon green for vigilante theme, cyan/blue for citizen)
+    const activeRole = sessionStorage.getItem('auth_role');
+    const colorHex = (activeRole === 'vigilante') ? '#10b981' : '#38bdf8';
+    
+    const routeLine = viewer.entities.add({
+        id: `nav-route-${destId}`,
+        polyline: {
+            positions: routePositions,
+            width: 5.0,
+            material: new Cesium.PolylineGlowMaterialProperty({
+                glowPower: 0.25,
+                color: Cesium.Color.fromCssColorString(colorHex)
+            }),
+            clampToGround: true
+        }
+    });
+    navigationRouteEntities.push(routeLine);
+    
+    // 5. Generate and render turn directions
+    const guidance = generateNavigationDirections(startLat, startLng, destLat, destLng);
+    
+    document.getElementById('nav-distance').textContent = guidance.distance;
+    document.getElementById('nav-duration').textContent = guidance.duration;
+    
+    const stepsList = document.getElementById('nav-steps-list');
+    stepsList.innerHTML = '';
+    
+    guidance.steps.forEach((stepText, idx) => {
+        const stepDiv = document.createElement('div');
+        stepDiv.className = 'nav-step-item';
+        stepDiv.innerHTML = `
+            <span class="nav-step-number">${idx + 1}</span>
+            <span class="nav-step-text">${stepText}</span>
+        `;
+        stepsList.appendChild(stepDiv);
+    });
+    
+    // 6. Reveal navigation panel
+    const navPanel = document.getElementById('navigation-directions-panel');
+    if (navPanel) navPanel.classList.remove('hidden');
+    
+    isNavigating = true;
+    playAlertBeep(880, 0.12);
+    playAlertBeep(1100, 0.12);
+    
+    // Collapse mobile sidebar
+    const mainSidebar = document.getElementById('main-sidebar');
+    if (mainSidebar) mainSidebar.classList.remove('sidebar-open');
+    
+    // 7. Fly camera to view the entire route
+    const midpointLat = startLat + (destLat - startLat) * 0.5;
+    const midpointLng = startLng + (destLng - startLng) * 0.5;
+    const distanceKm = Math.sqrt(Math.pow(destLat - startLat, 2) + Math.pow(destLng - startLng, 2)) * 111.0;
+    const cameraHeight = Math.max(distanceKm * 1000.0 * 1.5, 1200.0); // height proportional to distance
+    
+    viewer.camera.flyTo({
+        destination: Cesium.Cartesian3.fromDegrees(midpointLng, midpointLat, cameraHeight),
+        duration: 2.0
+    });
+}
+
+function generateMockNavigationRoute(startLat, startLng, endLat, endLng) {
+    // Generates a mock grid street route between start and end coordinates
+    const points = [];
+    points.push(Cesium.Cartesian3.fromDegrees(startLng, startLat, 10.0));
+    
+    // Add intermediate points to simulate turning corners on streets
+    const midLat = startLat + (endLat - startLat) * 0.4;
+    const midLng = startLng + (endLng - startLng) * 0.6;
+    
+    points.push(Cesium.Cartesian3.fromDegrees(midLng, startLat, 10.0)); // corner 1
+    points.push(Cesium.Cartesian3.fromDegrees(midLng, midLat, 10.0));  // corner 2
+    points.push(Cesium.Cartesian3.fromDegrees(endLng, midLat, 10.0));  // corner 3
+    
+    points.push(Cesium.Cartesian3.fromDegrees(endLng, endLat, 10.0));
+    return points;
+}
+
+function generateNavigationDirections(startLat, startLng, endLat, endLng) {
+    const latDiff = endLat - startLat;
+    const lngDiff = endLng - startLng;
+    
+    // Calculate mock distance (1 degree is approx 111km)
+    const distanceKm = Math.sqrt(latDiff * latDiff + lngDiff * lngDiff) * 111.0;
+    const timeMins = Math.round(distanceKm * 2.5 + 1); // Mock 2.5 minutes per km + 1 min buffer
+    
+    const steps = [];
+    
+    // Step 1: Initial heading
+    if (latDiff > 0) {
+        steps.push(`Head North toward the nearest street intersection. (${(distanceKm * 0.2).toFixed(1)} km)`);
+    } else {
+        steps.push(`Head South toward the nearest street intersection. (${(distanceKm * 0.2).toFixed(1)} km)`);
+    }
+    
+    // Step 2: First turn
+    if (lngDiff > 0) {
+        steps.push(`Turn right at the intersection onto East avenue. (${(distanceKm * 0.4).toFixed(1)} km)`);
+    } else {
+        steps.push(`Turn left at the intersection onto West avenue. (${(distanceKm * 0.4).toFixed(1)} km)`);
+    }
+    
+    // Step 3: Second turn
+    if (latDiff > 0) {
+        steps.push(`Turn left onto North Boulevard. (${(distanceKm * 0.3).toFixed(1)} km)`);
+    } else {
+        steps.push(`Turn right onto South Boulevard. (${(distanceKm * 0.3).toFixed(1)} km)`);
+    }
+    
+    // Step 4: Arrival
+    steps.push("Arrive at the incident coordinates. Use caution on site.");
+    
+    return {
+        distance: distanceKm < 1.0 ? `${Math.round(distanceKm * 1000)} m` : `${distanceKm.toFixed(1)} km`,
+        duration: `${timeMins} min${timeMins > 1 ? 's' : ''}`,
+        steps: steps
+    };
 }
 
 // ----------------------------------------------------
