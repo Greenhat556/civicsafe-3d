@@ -56,10 +56,11 @@ function getLocalResetRequests() {
             return [];
         }
         const raw = fs.readFileSync(RESET_REQUESTS_FILE, 'utf8');
+        if (!raw.trim()) return [];
         return JSON.parse(raw);
     } catch (e) {
         console.error("Local reset requests db read error:", e);
-        return [];
+        throw new Error("Database read error: reset_requests.json is invalid JSON or unreadable.");
     }
 }
 
@@ -144,10 +145,11 @@ function getLocalIncidents() {
             return [];
         }
         const raw = fs.readFileSync(DB_FILE, 'utf8');
+        if (!raw.trim()) return [];
         return JSON.parse(raw);
     } catch (e) {
         console.error("Local database read error:", e);
-        return [];
+        throw new Error("Database read error: incidents.json is invalid JSON or unreadable.");
     }
 }
 
@@ -166,7 +168,9 @@ function getLocalUsers() {
         let users = {};
         if (fs.existsSync(USERS_FILE)) {
             const raw = fs.readFileSync(USERS_FILE, 'utf8');
-            users = JSON.parse(raw);
+            if (raw.trim()) {
+                users = JSON.parse(raw);
+            }
         }
         // Seed default admin if not present
         if (!users['admin']) {
@@ -183,7 +187,7 @@ function getLocalUsers() {
         return users;
     } catch (e) {
         console.error("Local users db read error:", e);
-        return {};
+        throw new Error("Database read error: users.json is invalid JSON or unreadable.");
     }
 }
 
@@ -222,20 +226,24 @@ app.post('/api/register', async (req, res) => {
     }
 
     // Local file fallback
-    const users = getLocalUsers();
-    if (users[username]) {
-        return res.status(400).json({ error: "Username already exists" });
+    try {
+        const users = getLocalUsers();
+        if (users[username]) {
+            return res.status(400).json({ error: "Username already exists" });
+        }
+        users[username] = {
+            password: password,
+            fullName: "",
+            phone: "",
+            emergencyContact: "",
+            autoAnonymous: true,
+            defaultLocation: ""
+        };
+        saveLocalUsers(users);
+        res.status(201).json({ success: true });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-    users[username] = {
-        password: password,
-        fullName: "",
-        phone: "",
-        emergencyContact: "",
-        autoAnonymous: true,
-        defaultLocation: ""
-    };
-    saveLocalUsers(users);
-    res.status(201).json({ success: true });
 });
 
 app.post('/api/login', async (req, res) => {
@@ -258,13 +266,17 @@ app.post('/api/login', async (req, res) => {
     }
 
     // Local file fallback
-    const users = getLocalUsers();
-    const userData = users[username];
-    const userPassword = (userData && typeof userData === 'object') ? userData.password : userData;
-    if (userData && userPassword === password) {
-        res.json({ success: true, username });
-    } else {
-        res.status(401).json({ error: "Invalid username or password" });
+    try {
+        const users = getLocalUsers();
+        const userData = users[username];
+        const userPassword = (userData && typeof userData === 'object') ? userData.password : userData;
+        if (userData && userPassword === password) {
+            res.json({ success: true, username });
+        } else {
+            res.status(401).json({ error: "Invalid username or password" });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 });
 
@@ -291,28 +303,33 @@ app.get('/api/profile', async (req, res) => {
         }
     }
 
-    const users = getLocalUsers();
-    const userData = users[username];
-    if (userData) {
-        if (typeof userData === 'object') {
-            return res.json({
-                fullName: userData.fullName || "",
-                phone: userData.phone || "",
-                emergencyContact: userData.emergencyContact || "",
-                autoAnonymous: userData.autoAnonymous !== false,
-                defaultLocation: userData.defaultLocation || ""
-            });
-        } else {
-            return res.json({
-                fullName: "",
-                phone: "",
-                emergencyContact: "",
-                autoAnonymous: true,
-                defaultLocation: ""
-            });
+    // Local file fallback
+    try {
+        const users = getLocalUsers();
+        const userData = users[username];
+        if (userData) {
+            if (typeof userData === 'object') {
+                return res.json({
+                    fullName: userData.fullName || "",
+                    phone: userData.phone || "",
+                    emergencyContact: userData.emergencyContact || "",
+                    autoAnonymous: userData.autoAnonymous !== false,
+                    defaultLocation: userData.defaultLocation || ""
+                });
+            } else {
+                return res.json({
+                    fullName: "",
+                    phone: "",
+                    emergencyContact: "",
+                    autoAnonymous: true,
+                    defaultLocation: ""
+                });
+            }
         }
+        res.status(404).json({ error: "User not found" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-    res.status(404).json({ error: "User not found" });
 });
 
 app.post('/api/profile', async (req, res) => {
@@ -336,32 +353,37 @@ app.post('/api/profile', async (req, res) => {
         }
     }
 
-    const users = getLocalUsers();
-    const userData = users[username];
-    if (userData) {
-        if (typeof userData === 'object') {
-            users[username] = {
-                ...userData,
-                fullName,
-                phone,
-                emergencyContact,
-                autoAnonymous,
-                defaultLocation
-            };
-        } else {
-            users[username] = {
-                password: userData,
-                fullName,
-                phone,
-                emergencyContact,
-                autoAnonymous,
-                defaultLocation
-            };
+    // Local file fallback
+    try {
+        const users = getLocalUsers();
+        const userData = users[username];
+        if (userData) {
+            if (typeof userData === 'object') {
+                users[username] = {
+                    ...userData,
+                    fullName,
+                    phone,
+                    emergencyContact,
+                    autoAnonymous,
+                    defaultLocation
+                };
+            } else {
+                users[username] = {
+                    password: userData,
+                    fullName,
+                    phone,
+                    emergencyContact,
+                    autoAnonymous,
+                    defaultLocation
+                };
+            }
+            saveLocalUsers(users);
+            return res.json({ success: true });
         }
-        saveLocalUsers(users);
-        return res.json({ success: true });
+        res.status(404).json({ error: "User not found" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-    res.status(404).json({ error: "User not found" });
 });
 
 // ----------------------------------------------------
