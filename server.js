@@ -1167,6 +1167,26 @@ app.post('/api/admin/purge', async (req, res) => {
     res.json({ success: true, prunedCount: deletedCount });
 });
 
+// POST broadcast a system-wide message
+app.post('/api/admin/broadcast', (req, res) => {
+    const { message } = req.body;
+    if (!message) {
+        return res.status(400).json({ error: "Message content is required" });
+    }
+    
+    const payload = JSON.stringify({ type: 'broadcast', message });
+    sseClients.forEach(client => {
+        try {
+            client.write(`data: ${payload}\n\n`);
+        } catch (e) {
+            console.error("Failed to push broadcast to SSE client:", e);
+        }
+    });
+    
+    res.json({ success: true });
+});
+
+
 // Serve static dashboard web pages
 app.use(express.static(__dirname));
 

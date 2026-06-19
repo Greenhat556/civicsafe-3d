@@ -72,7 +72,8 @@ body {
     width: 100vw;
     height: 100vh;
     z-index: 1;
-    filter: sepia(0.6) contrast(1.1) brightness(1.2) hue-rotate(-10deg);
+    filter: brightness(1.02) contrast(1.05) saturate(1.05);
+    transition: filter 0.8s ease-in-out;
 }
 
 .map-vignette {
@@ -2824,3 +2825,224 @@ body.vigilante-mode .vigilante-radar-scanner {
         transform: translate(-50%, -50%) rotate(360deg);
     }
 }
+
+/* ====================================================
+   MAP VISUAL CLARITY THEME OVERRIDES
+   ==================================================== */
+
+/* Light Theme Map & Vignette Override */
+body.light-theme #map {
+    filter: brightness(1.0) contrast(1.05) saturate(1.05);
+}
+
+body.light-theme .map-vignette {
+    box-shadow: inset 0 0 100px rgba(15, 23, 42, 0.15);
+}
+
+/* Light Theme Map Search Bar Override */
+body.light-theme .map-search-bar {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(15, 23, 42, 0.15);
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+}
+
+body.light-theme #btn-map-search {
+    background: #0f172a;
+    border: 1px solid #0f172a;
+    color: #ffffff;
+}
+
+body.light-theme #btn-map-search:hover {
+    background: #334155;
+}
+
+/* Vigilante Mode Map Search Bar Override */
+body.vigilante-mode .map-search-bar {
+    background: rgba(10, 20, 15, 0.85);
+    border: 1.5px solid rgba(16, 185, 129, 0.4);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+}
+
+body.vigilante-mode #btn-map-search {
+    background: #10b981;
+    border: 1px solid #047857;
+    color: #0c0f1d;
+}
+
+body.vigilante-mode #btn-map-search:hover {
+    background: #34d399;
+}
+
+/* Light Theme Map Control Buttons Override */
+body.light-theme .map-ctrl-btn {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(15, 23, 42, 0.15);
+    color: #475569;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .map-ctrl-btn:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+    border-color: rgba(15, 23, 42, 0.25);
+}
+
+body.light-theme .map-ctrl-btn.gps-tracking {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+    box-shadow: 0 0 10px rgba(15, 23, 42, 0.4);
+}
+
+/* Vigilante Mode Map Control Buttons Override */
+body.vigilante-mode .map-ctrl-btn {
+    background: rgba(10, 20, 15, 0.85);
+    border: 1.5px solid rgba(16, 185, 129, 0.4);
+    color: #10b981;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+}
+
+body.vigilante-mode .map-ctrl-btn:hover {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border-color: #10b981;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.35);
+}
+
+body.vigilante-mode .map-ctrl-btn.gps-tracking {
+    background: #10b981;
+    color: #0c0f1d;
+    border-color: #34d399;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+}
+
+/* ====================================================
+   ADMIN COMMAND CONSOLE (TERMINAL) STYLES
+   ==================================================== */
+.admin-terminal {
+    background: #0c0f1d;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 14px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    transition: all 0.3s;
+}
+
+body.vigilante-mode .admin-terminal {
+    border-color: rgba(16, 185, 129, 0.45);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8), 0 0 10px rgba(16, 185, 129, 0.1);
+}
+
+body.light-theme .admin-terminal {
+    background: #0f172a;
+    border-color: rgba(15, 23, 42, 0.15);
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.9);
+}
+
+.terminal-output {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding-right: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+}
+
+.terminal-output::-webkit-scrollbar {
+    width: 6px;
+}
+.terminal-output::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+.terminal-output::-webkit-scrollbar-thumb {
+    background: rgba(16, 185, 129, 0.3);
+    border-radius: 3px;
+}
+body.light-theme .terminal-output::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 8px;
+}
+
+body.vigilante-mode .terminal-input-line {
+    border-color: rgba(16, 185, 129, 0.15);
+}
+
+.terminal-prompt {
+    color: #06b6d4;
+    font-weight: bold;
+    margin-right: 8px;
+    user-select: none;
+}
+
+body.vigilante-mode .terminal-prompt {
+    color: #10b981;
+    text-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
+}
+
+body.light-theme .terminal-prompt {
+    color: #38bdf8;
+}
+
+#terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #e2e8f0;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.85rem;
+    padding: 0;
+}
+
+body.vigilante-mode #terminal-input {
+    color: #34d399;
+}
+
+.terminal-line-normal {
+    color: #cbd5e1;
+}
+.terminal-line-prompt {
+    color: #38bdf8;
+}
+.terminal-line-header {
+    color: #ffffff;
+    font-weight: bold;
+}
+.terminal-line-success {
+    color: #10b981;
+}
+.terminal-line-warning {
+    color: #f59e0b;
+}
+.terminal-line-error {
+    color: #ef4444;
+}
+.terminal-line-muted {
+    color: #64748b;
+}
+.terminal-line-pre {
+    color: #94a3b8;
+}
+
+body.vigilante-mode .terminal-line-normal { color: #a7f3d0; }
+body.vigilante-mode .terminal-line-prompt { color: #34d399; }
+body.vigilante-mode .terminal-line-header { color: #ffffff; font-weight: bold; }
+body.vigilante-mode .terminal-line-success { color: #10b981; }
+body.vigilante-mode .terminal-line-warning { color: #fbbf24; }
+body.vigilante-mode .terminal-line-error { color: #f87171; }
+body.vigilante-mode .terminal-line-muted { color: #047857; }
+body.vigilante-mode .terminal-line-pre { color: #6ee7b7; }

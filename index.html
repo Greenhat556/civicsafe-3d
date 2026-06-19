@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- CesiumJS CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.104.0/Widgets/widgets.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=4.2">
+    <link rel="stylesheet" href="style.css?v=4.3">
 </head>
 <body>
     <!-- Fullscreen 3D Cesium Map Background -->
@@ -321,6 +321,21 @@
                     <h3>Administrator Controls</h3>
                 </div>
                 
+                <!-- Admin Terminal Section -->
+                <div class="admin-section">
+                    <h4>Tactical Command Console</h4>
+                    <div class="admin-terminal" id="admin-terminal">
+                        <div class="terminal-output" id="terminal-output">
+                            <div class="terminal-line-header">CivicSafe Tactical OS v4.3 [Secure Connection]</div>
+                            <div class="terminal-line-muted">Type 'help' to view available system commands.</div>
+                        </div>
+                        <div class="terminal-input-line">
+                            <span class="terminal-prompt">admin@civicsafe:~$</span>
+                            <input type="text" id="terminal-input" placeholder="Type command here..." autocomplete="off" spellcheck="false">
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="admin-section">
                     <h4>System Maintenance</h4>
                     <div class="admin-box">
@@ -577,6 +592,6 @@
 
     <!-- CesiumJS Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.104.0/Cesium.js"></script>
-    <script src="app.js?v=4.1"></script>
+    <script src="app.js?v=4.3"></script>
 </body>
 </html>

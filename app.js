@@ -196,6 +196,10 @@ function startSSEConnection() {
                 console.log("Live push notification stream connected.");
                 return;
             }
+            if (data.type === 'broadcast') {
+                showGlobalBroadcastNotification(data.message);
+                return;
+            }
             handleLiveIncidentNotification(data);
         } catch (e) {
             console.error("Error parsing SSE event data:", e);
@@ -325,6 +329,68 @@ function showLiveNotificationToast(incident) {
     container.appendChild(toast);
 }
 
+function showGlobalBroadcastNotification(message) {
+    let container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = 'notification-toast broadcast-toast';
+    toast.style.borderColor = 'var(--color-primary)';
+    toast.style.background = 'rgba(10, 15, 28, 0.95)';
+    toast.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.4)';
+    
+    toast.innerHTML = `
+        <div class="notification-toast-header" style="border-bottom: 1px solid rgba(16, 185, 129, 0.2); padding-bottom: 6px;">
+            <div class="notification-toast-title" style="color: #10b981; font-weight: bold; text-shadow: 0 0 8px rgba(16, 185, 129, 0.5); font-family: monospace; font-size: 0.85rem;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="animation: alert-flash 0.5s infinite alternate;">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="2" y1="12" x2="22" y2="12"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+                🌐 SYSTEM BROADCAST
+            </div>
+            <button class="notification-toast-close" style="color: #10b981; border: none; background: transparent; cursor: pointer; font-size: 1.2rem;">&times;</button>
+        </div>
+        <div class="notification-toast-body" style="font-family: monospace; font-size: 0.82rem; color: #e2e8f0; padding-top: 8px; line-height: 1.4; text-align: left;">
+            ${message}
+        </div>
+    `;
+    
+    const closeBtn = toast.querySelector('.notification-toast-close');
+    const dismissToast = () => {
+        toast.style.animation = 'toastSlideOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+        toast.addEventListener('animationend', () => {
+            toast.remove();
+        });
+    };
+    
+    closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dismissToast();
+        playAlertBeep(500, 0.05);
+    });
+    
+    // Play distinctive dual cyber beep sounds
+    playAlertBeep(600, 0.1);
+    setTimeout(() => {
+        playAlertBeep(800, 0.1);
+    }, 100);
+    setTimeout(() => {
+        playAlertBeep(1000, 0.12);
+    }, 200);
+    
+    setTimeout(() => {
+        dismissToast();
+    }, 12000);
+    
+    container.appendChild(toast);
+}
+
 function initMap() {
     // Determine initially loaded imagery theme
     const savedTheme = localStorage.getItem('civicsafe_theme');
@@ -352,6 +418,10 @@ function initMap() {
         fullscreenButton: false,
         vrButton: false
     });
+
+    // High-DPI and high quality configurations for visual clarity
+    viewer.resolutionScale = window.devicePixelRatio || 1.0;
+    viewer.scene.globe.maximumScreenSpaceError = 1.5;
 
     if (viewer.creditContainer) {
         viewer.creditContainer.style.display = 'none';
@@ -2668,4 +2738,619 @@ document.addEventListener('DOMContentLoaded', () => {
             closeAdminCreateUserModal();
         });
     }
+
+    // Initialize Admin Command Console
+    initTerminal();
 });
+
+/* ====================================================
+   ADMIN COMMAND CONSOLE (TERMINAL) IMPLEMENTATION
+   ==================================================== */
+let terminalHistory = [];
+let terminalHistoryIndex = -1;
+
+function initTerminal() {
+    const input = document.getElementById('terminal-input');
+    const output = document.getElementById('terminal-output');
+    if (!input || !output) return;
+
+    input.addEventListener('keydown', async (e) => {
+        if (e.key === 'Enter') {
+            const command = input.value.trim();
+            input.value = '';
+            if (!command) return;
+
+            terminalHistory.push(command);
+            terminalHistoryIndex = terminalHistory.length;
+
+            appendTerminalOutput(`admin@civicsafe:~$ ${command}`, 'prompt');
+            await processTerminalCommand(command);
+            output.scrollTop = output.scrollHeight;
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (terminalHistory.length > 0 && terminalHistoryIndex > 0) {
+                terminalHistoryIndex--;
+                input.value = terminalHistory[terminalHistoryIndex];
+            }
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (terminalHistoryIndex < terminalHistory.length - 1) {
+                terminalHistoryIndex++;
+                input.value = terminalHistory[terminalHistoryIndex];
+            } else {
+                terminalHistoryIndex = terminalHistory.length;
+                input.value = '';
+            }
+        }
+    });
+
+    const terminalBox = document.getElementById('admin-terminal');
+    if (terminalBox) {
+        terminalBox.addEventListener('click', () => {
+            input.focus();
+        });
+    }
+}
+
+function appendTerminalOutput(text, type = 'normal') {
+    const output = document.getElementById('terminal-output');
+    if (!output) return;
+    const div = document.createElement('div');
+    div.className = `terminal-line-${type}`;
+    
+    if (type === 'pre') {
+        div.style.whiteSpace = 'pre';
+        div.style.fontFamily = 'monospace';
+        div.textContent = text;
+    } else {
+        div.textContent = text;
+    }
+    
+    output.appendChild(div);
+    output.scrollTop = output.scrollHeight;
+}
+
+async function processTerminalCommand(cmdString) {
+    const parts = cmdString.match(/"[^"]+"|[^\s]+/g) || [];
+    if (parts.length === 0) return;
+    
+    const args = parts.map(arg => arg.replace(/^"|"$/g, ''));
+    const command = args[0].toLowerCase();
+    
+    switch (command) {
+        case 'help':
+            printTerminalHelp();
+            break;
+        case 'clear':
+            const output = document.getElementById('terminal-output');
+            if (output) output.innerHTML = '';
+            break;
+        case 'motd':
+            printTerminalMotd();
+            break;
+        case 'status':
+            await printTerminalStatus();
+            break;
+        case 'users':
+            await printTerminalUsers();
+            break;
+        case 'incidents':
+            await printTerminalIncidents();
+            break;
+        case 'approvals':
+            await printTerminalApprovals();
+            break;
+        case 'resets':
+            await printTerminalResets();
+            break;
+        case 'add':
+            await handleTerminalAdd(args.slice(1));
+            break;
+        case 'delete':
+            await handleTerminalDelete(args.slice(1));
+            break;
+        case 'approve':
+            await handleTerminalApprove(args.slice(1));
+            break;
+        case 'reject':
+            await handleTerminalReject(args.slice(1));
+            break;
+        case 'approve-reset':
+            await handleTerminalApproveReset(args.slice(1));
+            break;
+        case 'purge':
+            await handleTerminalPurge();
+            break;
+        case 'broadcast':
+            await handleTerminalBroadcast(args.slice(1));
+            break;
+        case 'flyto':
+            handleTerminalFlyTo(args.slice(1));
+            break;
+        case 'simulate-incident':
+            await handleTerminalSimulateIncident(args.slice(1));
+            break;
+        case 'vigilante':
+            handleTerminalVigilante(args.slice(1));
+            break;
+        case 'theme':
+            handleTerminalTheme(args.slice(1));
+            break;
+        case 'locate':
+            handleTerminalLocate();
+            break;
+        default:
+            appendTerminalOutput(`Command not found: ${command}. Type 'help' for available commands.`, 'error');
+    }
+}
+
+function printTerminalHelp() {
+    appendTerminalOutput("CivicSafe Tactical OS v4.3 - Command Reference", "header");
+    appendTerminalOutput("========================================================================", "muted");
+    const commands = [
+        ["help", "Show this command reference guide"],
+        ["clear", "Clear terminal screen output"],
+        ["motd", "Display tactical warning message of the day"],
+        ["status", "Print system health and database status info"],
+        ["users", "List all registered accounts in directory"],
+        ["incidents", "List active reports and danger markings"],
+        ["approvals", "List pending citizen registration requests"],
+        ["resets", "List pending password reset requests"],
+        ["add [citizen|admin] <user> <pass>", "Create new account directly"],
+        ["delete user <username>", "Remove user account from database"],
+        ["delete incident <id>", "Delete incident record by ID"],
+        ["approve <username>", "Approve pending citizen registration"],
+        ["reject <username>", "Reject/delete pending registration"],
+        ["approve-reset <username>", "Approve password reset request"],
+        ["purge", "Clean database logs older than 30 days"],
+        ["broadcast <message>", "Broadcast real-time alert toast to all clients"],
+        ["flyto <lat> <lng> [height]", "Move 3D map camera to coords (height optional)"],
+        ["simulate-incident <cat> <lat> <lng> <desc>", "Simulate incident on live map"],
+        ["vigilante [on|off]", "Toggle grid overlay Vigilante Mode"],
+        ["theme [light|dark]", "Toggle site aesthetic scheme"],
+        ["locate", "Trigger GPS tracking simulation"]
+    ];
+    
+    commands.forEach(([cmd, desc]) => {
+        const paddedCmd = cmd.padEnd(36, ' ');
+        appendTerminalOutput(`${paddedCmd} - ${desc}`, 'pre');
+    });
+    appendTerminalOutput("========================================================================", "muted");
+}
+
+function printTerminalMotd() {
+    const banner = 
+`   ______  _______    _______   _________ _ 
+  / ___/ |/ / _ \\ \\  / / __/ | / / _ \\__ / 
+ / /___/    / , _/\\ \\/ / _/| |/ /  __//_ <  
+ \\___/_/|_/_/|_|   \\__/___/|___/\\___/____/  
+                                            `;
+    appendTerminalOutput(banner, "pre");
+    appendTerminalOutput("========================================================================", "muted");
+    appendTerminalOutput("SECURITY WARNING: AUTHORIZED PERSONNEL ONLY. ALL ACTIONS ARE LOGGED.", "warning");
+    appendTerminalOutput("========================================================================", "muted");
+}
+
+async function printTerminalStatus() {
+    appendTerminalOutput("Fetching system diagnostics...", "muted");
+    try {
+        const usersRes = await fetch('/api/admin/users');
+        const users = await usersRes.json();
+        
+        const incidentsRes = await fetch('/api/incidents');
+        const activeIncidents = await incidentsRes.json();
+        
+        const approvalsRes = await fetch('/api/admin/pending-approvals');
+        const approvals = await approvalsRes.json();
+
+        const resetsRes = await fetch('/api/admin/reset-requests');
+        const resets = await resetsRes.json();
+
+        const dbType = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'Local JSON File' : 'MongoDB Cloud';
+
+        appendTerminalOutput("System Health Diagnostics:", "header");
+        appendTerminalOutput(`- Database Engine:   ${dbType}`, "normal");
+        appendTerminalOutput(`- Map Engine:        Cesium 3D Globe`, "normal");
+        appendTerminalOutput(`- Active Incidents:  ${activeIncidents.length}`, "normal");
+        appendTerminalOutput(`- Registered Users:  ${users.length}`, "normal");
+        appendTerminalOutput(`- Pending Approvals: ${approvals.length}`, "normal");
+        appendTerminalOutput(`- Reset Requests:    ${resets.length}`, "normal");
+        appendTerminalOutput(`- Connection State:  Online (SSE Connected)`, "success");
+    } catch (e) {
+        appendTerminalOutput(`Diagnostic retrieval failed: ${e.message}`, "error");
+    }
+}
+
+async function printTerminalUsers() {
+    appendTerminalOutput("Querying user registry database...", "muted");
+    try {
+        const res = await fetch('/api/admin/users');
+        const users = await res.json();
+        
+        appendTerminalOutput("USERNAME".padEnd(16, ' ') + "ROLE".padEnd(12, ' ') + "STATUS".padEnd(12, ' ') + "FULL NAME", "header");
+        appendTerminalOutput("------------------------------------------------------------------------", "muted");
+        users.forEach(u => {
+            const status = u.approved ? "Active" : "Pending";
+            const row = u.username.padEnd(16, ' ') + 
+                        u.role.padEnd(12, ' ') + 
+                        status.padEnd(12, ' ') + 
+                        (u.fullName || "N/A");
+            appendTerminalOutput(row, "pre");
+        });
+    } catch (e) {
+        appendTerminalOutput(`User registry query failed: ${e.message}`, "error");
+    }
+}
+
+async function printTerminalIncidents() {
+    appendTerminalOutput("Querying active incident reports...", "muted");
+    try {
+        const res = await fetch('/api/incidents');
+        const list = await res.json();
+        
+        appendTerminalOutput("ID".padEnd(12, ' ') + "CATEGORY".padEnd(14, ' ') + "VOTES".padEnd(8, ' ') + "COORDINATES".padEnd(24, ' ') + "DESCRIPTION", "header");
+        appendTerminalOutput("------------------------------------------------------------------------", "muted");
+        list.forEach(inc => {
+            const votesCount = inc.votes ? Object.keys(inc.votes).length : 0;
+            const coords = `${inc.lat.toFixed(4)}, ${inc.lng.toFixed(4)}`;
+            const row = inc.id.substring(0, 10).padEnd(12, ' ') + 
+                        inc.category.padEnd(14, ' ') + 
+                        String(votesCount).padEnd(8, ' ') + 
+                        coords.padEnd(24, ' ') + 
+                        (inc.description || "No details");
+            appendTerminalOutput(row, "pre");
+        });
+    } catch (e) {
+        appendTerminalOutput(`Incident query failed: ${e.message}`, "error");
+    }
+}
+
+async function printTerminalApprovals() {
+    try {
+        const res = await fetch('/api/admin/pending-approvals');
+        const list = await res.json();
+        if (list.length === 0) {
+            appendTerminalOutput("No pending registration approvals.");
+            return;
+        }
+        appendTerminalOutput("PENDING USER REGISTRATIONS:", "header");
+        list.forEach(u => {
+            appendTerminalOutput(`- ${u.username} (${u.fullName || "No Name"}) - Role Request: ${u.role}`, "normal");
+        });
+    } catch (e) {
+        appendTerminalOutput(`Approvals check failed: ${e.message}`, "error");
+    }
+}
+
+async function printTerminalResets() {
+    try {
+        const res = await fetch('/api/admin/reset-requests');
+        const list = await res.json();
+        if (list.length === 0) {
+            appendTerminalOutput("No pending password reset requests.");
+            return;
+        }
+        appendTerminalOutput("PENDING PASSWORD RESET REQUESTS:", "header");
+        list.forEach(r => {
+            appendTerminalOutput(`- ${r.username} (New Password Requested: ${r.newPassword})`, "normal");
+        });
+    } catch (e) {
+        appendTerminalOutput(`Reset requests check failed: ${e.message}`, "error");
+    }
+}
+
+async function handleTerminalAdd(args) {
+    if (args.length < 3) {
+        appendTerminalOutput("Usage: add [citizen|admin] <username> <password>", "warning");
+        return;
+    }
+    const role = args[0].toLowerCase();
+    const username = args[1];
+    const password = args[2];
+    
+    if (role !== 'citizen' && role !== 'admin') {
+        appendTerminalOutput("Role must be 'citizen' or 'admin'", "warning");
+        return;
+    }
+    
+    appendTerminalOutput(`Creating ${role} account '${username}'...`, "muted");
+    try {
+        const res = await fetch('/api/admin/users/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                username,
+                password,
+                fullName: `Terminal Created ${role}`,
+                role,
+                phone: "",
+                emergencyContact: "",
+                autoAnonymous: true,
+                defaultLocation: ""
+            })
+        });
+        const data = await res.json();
+        if (res.ok) {
+            appendTerminalOutput(`Account '${username}' created successfully.`, "success");
+            loadAdminData();
+        } else {
+            appendTerminalOutput(`Creation failed: ${data.error}`, "error");
+        }
+    } catch (e) {
+        appendTerminalOutput(`Creation failed: ${e.message}`, "error");
+    }
+}
+
+async function handleTerminalDelete(args) {
+    if (args.length < 2) {
+        appendTerminalOutput("Usage: delete user <username> OR delete incident <id>", "warning");
+        return;
+    }
+    const type = args[0].toLowerCase();
+    const target = args[1];
+    
+    if (type === 'user') {
+        appendTerminalOutput(`Deleting user '${target}'...`, "muted");
+        try {
+            const res = await fetch(`/api/admin/users/${encodeURIComponent(target)}`, { method: 'DELETE' });
+            const data = await res.json();
+            if (res.ok) {
+                appendTerminalOutput(`User '${target}' deleted.`, "success");
+                loadAdminData();
+            } else {
+                appendTerminalOutput(`Deletion failed: ${data.error}`, "error");
+            }
+        } catch (e) {
+            appendTerminalOutput(`Deletion failed: ${e.message}`, "error");
+        }
+    } else if (type === 'incident') {
+        appendTerminalOutput(`Deleting incident '${target}'...`, "muted");
+        try {
+            const res = await fetch(`/api/admin/incidents/${encodeURIComponent(target)}`, { method: 'DELETE' });
+            const data = await res.json();
+            if (res.ok) {
+                appendTerminalOutput(`Incident '${target}' deleted.`, "success");
+                loadAdminData();
+            } else {
+                appendTerminalOutput(`Deletion failed: ${data.error}`, "error");
+            }
+        } catch (e) {
+            appendTerminalOutput(`Deletion failed: ${e.message}`, "error");
+        }
+    } else {
+        appendTerminalOutput("Invalid deletion type. Specify 'user' or 'incident'", "warning");
+    }
+}
+
+async function handleTerminalApprove(args) {
+    if (args.length < 1) {
+        appendTerminalOutput("Usage: approve <username>", "warning");
+        return;
+    }
+    const username = args[0];
+    appendTerminalOutput(`Approving registration for '${username}'...`, "muted");
+    try {
+        const res = await fetch('/api/admin/approve-user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username })
+        });
+        if (res.ok) {
+            appendTerminalOutput(`Approved '${username}' registration.`, "success");
+            loadAdminData();
+        } else {
+            appendTerminalOutput("Approval failed.", "error");
+        }
+    } catch (e) {
+        appendTerminalOutput(`Approval failed: ${e.message}`, "error");
+    }
+}
+
+async function handleTerminalReject(args) {
+    if (args.length < 1) {
+        appendTerminalOutput("Usage: reject <username>", "warning");
+        return;
+    }
+    const username = args[0];
+    appendTerminalOutput(`Rejecting registration for '${username}'...`, "muted");
+    try {
+        const res = await fetch('/api/admin/reject-user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username })
+        });
+        if (res.ok) {
+            appendTerminalOutput(`Rejected and deleted user '${username}'.`, "success");
+            loadAdminData();
+        } else {
+            appendTerminalOutput("Rejection failed.", "error");
+        }
+    } catch (e) {
+        appendTerminalOutput(`Rejection failed: ${e.message}`, "error");
+    }
+}
+
+async function handleTerminalApproveReset(args) {
+    if (args.length < 1) {
+        appendTerminalOutput("Usage: approve-reset <username>", "warning");
+        return;
+    }
+    const username = args[0];
+    appendTerminalOutput(`Approving reset request for '${username}'...`, "muted");
+    try {
+        const res = await fetch('/api/admin/reset-requests/approve', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username })
+        });
+        if (res.ok) {
+            appendTerminalOutput(`Approved reset request for '${username}'.`, "success");
+            loadAdminData();
+        } else {
+            appendTerminalOutput("Reset approval failed.", "error");
+        }
+    } catch (e) {
+        appendTerminalOutput(`Reset approval failed: ${e.message}`, "error");
+    }
+}
+
+async function handleTerminalPurge() {
+    appendTerminalOutput("Purging old incident reports...", "muted");
+    try {
+        const res = await fetch('/api/admin/purge', { method: 'POST' });
+        const data = await res.json();
+        if (res.ok) {
+            appendTerminalOutput(`Database logs purged. Cleared ${data.prunedCount} old incidents.`, "success");
+            loadAdminData();
+        } else {
+            appendTerminalOutput("Purge operation failed.", "error");
+        }
+    } catch (e) {
+        appendTerminalOutput(`Purge failed: ${e.message}`, "error");
+    }
+}
+
+async function handleTerminalBroadcast(args) {
+    if (args.length < 1) {
+        appendTerminalOutput("Usage: broadcast <message_content>", "warning");
+        return;
+    }
+    const message = args.join(' ');
+    appendTerminalOutput(`Broadcasting message: "${message}"...`, "muted");
+    try {
+        const res = await fetch('/api/admin/broadcast', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message })
+        });
+        if (res.ok) {
+            appendTerminalOutput("System broadcast sent successfully.", "success");
+        } else {
+            appendTerminalOutput("Failed to send system broadcast.", "error");
+        }
+    } catch (e) {
+        appendTerminalOutput(`Broadcast failed: ${e.message}`, "error");
+    }
+}
+
+function handleTerminalFlyTo(args) {
+    if (args.length < 2) {
+        appendTerminalOutput("Usage: flyto <lat> <lng> [height]", "warning");
+        return;
+    }
+    const lat = parseFloat(args[0]);
+    const lng = parseFloat(args[1]);
+    const height = args[2] ? parseFloat(args[2]) : 800.0;
+    
+    if (isNaN(lat) || isNaN(lng)) {
+        appendTerminalOutput("Invalid latitude or longitude numbers.", "warning");
+        return;
+    }
+    
+    appendTerminalOutput(`Flying map camera to (${lat}, ${lng}) height ${height}m...`, "muted");
+    
+    const mainSidebar = document.getElementById('main-sidebar');
+    if (mainSidebar) mainSidebar.classList.remove('sidebar-open');
+    
+    viewer.camera.flyTo({
+        destination: Cesium.Cartesian3.fromDegrees(lng, lat, height),
+        orientation: {
+            heading: Cesium.Math.toRadians(0.0),
+            pitch: Cesium.Math.toRadians(-45.0),
+            roll: 0.0
+        },
+        duration: 2.0
+    });
+}
+
+async function handleTerminalSimulateIncident(args) {
+    if (args.length < 4) {
+        appendTerminalOutput("Usage: simulate-incident <category> <lat> <lng> <description>", "warning");
+        appendTerminalOutput("Categories: accident | roadblock | hazard | security | other", "muted");
+        return;
+    }
+    const category = args[0].toLowerCase();
+    const lat = parseFloat(args[1]);
+    const lng = parseFloat(args[2]);
+    const description = args.slice(3).join(' ');
+    
+    if (isNaN(lat) || isNaN(lng)) {
+        appendTerminalOutput("Invalid latitude or longitude numbers.", "warning");
+        return;
+    }
+    
+    appendTerminalOutput(`Simulating report creation for '${category}' at (${lat}, ${lng})...`, "muted");
+    try {
+        const res = await fetch('/api/incidents', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                category,
+                description,
+                lat,
+                lng,
+                anonymous: true
+            })
+        });
+        if (res.ok) {
+            appendTerminalOutput("Incident simulated and broadcast to map successfully.", "success");
+        } else {
+            appendTerminalOutput("Simulation request failed.", "error");
+        }
+    } catch (e) {
+        appendTerminalOutput(`Simulation request failed: ${e.message}`, "error");
+    }
+}
+
+function handleTerminalVigilante(args) {
+    if (args.length < 1) {
+        appendTerminalOutput("Usage: vigilante [on|off]", "warning");
+        return;
+    }
+    const state = args[0].toLowerCase();
+    const isVigilanteMode = document.body.classList.contains('vigilante-mode');
+    
+    if (state === 'on' && !isVigilanteMode) {
+        const btn = document.getElementById('btn-vigilante-toggle');
+        if (btn) btn.click();
+        appendTerminalOutput("Vigilante Grid mode toggled ON.", "success");
+    } else if (state === 'off' && isVigilanteMode) {
+        const btn = document.getElementById('btn-vigilante-toggle');
+        if (btn) btn.click();
+        appendTerminalOutput("Vigilante Grid mode toggled OFF.", "success");
+    } else {
+        appendTerminalOutput(`Vigilante mode is already ${isVigilanteMode ? 'ON' : 'OFF'}.`, "normal");
+    }
+}
+
+function handleTerminalTheme(args) {
+    if (args.length < 1) {
+        appendTerminalOutput("Usage: theme [light|dark]", "warning");
+        return;
+    }
+    const reqTheme = args[0].toLowerCase();
+    const isLight = document.body.classList.contains('light-theme');
+    
+    if (reqTheme === 'light' && !isLight) {
+        const btn = document.getElementById('btn-theme-toggle');
+        if (btn) btn.click();
+        appendTerminalOutput("Interface theme shifted to LIGHT.", "success");
+    } else if (reqTheme === 'dark' && isLight) {
+        const btn = document.getElementById('btn-theme-toggle');
+        if (btn) btn.click();
+        appendTerminalOutput("Interface theme shifted to DARK.", "success");
+    } else {
+        appendTerminalOutput(`Theme is already ${isLight ? 'LIGHT' : 'DARK'}.`, "normal");
+    }
+}
+
+function handleTerminalLocate() {
+    appendTerminalOutput("Simulating GPS location track request...", "muted");
+    const gpsBtn = document.getElementById('btn-gps-locate');
+    if (gpsBtn) {
+        gpsBtn.click();
+        appendTerminalOutput("GPS locate tracking active.", "success");
+    } else {
+        appendTerminalOutput("Locate button unavailable.", "error");
+    }
+}
