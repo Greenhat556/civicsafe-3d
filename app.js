@@ -1334,6 +1334,29 @@ function setupUIEventListeners() {
     window.startNavigationToIncident = startNavigationToIncident;
     window.stopNavigation = stopNavigation;
 
+    // 3D Globe / 2D Map mode toggle
+    const mapModeBtn = document.getElementById('btn-map-mode');
+    if (mapModeBtn) {
+        mapModeBtn.addEventListener('click', () => {
+            if (!viewer) return;
+            const globe3dIcon = document.getElementById('icon-globe-3d');
+            const flat2dIcon = document.getElementById('icon-flat-2d');
+
+            if (viewer.scene.mode === Cesium.SceneMode.SCENE3D) {
+                viewer.scene.morphTo2D(1.5);
+                if (globe3dIcon) globe3dIcon.classList.add('hidden');
+                if (flat2dIcon) flat2dIcon.classList.remove('hidden');
+                mapModeBtn.title = 'Switch to 3D Globe';
+            } else {
+                viewer.scene.morphTo3D(1.5);
+                if (flat2dIcon) flat2dIcon.classList.add('hidden');
+                if (globe3dIcon) globe3dIcon.classList.remove('hidden');
+                mapModeBtn.title = 'Switch to 2D Map';
+            }
+            playAlertBeep(800, 0.08);
+        });
+    }
+
     // Tech UI micro-feedback sounds using capturing event listeners (for all current and future elements)
     document.body.addEventListener('mouseenter', (e) => {
         const target = e.target;
