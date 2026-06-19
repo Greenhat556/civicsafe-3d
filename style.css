@@ -1761,40 +1761,21 @@ body.light-theme .hud-overlay {
 /* ----------------------------------------------------
    USER AUTHENTICATION (LOGIN & REGISTRATION CARD)
 ---------------------------------------------------- */
+/*******************************************************
+   LOGIN SCREEN WITH CYBERSECURITY-THEMED BACKGROUND
+********************************************************/
 .login-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: #ffffff;
+    background: #ffffff url('login_background_cyber.png') no-repeat center center / cover;
     z-index: 5000;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-}
-
-.decor-left {
-    position: absolute;
-    left: -70px;
-    top: 8%;
-    width: 280px;
-    height: 280px;
-    pointer-events: none;
-    z-index: 1;
-    transform: rotate(-12deg);
-}
-
-.decor-right {
-    position: absolute;
-    right: -100px;
-    bottom: 12%;
-    width: 360px;
-    height: 360px;
-    pointer-events: none;
-    z-index: 1;
-    transform: rotate(15deg);
 }
 
 .login-card {
