@@ -11,6 +11,11 @@ let activeOscillators = [];
 let isDispatchingSOS = false;
 let notificationEventSource = null;
 
+// User Geolocation tracking variables
+let isTrackingLocation = false;
+let watchPositionId = null;
+let hasLocatedOnce = false;
+
 // For 3D Popup overlay tracking
 let selectedEntity = null;
 const popupElement = document.getElementById('cesium-popup-container');
@@ -885,10 +890,23 @@ function setupUIEventListeners() {
         }
     });
 
-    // Logout trigger
     document.getElementById('btn-logout').addEventListener('click', () => {
         sessionStorage.removeItem('auth_user');
         sessionStorage.removeItem('auth_role');
+        
+        // Clear active geolocation watch on logout
+        if (watchPositionId !== null) {
+            navigator.geolocation.clearWatch(watchPositionId);
+            watchPositionId = null;
+        }
+        isTrackingLocation = false;
+        hasLocatedOnce = false;
+        
+        const gpsLocateBtn = document.getElementById('btn-gps-locate');
+        if (gpsLocateBtn) {
+            gpsLocateBtn.classList.remove('gps-tracking');
+        }
+        
         checkAuthSession();
         playAlertBeep(400, 0.1);
     });
@@ -1276,6 +1294,14 @@ function setupUIEventListeners() {
         });
     }
 
+    // GPS locate and tracking bindings
+    const gpsLocateBtn = document.getElementById('btn-gps-locate');
+    if (gpsLocateBtn) {
+        gpsLocateBtn.addEventListener('click', () => {
+            toggleLocationTracking(gpsLocateBtn);
+        });
+    }
+
     // Tech UI micro-feedback sounds using capturing event listeners (for all current and future elements)
     document.body.addEventListener('mouseenter', (e) => {
         const target = e.target;
@@ -1290,6 +1316,219 @@ function setupUIEventListeners() {
             playAlertBeep(1000, 0.05); // focus click sound
         }
     }, true);
+}
+
+// ----------------------------------------------------
+// GEOLOCATION GPS AND LOCATION TRACKING
+// ----------------------------------------------------
+function toggleLocationTracking(btn) {
+    if (isTrackingLocation) {
+        // Turn off tracking
+        if (watchPositionId !== null) {
+            navigator.geolocation.clearWatch(watchPositionId);
+            watchPositionId = null;
+        }
+        
+        // Remove location entities
+        if (viewer) {
+            viewer.entities.removeById('user-location-marker');
+            viewer.entities.removeById('user-location-accuracy');
+        }
+        
+        btn.classList.remove('gps-tracking');
+        isTrackingLocation = false;
+        hasLocatedOnce = false;
+        
+        showGPSToast("GPS Status", "Location tracking deactivated.");
+        playAlertBeep(400, 0.15); // low tone
+    } else {
+        // Turn on tracking
+        if (!navigator.geolocation) {
+            alert("Geolocation is not supported by your browser.");
+            return;
+        }
+        
+        btn.classList.add('gps-tracking');
+        isTrackingLocation = true;
+        hasLocatedOnce = false;
+        
+        playAlertBeep(900, 0.1); // high alert tone
+        
+        showGPSToast("GPS Status", "Acquiring satellite signal...");
+        
+        watchPositionId = navigator.geolocation.watchPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                const accuracy = position.coords.accuracy || 10.0;
+                
+                updateUserLocationOnMap(lat, lng, accuracy);
+            },
+            (error) => {
+                console.error("Geolocation tracking error:", error);
+                
+                // Reset tracking state in case of failure
+                if (watchPositionId !== null) {
+                    navigator.geolocation.clearWatch(watchPositionId);
+                    watchPositionId = null;
+                }
+                
+                if (viewer) {
+                    viewer.entities.removeById('user-location-marker');
+                    viewer.entities.removeById('user-location-accuracy');
+                }
+                
+                btn.classList.remove('gps-tracking');
+                isTrackingLocation = false;
+                hasLocatedOnce = false;
+                
+                let errorMsg = "Unable to retrieve your location.";
+                if (error.code === error.PERMISSION_DENIED) {
+                    errorMsg = "Location access denied. Please grant GPS permission.";
+                } else if (error.code === error.POSITION_UNAVAILABLE) {
+                    errorMsg = "Position unavailable. Verify network/GPS connection.";
+                } else if (error.code === error.TIMEOUT) {
+                    errorMsg = "GPS connection timed out.";
+                }
+                
+                alert(errorMsg);
+                playAlertBeep(300, 0.25);
+            },
+            {
+                enableHighAccuracy: true,
+                maximumAge: 1000,
+                timeout: 10000
+            }
+        );
+    }
+}
+
+function updateUserLocationOnMap(lat, lng, accuracy) {
+    if (!viewer) return;
+    
+    const activeRole = sessionStorage.getItem('auth_role');
+    const colorHex = (activeRole === 'vigilante') ? '#10b981' : '#38bdf8'; // green for vigilante, blue/cyan for citizen
+    const markerColor = Cesium.Color.fromCssColorString(colorHex);
+    
+    const position = Cesium.Cartesian3.fromDegrees(lng, lat, 0.0);
+    
+    // 1. Update/Create point marker
+    const existingMarker = viewer.entities.getById('user-location-marker');
+    if (existingMarker) {
+        existingMarker.position = position;
+        existingMarker.point.color = markerColor;
+    } else {
+        viewer.entities.add({
+            id: 'user-location-marker',
+            position: position,
+            point: {
+                pixelSize: 16,
+                color: markerColor,
+                outlineColor: Cesium.Color.WHITE,
+                outlineWidth: 3,
+                heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+                disableDepthTestDistance: Number.POSITIVE_INFINITY // Always render on top
+            },
+            properties: {
+                title: "My Location"
+            }
+        });
+    }
+    
+    // 2. Update/Create accuracy ellipse
+    const existingAccuracy = viewer.entities.getById('user-location-accuracy');
+    if (existingAccuracy) {
+        existingAccuracy.position = position;
+        existingAccuracy.ellipse.semiMajorAxis = accuracy;
+        existingAccuracy.ellipse.semiMinorAxis = accuracy;
+        existingAccuracy.ellipse.outlineColor = markerColor.withAlpha(0.5);
+        existingAccuracy.ellipse.material = markerColor.withAlpha(0.12);
+    } else {
+        viewer.entities.add({
+            id: 'user-location-accuracy',
+            position: position,
+            ellipse: {
+                semiMajorAxis: accuracy,
+                semiMinorAxis: accuracy,
+                material: markerColor.withAlpha(0.12),
+                outline: true,
+                outlineColor: markerColor.withAlpha(0.5),
+                heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
+            }
+        });
+    }
+    
+    // 3. Zoom/Fly to location on first lock
+    if (!hasLocatedOnce) {
+        viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(lng, lat, 1500.0), // Zoom in to 1.5km
+            duration: 2.0
+        });
+        hasLocatedOnce = true;
+        
+        showGPSToast("GPS Status", "Location signal locked.");
+    }
+    
+    // 4. Update HUD coordinates locator display dynamically
+    const coordsEl = document.getElementById('hud-coords-value');
+    if (coordsEl) {
+        coordsEl.textContent = `${lat.toFixed(4)}° N, ${lng.toFixed(4)}° E (GPS)`;
+    }
+}
+
+function showGPSToast(title, description) {
+    let container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = 'notification-toast';
+    
+    const activeRole = sessionStorage.getItem('auth_role');
+    const color = (activeRole === 'vigilante') ? '#10b981' : '#38bdf8';
+    
+    toast.style.borderColor = `${color}44`;
+    
+    toast.innerHTML = `
+        <div class="notification-toast-header">
+            <div class="notification-toast-title" style="color: ${color};">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="animation: alert-flash 1s infinite alternate;">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+                ${title}
+            </div>
+            <button class="notification-toast-close">&times;</button>
+        </div>
+        <div class="notification-toast-body">
+            ${description}
+        </div>
+    `;
+    
+    const closeBtn = toast.querySelector('.notification-toast-close');
+    
+    const dismissToast = () => {
+        toast.style.animation = 'toastSlideOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+        toast.addEventListener('animationend', () => {
+            toast.remove();
+        });
+    };
+    
+    closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dismissToast();
+        playAlertBeep(500, 0.05);
+    });
+    
+    setTimeout(() => {
+        dismissToast();
+    }, 4000);
+    
+    container.appendChild(toast);
 }
 
 // ----------------------------------------------------

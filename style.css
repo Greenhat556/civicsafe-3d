@@ -699,6 +699,27 @@ body {
     box-shadow: var(--shadow-blue);
 }
 
+.map-ctrl-btn.gps-tracking {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-blue);
+    animation: gpsActivePulse 2s infinite ease-in-out;
+}
+
+@keyframes gpsActivePulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
+        filter: brightness(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 /* Routing legend overlay */
 .routing-legend {
     position: absolute;
