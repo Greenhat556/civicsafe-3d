@@ -205,6 +205,36 @@ function saveLocalUsers(users) {
     }
 }
 
+let sseClients = [];
+
+function broadcastIncident(incident) {
+    const payload = JSON.stringify(incident);
+    sseClients.forEach(client => {
+        try {
+            client.write(`data: ${payload}\n\n`);
+        } catch (e) {
+            console.error("Failed to push to SSE client:", e);
+        }
+    });
+}
+
+// SSE Connection for Live Notifications
+app.get('/api/notifications/subscribe', (req, res) => {
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    res.flushHeaders(); // Establish SSE stream
+
+    // Send connection established confirmation
+    res.write(`data: ${JSON.stringify({ connected: true })}\n\n`);
+
+    sseClients.push(res);
+
+    req.on('close', () => {
+        sseClients = sseClients.filter(client => client !== res);
+    });
+});
+
 // ----------------------------------------------------
 // AUTHENTICATION API ENDPOINTS
 // ----------------------------------------------------
@@ -575,6 +605,8 @@ app.post('/api/incidents', async (req, res) => {
             const doc = new IncidentModel(newIncident);
             const savedDoc = await doc.save();
             await pruneOldIncidents([], true); // Cleanup database
+            const incidentObj = savedDoc.toObject ? savedDoc.toObject() : savedDoc;
+            broadcastIncident(incidentObj);
             return res.status(201).json(savedDoc);
         } catch (e) {
             console.error("MongoDB insert error, falling back to local storage write:", e);
@@ -586,6 +618,7 @@ app.post('/api/incidents', async (req, res) => {
     const activeList = await pruneOldIncidents(localList, false);
     
     if (saveLocalIncidentsList(activeList)) {
+        broadcastIncident(newIncident);
         res.status(201).json(newIncident);
     } else {
         res.status(500).json({ error: "Failed to persist report data" });
@@ -690,6 +723,56 @@ app.post('/api/incidents/:id/vote', async (req, res) => {
 // ----------------------------------------------------
 // ADMINISTRATOR API ENDPOINTS
 // ----------------------------------------------------
+
+// POST create a new user/citizen from admin
+app.post('/api/admin/users/create', async (req, res) => {
+    const { username, password, fullName, phone, emergencyContact, autoAnonymous, defaultLocation } = req.body;
+    if (!username || !password) {
+        return res.status(400).json({ error: "Username and password required" });
+    }
+
+    if (useMongoDB) {
+        try {
+            const exists = await UserModel.findOne({ username });
+            if (exists) {
+                return res.status(400).json({ error: "Username already exists" });
+            }
+            const newUser = new UserModel({
+                username,
+                password,
+                fullName: fullName || "",
+                phone: phone || "",
+                emergencyContact: emergencyContact || "",
+                autoAnonymous: autoAnonymous !== false,
+                defaultLocation: defaultLocation || ""
+            });
+            await newUser.save();
+            return res.status(201).json({ success: true });
+        } catch (e) {
+            console.error("MongoDB create user admin error, falling back to local file:", e);
+        }
+    }
+
+    // Local file fallback
+    try {
+        const users = getLocalUsers();
+        if (users[username]) {
+            return res.status(400).json({ error: "Username already exists" });
+        }
+        users[username] = {
+            password,
+            fullName: fullName || "",
+            phone: phone || "",
+            emergencyContact: emergencyContact || "",
+            autoAnonymous: autoAnonymous !== false,
+            defaultLocation: defaultLocation || ""
+        };
+        saveLocalUsers(users);
+        res.status(201).json({ success: true });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 
 // GET all registered users
 app.get('/api/admin/users', async (req, res) => {

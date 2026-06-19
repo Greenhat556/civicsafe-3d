@@ -9,6 +9,7 @@ let isSettingLocation = false;
 let audioCtx = null;
 let activeOscillators = [];
 let isDispatchingSOS = false;
+let notificationEventSource = null;
 
 // For 3D Popup overlay tracking
 let selectedEntity = null;
@@ -104,6 +105,11 @@ function checkAuthSession() {
         
         document.getElementById('logged-user-name').textContent = activeUser;
         
+        // Connect to SSE stream for live notifications
+        if (!notificationEventSource) {
+            startSSEConnection();
+        }
+        
         // Show admin tab option only if user is 'admin'
         if (activeUser === 'admin') {
             if (adminTabLink) adminTabLink.classList.remove('hidden');
@@ -126,7 +132,153 @@ function checkAuthSession() {
         if (sosContainer) sosContainer.classList.add('hidden');
         if (adminTabLink) adminTabLink.classList.add('hidden');
         if (burgerMenu) burgerMenu.classList.add('hidden');
+        
+        // Stop SSE connection
+        stopSSEConnection();
     }
+}
+
+function startSSEConnection() {
+    if (notificationEventSource) {
+        notificationEventSource.close();
+    }
+    
+    notificationEventSource = new EventSource('/api/notifications/subscribe');
+    
+    notificationEventSource.onmessage = (event) => {
+        try {
+            const data = JSON.parse(event.data);
+            if (data.connected) {
+                console.log("Live push notification stream connected.");
+                return;
+            }
+            handleLiveIncidentNotification(data);
+        } catch (e) {
+            console.error("Error parsing SSE event data:", e);
+        }
+    };
+    
+    notificationEventSource.onerror = (err) => {
+        console.error("SSE stream error, re-establishing in 5s...", err);
+        if (notificationEventSource) {
+            notificationEventSource.close();
+        }
+        notificationEventSource = null;
+        setTimeout(startSSEConnection, 5000);
+    };
+}
+
+function stopSSEConnection() {
+    if (notificationEventSource) {
+        notificationEventSource.close();
+        notificationEventSource = null;
+        console.log("Live push notification stream disconnected.");
+    }
+}
+
+function handleLiveIncidentNotification(incident) {
+    if (!incidents.some(i => i.id === incident.id)) {
+        incidents.push(incident);
+        renderMarkers();
+        updateFeedList();
+        
+        if (sessionStorage.getItem('auth_user') === 'admin') {
+            loadAdminData();
+        }
+    }
+    
+    playAlertBeep(880, 0.15);
+    setTimeout(() => {
+        playAlertBeep(1046.50, 0.2);
+    }, 150);
+    
+    showLiveNotificationToast(incident);
+}
+
+function showLiveNotificationToast(incident) {
+    let container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = 'notification-toast';
+    
+    const categoryLabel = CATEGORY_STYLES[incident.category]?.label || '⚠️ ALERT';
+    const categoryColor = CATEGORY_STYLES[incident.category]?.color || '#ef4444';
+    
+    toast.style.borderColor = `${categoryColor}44`;
+    
+    toast.innerHTML = `
+        <div class="notification-toast-header">
+            <div class="notification-toast-title" style="color: ${categoryColor};">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="animation: alert-flash 1s infinite alternate;">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                ${categoryLabel}
+            </div>
+            <button class="notification-toast-close">&times;</button>
+        </div>
+        <div class="notification-toast-body">
+            ${incident.description}
+        </div>
+        <div class="notification-toast-actions">
+            <button class="notification-toast-btn" id="toast-fly-${incident.id}">Fly to Map</button>
+        </div>
+    `;
+    
+    const closeBtn = toast.querySelector('.notification-toast-close');
+    const flyBtn = toast.querySelector(`#toast-fly-${incident.id}`);
+    
+    const dismissToast = () => {
+        toast.style.animation = 'toastSlideOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+        toast.addEventListener('animationend', () => {
+            toast.remove();
+        });
+    };
+    
+    closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dismissToast();
+        playAlertBeep(500, 0.05);
+    });
+    
+    flyBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dismissToast();
+        playAlertBeep(600, 0.08);
+        
+        const mainSidebar = document.getElementById('main-sidebar');
+        if (mainSidebar) mainSidebar.classList.remove('sidebar-open');
+        
+        viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(incident.lng, incident.lat, 800.0),
+            orientation: {
+                heading: Cesium.Math.toRadians(0.0),
+                pitch: Cesium.Math.toRadians(-45.0),
+                roll: 0.0
+            },
+            duration: 2.0
+        });
+        
+        setTimeout(() => {
+            const entity = viewer.entities.getById(incident.id);
+            if (entity) {
+                openCesiumPopup(entity);
+            }
+        }, 2100);
+    });
+    
+    setTimeout(() => {
+        dismissToast();
+    }, 8000);
+    
+    container.appendChild(toast);
 }
 
 function initMap() {
@@ -1751,6 +1903,110 @@ document.addEventListener('DOMContentLoaded', () => {
     if (editCancelBtn) {
         editCancelBtn.addEventListener('click', () => {
             closeAdminUserEditor();
+        });
+    }
+});
+
+// Admin Create User modal handlers
+function openAdminCreateUserModal() {
+    const modal = document.getElementById('admin-create-user-modal');
+    const form = document.getElementById('admin-create-user-form');
+    const errorMsg = document.getElementById('admin-create-error');
+    if (form) form.reset();
+    if (errorMsg) errorMsg.classList.add('hidden');
+    if (modal) modal.classList.remove('hidden');
+    playAlertBeep(600, 0.1);
+}
+
+function closeAdminCreateUserModal() {
+    const modal = document.getElementById('admin-create-user-modal');
+    if (modal) modal.classList.add('hidden');
+    playAlertBeep(400, 0.1);
+}
+
+async function handleAdminCreateUserSubmit() {
+    const username = document.getElementById('admin-create-username').value.trim();
+    const password = document.getElementById('admin-create-password').value;
+    const fullName = document.getElementById('admin-create-fullname').value.trim();
+    const phone = document.getElementById('admin-create-phone').value.trim();
+    const emergencyContact = document.getElementById('admin-create-emergency').value.trim();
+    const autoAnonymous = document.getElementById('admin-create-anonymous').checked;
+    const defaultLocation = document.getElementById('admin-create-location').value.trim();
+
+    const errorMsg = document.getElementById('admin-create-error');
+    errorMsg.classList.add('hidden');
+
+    try {
+        const response = await fetch('/api/admin/users/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                username,
+                password,
+                fullName,
+                phone,
+                emergencyContact,
+                autoAnonymous,
+                defaultLocation
+            })
+        });
+
+        const data = await response.json();
+        if (response.ok && data.success) {
+            playAlertBeep(1000, 0.2);
+            alert(`Citizen "${username}" registered successfully!`);
+            closeAdminCreateUserModal();
+            loadAdminData();
+        } else {
+            errorMsg.textContent = data.error || "Username already exists";
+            errorMsg.classList.remove('hidden');
+            playAlertBeep(300, 0.2);
+        }
+    } catch (err) {
+        console.error("Admin user creation failed:", err);
+        errorMsg.textContent = "Server communication error";
+        errorMsg.classList.remove('hidden');
+        playAlertBeep(300, 0.2);
+    }
+}
+
+// Bind event listeners for admin edit/create user modal controls
+document.addEventListener('DOMContentLoaded', () => {
+    const editForm = document.getElementById('admin-user-edit-form');
+    if (editForm) {
+        editForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            saveAdminUserEdit();
+        });
+    }
+
+    const editCancelBtn = document.getElementById('btn-admin-edit-cancel');
+    if (editCancelBtn) {
+        editCancelBtn.addEventListener('click', () => {
+            closeAdminUserEditor();
+        });
+    }
+
+    // Admin Create User bindings
+    const addCitizenBtn = document.getElementById('btn-admin-add-citizen');
+    if (addCitizenBtn) {
+        addCitizenBtn.addEventListener('click', () => {
+            openAdminCreateUserModal();
+        });
+    }
+
+    const createForm = document.getElementById('admin-create-user-form');
+    if (createForm) {
+        createForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            handleAdminCreateUserSubmit();
+        });
+    }
+
+    const createCancelBtn = document.getElementById('btn-admin-create-cancel');
+    if (createCancelBtn) {
+        createCancelBtn.addEventListener('click', () => {
+            closeAdminCreateUserModal();
         });
     }
 });
