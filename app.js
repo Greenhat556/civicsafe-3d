@@ -510,7 +510,11 @@ function renderMarkers() {
     });
     entitiesToRemove.forEach(entity => viewer.entities.remove(entity));
 
+    const renderedIds = new Set();
     incidents.forEach(item => {
+        if (renderedIds.has(item.id)) return;
+        renderedIds.add(item.id);
+
         const style = CATEGORY_STYLES[item.category] || { color: '#3b82f6', label: 'ALERT' };
         
         // Render 3D cylinder standing vertically on the ground
@@ -1166,9 +1170,11 @@ function setupUIEventListeners() {
             return response.json();
         })
         .then(savedData => {
-            incidents.push(savedData);
-            renderMarkers();
-            updateFeedList();
+            if (!incidents.some(i => i.id === savedData.id)) {
+                incidents.push(savedData);
+                renderMarkers();
+                updateFeedList();
+            }
             
             form.reset();
             document.getElementById('btn-select-location').textContent = "GPS Capture";
@@ -1189,7 +1195,7 @@ function setupUIEventListeners() {
         .catch(error => {
             console.error("Failed to persist incident to database:", error);
             playAlertBeep(300, 0.2);
-            alert("ADHARM VINASH ERROR: Unable to save report. Please check server connection.");
+            alert("ADHARM VINASH ERROR: " + error.message);
         });
     });
 
