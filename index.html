@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- CesiumJS CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.104.0/Widgets/widgets.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=4.0">
+    <link rel="stylesheet" href="style.css?v=4.1">
 </head>
 <body>
     <!-- Fullscreen 3D Cesium Map Background -->
@@ -33,35 +33,15 @@
                 <!-- Premium Tactical Shield Logo -->
                 <div class="logo-wrapper">
                     <svg class="branding-logo-tactical" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Outer rotating tech circle -->
-                        <circle cx="50" cy="50" r="45" stroke="rgba(239, 68, 68, 0.15)" stroke-width="1.5" stroke-dasharray="10 5" class="tech-ring-outer"/>
-                        <circle cx="50" cy="50" r="40" stroke="rgba(239, 68, 68, 0.25)" stroke-width="1" stroke-dasharray="20 40" class="tech-ring-inner"/>
-                        
-                        <!-- Hexagon base -->
-                        <polygon points="50,15 80,32 80,68 50,85 20,68 20,32" stroke="url(#gradient-accent)" stroke-width="2" class="shield-outline"/>
-                        
-                        <!-- Inner glow shield -->
-                        <path d="M50 22 C65 22, 72 26, 72 38 C72 58, 50 78, 50 78 C50 78, 28 58, 28 38 C28 26, 35 22, 50 22 Z" fill="url(#gradient-shield-fill)" stroke="url(#gradient-accent)" stroke-width="1.5" class="shield-core"/>
-                        
-                        <!-- Center hazard mark / crosshair -->
-                        <path d="M50 35 L50 65 M35 50 L65 50" stroke="rgba(255, 255, 255, 0.3)" stroke-width="1" stroke-dasharray="2 2" />
-                        <circle cx="50" cy="50" r="10" stroke="#ffffff" stroke-width="1" stroke-dasharray="5 3" class="tech-center-scan"/>
-                        <circle cx="50" cy="50" r="3" fill="#ef4444" class="tech-core-dot"/>
-                        
-                        <!-- Gradient definitions -->
-                        <defs>
-                            <linearGradient id="gradient-accent" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#ff4d4d"/>
-                                <stop offset="100%" stop-color="#f59e0b"/>
-                            </linearGradient>
-                            <linearGradient id="gradient-shield-fill" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" stop-color="rgba(239, 68, 68, 0.25)"/>
-                                <stop offset="100%" stop-color="rgba(15, 23, 42, 0.85)"/>
-                            </linearGradient>
-                        </defs>
+                        <polygon points="50,5 90,28 90,72 50,95 10,72 10,28" fill="#141416" stroke="#4a1a12" stroke-width="3" style="filter: drop-shadow(0 10px 15px rgba(0,0,0,0.9));"/>
+                        <polygon points="50,12 82,30 82,70 50,88 18,70 18,30" fill="#1c1c1f" stroke="#3a3a3d" stroke-width="2"/>
+                        <path d="M50 20 C65 20, 72 26, 72 40 C72 60, 50 80, 50 80 C50 80, 28 60, 28 40 C28 26, 35 20, 50 20 Z" fill="rgba(180, 40, 20, 0.15)" stroke="#b64126" stroke-width="2" />
+                        <circle cx="50" cy="46" r="12" stroke="#ea6f54" stroke-width="1.5" stroke-dasharray="4 2"/>
+                        <circle cx="50" cy="46" r="4" fill="#ea6f54" style="filter: drop-shadow(0 0 5px #ea6f54);"/>
+                        <path d="M50 28 L50 64 M32 46 L68 46" stroke="#ea6f54" stroke-width="1"/>
                     </svg>
                 </div>
-                <h2>ADHARM VINASH</h2>
+                <h2><span style="color: #7986cb;">ADHARM</span> <span style="color: #ef5350;">VINASH</span></h2>
                 <p>Citizen Incident Reporting Portal</p>
             </div>
             
@@ -95,7 +75,7 @@
                 </div>
                 <div id="auth-error" class="auth-error-msg hidden">Invalid username or password</div>
                 
-                <button type="submit" id="btn-auth-submit" class="btn-action-primary margin-top-1">Sign In</button>
+                <button type="submit" id="btn-auth-submit" class="btn-action-primary margin-top-1 btn-login-custom">Sign In</button>
                 
                 <div class="auth-toggle-row">
                     <span id="auth-toggle-text">New to portal? <a href="#" id="link-auth-toggle">Register account</a></span>
@@ -572,6 +552,6 @@
 
     <!-- CesiumJS Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.104.0/Cesium.js"></script>
-    <script src="app.js?v=4.0"></script>
+    <script src="app.js?v=4.1"></script>
 </body>
 </html>
