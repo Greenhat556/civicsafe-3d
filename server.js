@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
     emergencyContact: { type: String, default: "" },
     autoAnonymous: { type: Boolean, default: true },
     defaultLocation: { type: String, default: "" }
-});
+}, { bufferCommands: false });
 const UserModel = mongoose.models.User || mongoose.model('User', UserSchema);
 
 // Define Mongoose Schema for MongoDB Incidents
@@ -38,7 +38,7 @@ const IncidentSchema = new mongoose.Schema({
     upvotes: { type: Number, default: 0 },
     downvotes: { type: Number, default: 0 },
     votes: { type: Map, of: String, default: {} }
-});
+}, { bufferCommands: false });
 const IncidentModel = mongoose.models.Incident || mongoose.model('Incident', IncidentSchema);
 
 // Define Mongoose Schema for MongoDB Password Reset Requests
@@ -48,7 +48,7 @@ const ResetRequestSchema = new mongoose.Schema({
     phone: { type: String, required: true },
     newPassword: { type: String, required: true },
     requestedAt: { type: String, required: true }
-});
+}, { bufferCommands: false });
 const ResetRequestModel = mongoose.models.ResetRequest || mongoose.model('ResetRequest', ResetRequestSchema);
 
 // Local file helper for reset requests
@@ -126,7 +126,8 @@ if (MONGODB_URI) {
     console.log("Connecting to MongoDB online database...");
     mongoose.connect(sanitizedUri, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        serverSelectionTimeoutMS: 5000 // fail fast in 5 seconds if connection cannot be established
     })
     .then(async () => {
         console.log("Successfully connected to MongoDB cloud database!");
