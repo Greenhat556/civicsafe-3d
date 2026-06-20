@@ -1188,6 +1188,14 @@ app.post('/api/admin/broadcast', (req, res) => {
     res.json({ success: true });
 });
 
+// Diagnostics endpoint for database status
+app.get('/api/db-status', (req, res) => {
+    res.json({
+        engine: useMongoDB ? 'MongoDB Cloud' : 'Local File Persistence',
+        hasUri: !!MONGODB_URI,
+        mongooseState: mongoose.connection.readyState
+    });
+});
 
 // Serve static dashboard web pages
 app.use(express.static(__dirname));
