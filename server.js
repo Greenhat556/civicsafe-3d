@@ -39,7 +39,9 @@ const IncidentSchema = new mongoose.Schema({
     date: { type: String, required: true }, // Store ISO date strings
     upvotes: { type: Number, default: 0 },
     downvotes: { type: Number, default: 0 },
-    votes: { type: Map, of: String, default: {} }
+    votes: { type: Map, of: String, default: {} },
+    resolved: { type: Boolean, default: false },
+    resolvedBy: { type: String, default: "" }
 }, { bufferCommands: false });
 const IncidentModel = mongoose.models.Incident || mongoose.model('Incident', IncidentSchema);
 
@@ -940,6 +942,66 @@ app.post('/api/incidents/:id/vote', async (req, res) => {
         return res.status(404).json({ error: "Incident not found" });
     } catch (err) {
         res.status(500).json({ error: err.message });
+    }
+});
+
+// POST mark incident as resolved (taken care of by vigilante)
+app.post('/api/incidents/:id/resolve', async (req, res) => {
+    const { id } = req.params;
+    const { username } = req.body;
+    if (!username) {
+        return res.status(400).json({ error: "username required" });
+    }
+
+    if (useMongoDB) {
+        try {
+            const incident = await IncidentModel.findOne({ id });
+            if (incident) {
+                incident.resolved = true;
+                incident.resolvedBy = username;
+                const saved = await incident.save();
+                
+                // Broadcast update to all active SSE subscribers
+                const incidentObj = saved.toObject ? saved.toObject() : saved;
+                broadcastIncident(incidentObj);
+                
+                return res.json({
+                    success: true,
+                    resolved: true,
+                    resolvedBy: username
+                });
+            } else {
+                return res.status(404).json({ error: "Incident not found" });
+            }
+        } catch (e) {
+            console.error("MongoDB incident resolve error:", e);
+            return res.status(500).json({ error: e.message });
+        }
+    }
+
+    // Local file fallback
+    try {
+        const localList = getLocalIncidents();
+        const incident = localList.find(i => i.id === id);
+        if (incident) {
+            incident.resolved = true;
+            incident.resolvedBy = username;
+            if (saveLocalIncidentsList(localList)) {
+                broadcastIncident(incident);
+                return res.json({
+                    success: true,
+                    resolved: true,
+                    resolvedBy: username
+                });
+            } else {
+                return res.status(500).json({ error: "Failed to persist resolve state" });
+            }
+        } else {
+            return res.status(404).json({ error: "Incident not found" });
+        }
+    } catch (e) {
+        console.error("Local file incident resolve error:", e);
+        return res.status(500).json({ error: e.message });
     }
 });
 

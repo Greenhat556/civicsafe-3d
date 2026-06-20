@@ -401,6 +401,13 @@
                 <line x1="12" y1="3" x2="12" y2="21"></line>
             </svg>
         </button>
+        <button id="btn-map-style" class="map-ctrl-btn" title="Toggle Map Style" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polygon points="2 17 12 22 22 17"></polygon>
+                <polygon points="2 12 12 17 22 12"></polygon>
+            </svg>
+        </button>
     </div>
 
     <!-- Routing Legend Panel -->
@@ -422,7 +429,10 @@
                 </svg>
                 Tactical Navigation
             </span>
-            <button id="btn-stop-navigation" style="background: none; border: none; color: var(--color-primary); font-weight: bold; cursor: pointer; font-size: 0.72rem; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-color);" type="button">Stop</button>
+            <div style="display: flex; gap: 6px;">
+                <button id="btn-simulate-navigation" style="background: none; border: none; color: var(--color-primary); font-weight: bold; cursor: pointer; font-size: 0.72rem; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-color);" type="button">Simulate</button>
+                <button id="btn-stop-navigation" style="background: none; border: none; color: var(--color-primary); font-weight: bold; cursor: pointer; font-size: 0.72rem; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-color);" type="button">Stop</button>
+            </div>
         </div>
         <div class="legend-body" style="padding: 14px; display: flex; flex-direction: column; gap: 10px;">
             <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 4px;">
@@ -431,6 +441,11 @@
             </div>
             <div id="nav-steps-list" style="display: flex; flex-direction: column; gap: 8px; font-size: 0.72rem; max-height: 180px; overflow-y: auto; padding-right: 4px;">
                 <!-- Steps loaded dynamically -->
+            </div>
+            <div id="nav-resolve-container" style="border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 4px;">
+                <button id="btn-resolve-navigation" class="btn-action-primary" style="width: 100%; font-size: 0.72rem; padding: 8px; font-weight: bold; border-radius: 6px; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; border: none;" type="button">
+                    ✅ Resolve Incident
+                </button>
             </div>
         </div>
     </div>

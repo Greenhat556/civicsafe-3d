@@ -19,6 +19,9 @@ let hasLocatedOnce = false;
 // Navigation system variables
 let isNavigating = false;
 let navigationRouteEntities = [];
+let navigatingIncidentId = null;
+let simulationInterval = null;
+let currentSimulationIndex = 0;
 
 // --- LIVE TOPOGRAPHIC CANVAS ANIMATION SYSTEM ---
 let isLoginCanvasRunning = false;
@@ -673,6 +676,9 @@ function initMap() {
         vrButton: false
     });
 
+    // Apply the saved map style immediately
+    updateMapImagery(isLight);
+
     // High-DPI and high quality configurations for visual clarity
     viewer.resolutionScale = window.devicePixelRatio || 1.0;
     viewer.scene.globe.maximumScreenSpaceError = 1.5;
@@ -764,14 +770,34 @@ function updateMapImagery(isLightTheme) {
     if (!viewer) return;
     viewer.imageryLayers.removeAll();
     
-    const url = isLightTheme 
-        ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
-        : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+    const savedStyle = localStorage.getItem('civicsafe_map_style') || 'satellite';
+    
+    if (savedStyle === 'satellite') {
+        // 1. Esri World Imagery (Satellite)
+        viewer.imageryLayers.addImageryProvider(new Cesium.UrlTemplateImageryProvider({
+            url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+            credit: 'Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        }));
         
-    viewer.imageryLayers.addImageryProvider(new Cesium.UrlTemplateImageryProvider({
-        url: url,
-        subdomains: ['a', 'b', 'c', 'd']
-    }));
+        // 2. Esri World Transportation Overlay
+        viewer.imageryLayers.addImageryProvider(new Cesium.UrlTemplateImageryProvider({
+            url: 'https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}'
+        }));
+        
+        // 3. Esri World Boundaries and Places Overlay (Labels)
+        viewer.imageryLayers.addImageryProvider(new Cesium.UrlTemplateImageryProvider({
+            url: 'https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}'
+        }));
+    } else {
+        const url = isLightTheme 
+            ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
+            : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+            
+        viewer.imageryLayers.addImageryProvider(new Cesium.UrlTemplateImageryProvider({
+            url: url,
+            subdomains: ['a', 'b', 'c', 'd']
+        }));
+    }
 }
 
 function openCesiumPopup(entity) {
@@ -782,6 +808,9 @@ function openCesiumPopup(entity) {
     const time = entity.properties.time.getValue();
     const isAnon = entity.properties.anonymous.getValue();
     const entityId = entity.id;
+
+    const isResolved = entity.properties.resolved ? entity.properties.resolved.getValue() : false;
+    const resolvedBy = entity.properties.resolvedBy ? entity.properties.resolvedBy.getValue() : "";
 
     const upCount = entity.properties.upvotes ? entity.properties.upvotes.getValue() : 0;
     const downCount = entity.properties.downvotes ? entity.properties.downvotes.getValue() : 0;
@@ -794,9 +823,14 @@ function openCesiumPopup(entity) {
     const downActive = userVote === 'down' ? 'style="color: var(--color-danger); font-weight: bold; border-color: var(--color-danger); background: rgba(239,68,68,0.1);"' : '';
     
     const score = upCount - downCount;
+    
     let statusText = '⚖️ Unverified';
     let statusStyle = 'color: var(--text-secondary); background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; border: 1px solid var(--border-color);';
-    if (score > 2) {
+    
+    if (isResolved) {
+        statusText = '✔️ Resolved';
+        statusStyle = 'color: #38bdf8; background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.3); padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;';
+    } else if (score > 2) {
         statusText = '✅ Verified Log';
         statusStyle = 'color: var(--color-success); background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;';
     } else if (score < -1) {
@@ -807,18 +841,44 @@ function openCesiumPopup(entity) {
     const style = CATEGORY_STYLES[cat] || { color: '#3b82f6', label: 'ALERT' };
     
     const activeRole = sessionStorage.getItem('auth_role') || 'citizen';
-    let navButtonHtml = '';
-    if (activeRole === 'vigilante') {
-        navButtonHtml = `
-            <div style="border-top: 1px solid var(--border-color); padding-top: 8px; margin-top: 8px;">
-                <button onclick="startNavigationToIncident('${entityId}')" class="btn-action-primary" style="width: 100%; font-size: 0.72rem; padding: 6px; display: flex; align-items: center; justify-content: center; gap: 4px; margin: 0; cursor: pointer; border-radius: 6px;">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transform: rotate(45deg);">
-                        <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
-                    </svg>
-                    <span>Navigate to Site</span>
+    let actionButtonsHtml = '';
+    
+    if (isResolved) {
+        actionButtonsHtml = `
+            <div style="border-top: 1px solid var(--border-color); padding-top: 8px; margin-top: 8px; font-size: 0.72rem; color: #38bdf8; text-align: center; font-family: monospace;">
+                🕵️ CLEARED BY AGENT: ${resolvedBy}
+            </div>
+        `;
+    } else {
+        let verifyHtml = `
+            <div style="display: flex; gap: 8px; align-items: center; border-top: 1px solid var(--border-color); padding-top: 8px;">
+                <span style="font-size: 0.7rem; color: var(--text-secondary);">Verify Log:</span>
+                <button onclick="submitVote('${entityId}', 'up')" class="btn-action-outline" style="padding: 2px 8px; font-size: 0.7rem; display: flex; align-items: center; gap: 4px;" ${upActive}>
+                    👍 <span>${upCount}</span>
+                </button>
+                <button onclick="submitVote('${entityId}', 'down')" class="btn-action-outline" style="padding: 2px 8px; font-size: 0.7rem; display: flex; align-items: center; gap: 4px;" ${downActive}>
+                    👎 <span>${downCount}</span>
                 </button>
             </div>
         `;
+        
+        let navHtml = '';
+        if (activeRole === 'vigilante' || activeRole === 'admin') {
+            navHtml = `
+                <div style="border-top: 1px solid var(--border-color); padding-top: 8px; margin-top: 8px; display: flex; gap: 6px;">
+                    <button onclick="startNavigationToIncident('${entityId}')" class="btn-action-primary" style="flex: 1; font-size: 0.7rem; padding: 6px; display: flex; align-items: center; justify-content: center; gap: 4px; margin: 0; cursor: pointer; border-radius: 6px;">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transform: rotate(45deg);">
+                            <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                        </svg>
+                        <span>Navigate</span>
+                    </button>
+                    <button onclick="resolveIncident('${entityId}')" class="btn-action-primary" style="flex: 1; font-size: 0.7rem; padding: 6px; display: flex; align-items: center; justify-content: center; gap: 4px; margin: 0; cursor: pointer; border-radius: 6px; background: #0f172a; border: 1px solid var(--border-color); color: #38bdf8;">
+                        <span>Resolve</span>
+                    </button>
+                </div>
+            `;
+        }
+        actionButtonsHtml = verifyHtml + navHtml;
     }
 
     popupContent.innerHTML = `
@@ -832,16 +892,7 @@ function openCesiumPopup(entity) {
                 <span>Logged: ${time}</span>
                 <span>${isAnon ? 'Anonymous' : 'Precinct Sync'}</span>
             </div>
-            <div style="display: flex; gap: 8px; align-items: center; border-top: 1px solid var(--border-color); padding-top: 8px;">
-                <span style="font-size: 0.7rem; color: var(--text-secondary);">Verify Log:</span>
-                <button onclick="submitVote('${entityId}', 'up')" class="btn-action-outline" style="padding: 2px 8px; font-size: 0.7rem; display: flex; align-items: center; gap: 4px;" ${upActive}>
-                    👍 <span>${upCount}</span>
-                </button>
-                <button onclick="submitVote('${entityId}', 'down')" class="btn-action-outline" style="padding: 2px 8px; font-size: 0.7rem; display: flex; align-items: center; gap: 4px;" ${downActive}>
-                    👎 <span>${downCount}</span>
-                </button>
-            </div>
-            ${navButtonHtml}
+            ${actionButtonsHtml}
         </div>
     `;
     
@@ -900,6 +951,9 @@ function renderMarkers() {
         renderedIds.add(item.id);
 
         const style = CATEGORY_STYLES[item.category] || { color: '#3b82f6', label: 'ALERT' };
+        const isResolved = !!item.resolved;
+        const colorHex = isResolved ? '#64748b' : style.color;
+        const alphaVal = isResolved ? 0.25 : 0.6;
         
         // Render 3D cylinder standing vertically on the ground
         viewer.entities.add({
@@ -909,9 +963,9 @@ function renderMarkers() {
                 length: 150.0,
                 topRadius: 12.0,
                 bottomRadius: 12.0,
-                material: Cesium.Color.fromCssColorString(style.color).withAlpha(0.6),
+                material: Cesium.Color.fromCssColorString(colorHex).withAlpha(alphaVal),
                 outline: true,
-                outlineColor: Cesium.Color.fromCssColorString(style.color),
+                outlineColor: Cesium.Color.fromCssColorString(colorHex),
                 outlineWidth: 2.0
             },
             properties: {
@@ -921,7 +975,9 @@ function renderMarkers() {
                 anonymous: item.anonymous,
                 upvotes: item.upvotes || 0,
                 downvotes: item.downvotes || 0,
-                votes: item.votes || {}
+                votes: item.votes || {},
+                resolved: isResolved,
+                resolvedBy: item.resolvedBy || ""
             }
         });
     });
@@ -951,7 +1007,13 @@ function updateFeedList() {
         const score = upCount - downCount;
         let badgeText = '⚖️ Unverified';
         let badgeStyle = 'color: var(--text-secondary); background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border-color);';
-        if (score > 2) {
+        
+        const isResolved = !!item.resolved;
+        if (isResolved) {
+            badgeText = '✔️ Resolved';
+            badgeStyle = 'color: #38bdf8; background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.2); padding: 2px 6px; border-radius: 4px;';
+            card.style.opacity = '0.65';
+        } else if (score > 2) {
             badgeText = '✅ Verified';
             badgeStyle = 'color: var(--color-success); background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); padding: 2px 6px; border-radius: 4px;';
         } else if (score < -1) {
@@ -1654,9 +1716,46 @@ function setupUIEventListeners() {
         });
     }
 
+    // Simulate navigation button binding
+    const simulateNavBtn = document.getElementById('btn-simulate-navigation');
+    if (simulateNavBtn) {
+        simulateNavBtn.addEventListener('click', () => {
+            startRouteSimulation();
+        });
+    }
+
+    // Resolve navigation button binding
+    const resolveNavBtn = document.getElementById('btn-resolve-navigation');
+    if (resolveNavBtn) {
+        resolveNavBtn.addEventListener('click', () => {
+            if (navigatingIncidentId) {
+                resolveIncident(navigatingIncidentId);
+            } else {
+                alert("No active incident to resolve in tactical HUD.");
+            }
+        });
+    }
+
+    // Toggle Map Style button binding
+    const mapStyleBtn = document.getElementById('btn-map-style');
+    if (mapStyleBtn) {
+        mapStyleBtn.addEventListener('click', () => {
+            const currentStyle = localStorage.getItem('civicsafe_map_style') || 'satellite';
+            const newStyle = currentStyle === 'satellite' ? 'minimalist' : 'satellite';
+            localStorage.setItem('civicsafe_map_style', newStyle);
+            
+            const isLight = document.body.classList.contains('light-theme');
+            updateMapImagery(isLight);
+            
+            showGPSToast("Map Update", `Map style set to: ${newStyle === 'satellite' ? 'Tactical Satellite' : 'Minimalist Vector'}`);
+            playAlertBeep(800, 0.08);
+        });
+    }
+
     // Expose navigation methods globally for inline event handlers
     window.startNavigationToIncident = startNavigationToIncident;
     window.stopNavigation = stopNavigation;
+    window.resolveIncident = resolveIncident;
 
     // 3D Globe / 2D Map mode toggle
     const mapModeBtn = document.getElementById('btn-map-mode');
@@ -1940,6 +2039,8 @@ function stopNavigation() {
     navigationRouteEntities.forEach(ent => viewer.entities.remove(ent));
     navigationRouteEntities = [];
     isNavigating = false;
+    navigatingIncidentId = null;
+    stopRouteSimulation();
     
     const navPanel = document.getElementById('navigation-directions-panel');
     if (navPanel) navPanel.classList.add('hidden');
@@ -1951,6 +2052,9 @@ function stopNavigation() {
 function initiateNavigation(destLat, destLng, destId) {
     // 1. Clear any existing navigation route
     stopNavigation();
+    
+    // Store current navigating target ID
+    navigatingIncidentId = destId;
     
     // 2. Determine start location (GPS coordinates or profile fallback)
     let startLat = DEFAULT_CENTER_DEG[0];
@@ -2103,6 +2207,135 @@ function generateNavigationDirections(startLat, startLng, endLat, endLng) {
         duration: `${timeMins} min${timeMins > 1 ? 's' : ''}`,
         steps: steps
     };
+}
+
+async function resolveIncident(incidentId) {
+    const activeUser = sessionStorage.getItem('auth_user');
+    if (!activeUser) {
+        alert("Please log in to resolve incidents.");
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/api/incidents/${incidentId}/resolve`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: activeUser })
+        });
+        const data = await response.json();
+        if (response.ok) {
+            playAlertBeep(987.77, 0.1); // High confirmation beep
+            
+            // Update incident in local list
+            const idx = incidents.findIndex(i => i.id === incidentId);
+            if (idx !== -1) {
+                incidents[idx].resolved = true;
+                incidents[idx].resolvedBy = data.resolvedBy;
+            }
+            
+            // Re-render markers and update feed list
+            renderMarkers();
+            updateFeedList();
+            
+            // Re-open updated popup or close it
+            const entity = viewer.entities.getById(incidentId);
+            if (entity) {
+                entity.properties.resolved = true;
+                entity.properties.resolvedBy = data.resolvedBy;
+                openCesiumPopup(entity);
+            }
+            
+            showGPSToast("Incident Resolved", `Report has been approved and cleared by Agent ${activeUser}.`);
+            
+            // If we are currently navigating to this incident, stop navigation
+            if (isNavigating && navigatingIncidentId === incidentId) {
+                stopNavigation();
+            }
+        } else {
+            alert(data.error || "Failed to resolve incident.");
+        }
+    } catch (e) {
+        console.error("Resolve error:", e);
+        alert("An error occurred while resolving the incident.");
+    }
+}
+
+function startRouteSimulation() {
+    if (!isNavigating || !navigationRouteEntities.length) return;
+    
+    // Clear any existing simulation
+    stopRouteSimulation();
+    
+    // Find the polyline entity for the active route
+    const routeEntity = navigationRouteEntities[0]; 
+    if (!routeEntity || !routeEntity.polyline) return;
+    
+    const positions = routeEntity.polyline.positions.getValue(viewer.clock.currentTime);
+    if (!positions || positions.length < 2) return;
+    
+    currentSimulationIndex = 0;
+    
+    showGPSToast("Tactical Simulation", "Starting 3D route guidance flight...");
+    
+    function flyNextStep() {
+        if (!isNavigating) {
+            stopRouteSimulation();
+            return;
+        }
+
+        if (currentSimulationIndex >= positions.length) {
+            stopRouteSimulation();
+            showGPSToast("Simulation End", "Arrival at incident site simulation complete.");
+            
+            // Focus on final site
+            const finalPos = positions[positions.length - 1];
+            const carto = Cesium.Cartographic.fromCartesian(finalPos);
+            viewer.camera.flyTo({
+                destination: Cesium.Cartesian3.fromDegrees(
+                    Cesium.Math.toDegrees(carto.longitude),
+                    Cesium.Math.toDegrees(carto.latitude),
+                    300.0
+                ),
+                orientation: {
+                    heading: Cesium.Math.toRadians(0.0),
+                    pitch: Cesium.Math.toRadians(-30.0),
+                    roll: 0.0
+                },
+                duration: 1.5
+            });
+            return;
+        }
+        
+        const nextCartesian = positions[currentSimulationIndex];
+        const nextCarto = Cesium.Cartographic.fromCartesian(nextCartesian);
+        
+        viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(
+                Cesium.Math.toDegrees(nextCarto.longitude),
+                Cesium.Math.toDegrees(nextCarto.latitude),
+                200.0 // close up view
+            ),
+            orientation: {
+                heading: Cesium.Math.toRadians(45.0 * currentSimulationIndex), // rotate heading slightly for dynamics
+                pitch: Cesium.Math.toRadians(-25.0),
+                roll: 0.0
+            },
+            duration: 1.8,
+            complete: () => {
+                currentSimulationIndex++;
+                simulationInterval = setTimeout(flyNextStep, 500);
+            }
+        });
+    }
+    
+    flyNextStep();
+}
+
+function stopRouteSimulation() {
+    if (simulationInterval) {
+        clearTimeout(simulationInterval);
+        simulationInterval = null;
+    }
 }
 
 // ----------------------------------------------------

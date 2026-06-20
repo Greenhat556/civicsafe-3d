@@ -1,0 +1,17 @@
+{
+  "name": "adharm-vinash",
+  "version": "1.0.0",
+  "description": "Adharm Vinash Desktop Client",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package": "electron-packager . AdharmVinash --platform=win32 --arch=x64 --icon=icon.ico --out=dist --overwrite --ignore=node_modules"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-packager": "^17.1.2",
+    "jimp": "^1.6.1",
+    "png-to-ico": "^2.1.8"
+  }
+}
