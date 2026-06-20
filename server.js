@@ -121,6 +121,7 @@ function sanitizeMongoUri(uri) {
 }
 
 let useMongoDB = false;
+let lastDbError = null;
 
 // Connect to MongoDB if MONGODB_URI is provided
 if (MONGODB_URI) {
@@ -173,9 +174,11 @@ if (MONGODB_URI) {
     .catch(err => {
         console.error("MongoDB connection failed, falling back to local file storage:", err.message);
         useMongoDB = false;
+        lastDbError = err.message;
     });
 } else {
     console.log("No MONGODB_URI environment variable detected. Running in Local Storage File mode.");
+    lastDbError = "No MONGODB_URI environment variable detected.";
 }
 
 // ----------------------------------------------------
@@ -1193,7 +1196,8 @@ app.get('/api/db-status', (req, res) => {
     res.json({
         engine: useMongoDB ? 'MongoDB Cloud' : 'Local File Persistence',
         hasUri: !!MONGODB_URI,
-        mongooseState: mongoose.connection.readyState
+        mongooseState: mongoose.connection.readyState,
+        error: lastDbError
     });
 });
 
