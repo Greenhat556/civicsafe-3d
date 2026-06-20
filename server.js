@@ -144,6 +144,7 @@ if (MONGODB_URI) {
             console.error("MongoDB user migration failed:", err);
         }
 
+        // Seed default admin user
         try {
             const adminExists = await UserModel.findOne({ username: 'admin' });
             if (!adminExists) {
@@ -169,6 +170,71 @@ if (MONGODB_URI) {
             }
         } catch (e) {
             console.error("Failed to seed admin in MongoDB:", e);
+        }
+
+        // Migrate local users.json to MongoDB
+        try {
+            if (fs.existsSync(USERS_FILE)) {
+                const rawUsers = fs.readFileSync(USERS_FILE, 'utf8');
+                if (rawUsers.trim()) {
+                    const localUsers = JSON.parse(rawUsers);
+                    for (const username of Object.keys(localUsers)) {
+                        const exists = await UserModel.findOne({ username });
+                        if (!exists) {
+                            const userData = localUsers[username];
+                            const newUser = new UserModel({
+                                username,
+                                password: userData.password,
+                                fullName: userData.fullName || "",
+                                phone: userData.phone || "",
+                                emergencyContact: userData.emergencyContact || "",
+                                autoAnonymous: userData.autoAnonymous !== false,
+                                defaultLocation: userData.defaultLocation || "",
+                                role: userData.role || "citizen",
+                                approved: userData.approved !== false
+                            });
+                            await newUser.save();
+                            console.log(`Migrated user ${username} to MongoDB.`);
+                        }
+                    }
+                }
+            }
+        } catch (migrationErr) {
+            console.error("Failed to migrate local users to MongoDB:", migrationErr);
+        }
+
+        // Migrate local incidents.json to MongoDB
+        try {
+            if (fs.existsSync(DB_FILE)) {
+                const rawIncidents = fs.readFileSync(DB_FILE, 'utf8');
+                if (rawIncidents.trim()) {
+                    const localIncidents = JSON.parse(rawIncidents);
+                    if (Array.isArray(localIncidents)) {
+                        for (const incident of localIncidents) {
+                            const exists = await IncidentModel.findOne({ id: incident.id });
+                            if (!exists) {
+                                const newIncident = new IncidentModel({
+                                    id: incident.id,
+                                    category: incident.category,
+                                    lat: incident.lat,
+                                    lng: incident.lng,
+                                    time: incident.time,
+                                    description: incident.description,
+                                    anonymous: incident.anonymous !== false,
+                                    date: incident.date || new Date().toISOString(),
+                                    upvotes: incident.upvotes || 0,
+                                    downvotes: incident.downvotes || 0,
+                                    votes: incident.votes || {}
+                                });
+                                await newIncident.save();
+                                console.log(`Migrated incident ${incident.id} to MongoDB.`);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (migrationErr) {
+            console.error("Failed to migrate local incidents to MongoDB:", migrationErr);
         }
     })
     .catch(err => {
