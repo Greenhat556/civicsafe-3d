@@ -2049,7 +2049,7 @@ function stopNavigation() {
     playAlertBeep(400, 0.15);
 }
 
-function initiateNavigation(destLat, destLng, destId) {
+async function initiateNavigation(destLat, destLng, destId) {
     // 1. Clear any existing navigation route
     stopNavigation();
     
@@ -2087,9 +2087,65 @@ function initiateNavigation(destLat, destLng, destId) {
             }
         }
     }
-    
-    // 3. Generate route positions
-    const routePositions = generateMockNavigationRoute(startLat, startLng, destLat, destLng);
+
+    let routePositions = [];
+    let guidance = null;
+
+    try {
+        console.log(`Fetching real road route from OSRM: [${startLat}, ${startLng}] -> [${destLat}, ${destLng}]`);
+        const osrmUrl = `https://router.project-osrm.org/route/v1/driving/${startLng},${startLat};${destLng},${destLat}?overview=full&geometries=geojson&steps=true`;
+        const res = await fetch(osrmUrl);
+        if (!res.ok) throw new Error("OSRM API responded with error status");
+        const data = await res.json();
+        
+        if (data.routes && data.routes.length > 0) {
+            const route = data.routes[0];
+            
+            // Map geojson coordinates to Cesium Cartesian3 positions
+            const coords = route.geometry.coordinates;
+            routePositions = coords.map(pt => Cesium.Cartesian3.fromDegrees(pt[0], pt[1], 10.0));
+            
+            // Parse OSRM steps into user-friendly text
+            const steps = [];
+            const legs = route.legs[0];
+            legs.steps.forEach(step => {
+                const modifier = step.maneuver.modifier ? ` (${step.maneuver.modifier})` : "";
+                const name = step.name ? ` onto ${step.name}` : "";
+                const type = step.maneuver.type;
+                let instruction = "";
+                
+                if (type === "depart") {
+                    instruction = `Head ${step.maneuver.type}${name}.`;
+                } else if (type === "arrive") {
+                    instruction = "Arrive at the incident site. Use caution.";
+                } else {
+                    instruction = `${type.charAt(0).toUpperCase() + type.slice(1)}${modifier}${name}.`;
+                }
+                
+                if (step.distance > 5) {
+                    const distStr = step.distance < 1000 ? `${Math.round(step.distance)} m` : `${(step.distance / 1000).toFixed(1)} km`;
+                    instruction += ` Proceed for ${distStr}.`;
+                }
+                steps.push(instruction);
+            });
+            
+            const distanceKm = route.distance / 1000;
+            const timeMins = Math.round(route.duration / 60);
+            
+            guidance = {
+                distance: distanceKm < 1.0 ? `${Math.round(route.distance)} m` : `${distanceKm.toFixed(1)} km`,
+                duration: `${timeMins} min${timeMins > 1 ? 's' : ''}`,
+                steps: steps
+            };
+        } else {
+            throw new Error("No route found in OSRM payload");
+        }
+    } catch (e) {
+        console.warn("OSRM routing failed, falling back to mock grid routing:", e);
+        // Fallback: Generate mock route
+        routePositions = generateMockNavigationRoute(startLat, startLng, destLat, destLng);
+        guidance = generateNavigationDirections(startLat, startLng, destLat, destLng);
+    }
     
     const colorHex = '#38bdf8';
     
@@ -2107,9 +2163,6 @@ function initiateNavigation(destLat, destLng, destId) {
     });
     navigationRouteEntities.push(routeLine);
     
-    // 5. Generate and render turn directions
-    const guidance = generateNavigationDirections(startLat, startLng, destLat, destLng);
-    
     document.getElementById('nav-distance').textContent = guidance.distance;
     document.getElementById('nav-duration').textContent = guidance.duration;
     
@@ -2126,7 +2179,7 @@ function initiateNavigation(destLat, destLng, destId) {
         stepsList.appendChild(stepDiv);
     });
     
-    // 6. Reveal navigation panel
+    // Reveal navigation panel
     const navPanel = document.getElementById('navigation-directions-panel');
     if (navPanel) navPanel.classList.remove('hidden');
     document.body.classList.add('nav-active');
@@ -2139,7 +2192,7 @@ function initiateNavigation(destLat, destLng, destId) {
     const mainSidebar = document.getElementById('main-sidebar');
     if (mainSidebar) mainSidebar.classList.remove('sidebar-open');
     
-    // 7. Fly camera to view the entire route
+    // Fly camera to view the entire route
     const midpointLat = startLat + (destLat - startLat) * 0.5;
     const midpointLng = startLng + (destLng - startLng) * 0.5;
     const distanceKm = Math.sqrt(Math.pow(destLat - startLat, 2) + Math.pow(destLng - startLng, 2)) * 111.0;
