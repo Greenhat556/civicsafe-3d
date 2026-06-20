@@ -172,6 +172,50 @@ if (MONGODB_URI) {
             console.error("Failed to seed admin in MongoDB:", e);
         }
 
+        // Seed Sayan user (seventhofspring)
+        try {
+            const sayanExists = await UserModel.findOne({ username: 'seventhofspring' });
+            if (!sayanExists) {
+                const sayanUser = new UserModel({
+                    username: 'seventhofspring',
+                    password: 'sayan009',
+                    fullName: 'Sayan Mukherjee',
+                    phone: '7439393007',
+                    emergencyContact: '9903262214',
+                    autoAnonymous: true,
+                    defaultLocation: '',
+                    role: 'citizen',
+                    approved: true
+                });
+                await sayanUser.save();
+                console.log("Seeded Sayan user into MongoDB.");
+            }
+        } catch (e) {
+            console.error("Failed to seed Sayan user in MongoDB:", e);
+        }
+
+        // Seed test citizen
+        try {
+            const testCitizenExists = await UserModel.findOne({ username: 'new_citizen_1781842944269' });
+            if (!testCitizenExists) {
+                const testCitizen = new UserModel({
+                    username: 'new_citizen_1781842944269',
+                    password: 'securepassword123',
+                    fullName: 'Test Citizen',
+                    phone: '+919876543210',
+                    emergencyContact: '+919876543211',
+                    autoAnonymous: false,
+                    defaultLocation: '28.6129,77.2295',
+                    role: 'citizen',
+                    approved: true
+                });
+                await testCitizen.save();
+                console.log("Seeded test citizen into MongoDB.");
+            }
+        } catch (e) {
+            console.error("Failed to seed test citizen in MongoDB:", e);
+        }
+
         // Migrate local users.json to MongoDB
         try {
             if (fs.existsSync(USERS_FILE)) {
